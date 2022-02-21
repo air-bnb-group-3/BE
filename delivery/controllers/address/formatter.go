@@ -4,16 +4,31 @@ import (
 	"app_airbnb/entities"
 )
 
-//----------------------------------------------------
-//REQUEST FORMAT
-//----------------------------------------------------
+// =================== Create Address =======================
 type InsertAddressRequestFormat struct {
 	Street      string `json:"street" form:"street"`
 	City        string `json:"city" form:"city"`
 	Region      string `json:"region" form:"region"`
 	Postal_code string `json:"postal_code" form:"postal_code"`
-	User_ID     int    `json:"user_id" form:"user_id"`
 }
+
+type AddressResponseFormat struct {
+	Street      string `json:"street"`
+	City        string `json:"city"`
+	Region      string `json:"region"`
+	Postal_code string `json:"postal_code"`
+}
+
+func ToAddressResponseFormat(AddressResponse entities.Address) AddressResponseFormat {
+	return AddressResponseFormat{
+		Street:   AddressResponse.Street,
+		City:     AddressResponse.City,
+		Region: AddressResponse.Region,
+		Postal_code: AddressResponse.Postal_code,
+	}
+}
+
+// =================== Update Address =======================
 type UpdateAddressRequestFormat struct {
 	Street      string `json:"street" form:"street"`
 	City        string `json:"city" form:"city"`
@@ -21,35 +36,27 @@ type UpdateAddressRequestFormat struct {
 	Postal_code string `json:"postal_code" form:"postal_code"`
 }
 
-//-----------------------------------------------------
-//RESPONSE FORMAT
-//-----------------------------------------------------
-type InsertAddressResponseFormat struct {
-	Code    int              `json:"code"`
-	Message string           `json:"message"`
-	Data    entities.Address `json:"data"`
-}
-
-type GetAddresssResponseFormat struct {
-	Code    int                `json:"code"`
-	Message string             `json:"message"`
-	Data    []entities.Address `json:"data"`
-}
-
-type GetAllAddressResponseFormat struct {
-	Code    int              `json:"code"`
-	Message string           `json:"message"`
-	Data    entities.Address `json:"data"`
+func (UARF UpdateAddressRequestFormat) ToUpdateAddressRequestFormat() entities.Address {
+	return entities.Address{
+		Street:   UARF.Street,
+		City:     UARF.City,
+		Region: UARF.Region,
+		Postal_code: UARF.Postal_code,
+	}
 }
 
 type UpdateAddressResponseFormat struct {
-	Code    int              `json:"code"`
-	Message string           `json:"message"`
-	Data    entities.Address `json:"data"`
+	Street      string `json:"street"`
+	City        string `json:"city"`
+	Region      string `json:"region"`
+	Postal_code string `json:"postal_code"`
 }
 
-type DeleteAddressResponseFormat struct {
-	Code    int         `json:"code"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
+func ToUpdateAddressResponseFormat(AddressResponse entities.Address) UpdateAddressResponseFormat {
+	return UpdateAddressResponseFormat{
+		Street:   AddressResponse.Street,
+		City:     AddressResponse.City,
+		Region: AddressResponse.Region,
+		Postal_code: AddressResponse.Postal_code,
+	}
 }
