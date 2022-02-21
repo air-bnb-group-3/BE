@@ -36,10 +36,11 @@ func (ac *AuthController) Login() echo.HandlerFunc {
 		if err != nil {
 			return c.JSON(http.StatusNotAcceptable, common.BadRequest(http.StatusNotAcceptable, "error in process token", nil))
 		}
+		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "berhasil masuk, mendapatkan token baru", token))
 
-		return c.JSON(http.StatusOK, common.Success(nil, "success login", map[string]interface{}{
-			"data":  checkedUser,
-			"token": token,
-		}))
+		// return c.JSON(http.StatusOK, common.Success(nil, "success login", map[string]interface{}{
+		// 	"data":  checkedUser,
+		// 	"token": token,
+		// }))
 	}
 }

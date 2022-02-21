@@ -1,0 +1,1842 @@
+openapi: "3.0.2"
+info:
+  title: App Clone AirBnB - Grup 3
+  description: API Documentation
+  contact:
+    name: BE - Grup 3
+    email: altaBE6@mail.com
+  version: "1.0"
+servers:
+  - url: http://3.1.211.120:8081/{entity}
+    variables:
+      entity:
+        default: users
+        enum:
+          - users
+          - login
+          - products
+          - addresses
+
+tags:
+  - name: Auth
+    description: User Autorization / Login
+  - name: All Users
+    description: All Users
+  - name: Users
+    description: Users Resgister/Update/Delete
+  - name: Addresses
+    description: Register Addresses
+  - name: Rooms
+    description: Rooms Methods
+  - name: Category
+    description: Category Methods
+  - name: Amenities
+    description: Amenities Register
+  - name: Payment Methods
+    description: Payment Methods Register
+paths:
+  /users/login:
+    post:
+      tags:
+        - Auth
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/UserLogin'
+      responses:
+        '200':
+          description: User terautorisasi
+          content:
+            application/json:
+              schema:
+                type: object
+                # $ref: '#/components/schemas/SuccessSingleResponse'
+              example:
+                code: 200
+                message: Success login, get a new token
+                data:
+                  email: testp@test.com
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        '500':
+          description: Invalid Authorization
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 500
+                message: There are something problem on server
+                data:
+  /admin/users:
+    get:
+        summary: Get all Users
+        tags:
+          - All Users
+        description: Just For Admin
+        security:
+          - bearerAuth: []
+        responses:
+          '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 200
+                    message :
+                      type: string
+                      example: Success to get all users
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        address_id:
+                          type: integer
+                        name:
+                          type: string
+                        email:
+                          type: string
+                        password:
+                          type: string
+                          format: password
+                        dob:
+                          type: string
+                          format: date
+                        gender:
+                          type: boolean
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                        deleted_at:
+                          type: string
+                          format: date-time
+                      example:
+                        - id: 1
+                          address_id: 1
+                          name: Frans Ihsan
+                          email: frans@frans.com
+                          created_at: 2022-02-15T05:19:20Z
+                          updated_at: 2022-02-15T05:20:20Z
+                          deleted_at: 2022-02-15T05:21:20Z
+                        - id: 2
+                          address_id: 1
+                          name: Frans Ihsan
+                          email: frans@frans.com
+                          created_at: 2022-02-15T05:19:20Z
+                          updated_at: 2022-02-15T05:20:20Z
+                          deleted_at: 2022-02-15T05:21:20Z
+  /users/register:
+    post:
+      summary: Register New Users
+      tags:
+        - Users
+      description: Get a New Account
+      requestBody:
+        required: true
+        description: Create Account with valid schema
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                  format: password
+              example:
+                name: test
+                email: test@test.com
+                password: test
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                example:
+                  code: 200
+                  message: success to get new Account
+                  data:
+                    name: test
+                    email: test@test.com
+        '400':
+          $ref: '#/components/responses/400'
+  /users/me:
+    get:
+        summary: User Profile
+        tags:
+          - Users
+        description: User Profile
+        security:
+          - bearerAuth: []
+        responses:
+          '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                      example: 200
+                    message :
+                      type: string
+                      example: Success to get users profile
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        address_id:
+                          type: integer
+                        name:
+                          type: string
+                        email:
+                          type: string
+                        password:
+                          type: string
+                          format: password
+                        dob:
+                          type: string
+                          format: date
+                        gender:
+                          type: boolean
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                        deleted_at:
+                          type: string
+                          format: date-time
+                      example:
+                          id: 1
+                          address_id: 1
+                          name: Frans Ihsan
+                          email: frans@frans.com
+                          created_at: 2022-02-15T05:19:20Z
+                          updated_at: 2022-02-15T05:20:20Z
+                          deleted_at: 2022-02-15T05:21:20Z
+    put:
+      summary: Update By ID
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/UserInput'
+            example:
+              name: Test Update
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/SuccessSingleResponse'
+              example:
+                code: 200
+                message: Success to Update User Data
+                data:
+                  name: Test Update
+        '204':
+          $ref: '#/components/responses/204'
+    delete:
+      tags:
+        - Users
+      summary: delete user data
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/SuccessSingleResponse'
+              example:
+                code: 200
+                message: success to delete user data
+                data:
+  /address:
+    post:
+      summary: Add Addresses
+      tags:
+        - Addresses
+      requestBody:
+        required: true
+        description: Add the addresses
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                street:
+                  type: string
+                city:
+                  type: string
+                region:
+                  type: string
+                postal_code:
+                  type: integer
+              example:
+                street: Jl. Raya Danau Maninjau
+                city: Malang
+                region: Jawa Timur
+                postal code: 123456
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      street:
+                        type: string
+                      city:
+                        type: string
+                      region:
+                        type: string
+                      postal_code:
+                        type: integer
+                example:
+                  code: 200
+                  message: Success to add address
+                  data:
+                    id: 1
+                    street: JL. Raya Danau Maninjau
+                    city: Malang
+                    region: Jawa Timur
+                    postal_code: 123456
+        '400':
+          $ref: '#/components/responses/400'
+    get:
+      summary: Get all address
+      tags:
+        - Addresses
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                    message:
+                      type: string
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        street:
+                          type: string
+                        city:
+                          type: string
+                        region:
+                          type: string
+                        postal_code:
+                          type: integer
+                  example:
+                    code: 200
+                    message: Success to get all address
+                    data:
+                      - id: 1
+                        street: Jl. Raya Danau Maninjau
+                        city: Malang
+                        province: Jawa Timur
+                      - id: 2
+                        street: Jl. Pahlawan
+                        city: Surabaya
+                        province: Jawa Tengah
+  /address/{id}:
+    get:
+      summary: Get address by ID
+      tags:
+        - Addresses
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: integer
+                    message:
+                      type: string
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        street:
+                          type: string
+                        city:
+                          type: string
+                        region:
+                          type: string
+                        postal_code:
+                          type: integer
+                  example:
+                    code: 200
+                    message: Success to get all address
+                    data:
+                      id: 1
+                      street: Jl. Raya Danau Maninjau
+                      city: Malang
+                      province: Jawa Timur
+    put:
+      summary: Update data alamat
+      tags:
+        - Addresses
+      requestBody:
+        required: true
+        description: Mengubah data alamat dengan input yang sesuai
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                street:
+                  type: string
+                city:
+                  type: string
+                region:
+                  type: string
+                postal_code:
+                  type: integer
+              example:
+                street: Jl. Jendral Soedirman
+                city: Semarang
+                region: Jawa Tengah
+                postal_code: 999999
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      street:
+                        type: string
+                      city:
+                        type: string
+                      region:
+                        type: string
+                      postal_code:
+                        type: integer
+                example:
+                  code: 200
+                  message: Success to Updata Address Datas
+                  data:
+                    id: 1
+                    street: Jl. Jendral Soedirman
+                    city: Semarang
+                    region: Jawa Tengah
+                    postal_code: 999999
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      summary: Delete Addresses Data
+      tags:
+        - Addresses
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/SuccessSingleResponse'
+              example:
+                code: 200
+                success: true
+                message: Success to Delete Address Data
+                data: 
+  /admin/categories:
+    post:
+      summary: Add / Create Category (For Admin)
+      tags:
+        - Category
+      requestBody:
+        required: true
+        description: Create / Add Category Data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              example:
+                name: Villa
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                example:
+                  code: 201
+                  message: success to create new category
+                  data:
+                    id: 1
+                    name : Villa
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  /categories:
+    get:
+      summary: get all Category
+      tags:
+        - Category
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items :
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        rooms:
+                          type: array
+                example:
+                    code: 201
+                    message: success to get all category
+                    data:
+                    - id: 1
+                      name: Villa
+                      rooms: [{}]
+                    - id: 2
+                      name: Hotel
+                      rooms: [{}]
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+  /category/{id}:
+    get:
+      summary: Get Category By ID
+      tags:
+        - Category
+      parameters:
+        - name: id
+          in: path
+          description: ID category
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      rooms:
+                        type: array
+                example:
+                  code: 200
+                  message: Success to get category by id
+                  data:
+                    id: 1
+                    name: Villa
+                    rooms:
+                    - id: 1
+                      name: villa mewah 4 kamar
+                      price: 20000
+                      location: Surabaya
+                    - id: 2
+                      name: villa minimalis eksklusif
+                      price: 50000
+                      location: Semarang
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      summary: Update category data
+      tags:
+        - Category
+      parameters:
+        - name: id
+          in: path
+          description: ID category
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Updata category data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              example:
+                name: Kos-Kosan
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      rooms:
+                        type: string
+                example:
+                  code: 200
+                  message: Berhasil mengupdate data produk
+                  data:
+                    id: 1
+                    name: Kos-Kosan
+                    rooms: [{}]
+    delete:
+      summary: Delete a category
+      tags:
+        - Category
+      parameters:
+        - name: id
+          in: path
+          description: ID Category
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 200
+                message: sukses menghapus produk
+                data:
+  /rooms:
+    post:
+      summary: Add / Create Rooms Data
+      tags:
+        - Rooms
+      requestBody:
+        required: true
+        description: Create / Add Rooms Data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                category_id:
+                  type: integer
+                description:
+                  type: string
+                price:
+                  type: integer
+                image:
+                  type: string
+                date_stock:
+                  type: string
+                ametities_id:
+                  type: integer
+                user_id:
+                  type: integer
+              example:
+                name: Villa Mewah
+                category_id: 1
+                description: villa daerah dingin, 2 lantai
+                price: 20000
+                image: http://villamewah/img.jpg 
+                date_stock:
+                ametities_id: 1
+                user_id: 1
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      category_id:
+                         type: integer
+                      description:
+                         type: string
+                      price:
+                          type: integer
+                      image:
+                        type: string
+                      date_stock:
+                        type: string
+                      ametities_id:
+                        type: integer
+                      user_id:
+                        type: integer
+                example:
+                  code: 201
+                  message: sukses menambahkan produk baru
+                  data:
+                    id: 1
+                    name: Villa Mewah
+                    category_id: 1
+                    description: villa daerah dingin, 2 lantai
+                    price: 20000
+                    image: http://villamewah/img.jpg 
+                    date_stock:
+                    ametities_id: 1
+                    user_id: 1
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    get:
+      summary: Get All Rooms
+      tags:
+        - Rooms
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          category_id:
+                            type: integer
+                          description:
+                            type: string
+                          price:
+                              type: integer
+                          image:
+                            type: string
+                          date_stock:
+                            type: string
+                          ametities_id:
+                            type: integer
+                          user_id:
+                            type: integer
+                example:
+                    code: 200
+                    message: sukses mendapatkan semua produk
+                    data:
+                      - id: 1
+                        name: Villa Mewah
+                        category_id: 1
+                        description: villa daerah dingin, 2 lantai
+                        price: 20000
+                        image: http://villamewah/img.jpg 
+                        date_stock:
+                        ametities_id: 1
+                        user_id: 1
+                      - id: 2
+                        name: Villa minimalis
+                        category_id: 1
+                        description: villa minimalis 2 kamar murah eksklusif
+                        price: 20000
+                        image: http://villaEksklusif/img.jpg 
+                        date_stock:
+                        ametities_id: 12
+                        user_id: 2
+  /rooms/{id}:
+    get:
+      summary: Update Rooms Data
+      tags:
+        - Rooms
+      parameters:
+        - name: id
+          in: path
+          description: ID Rooms
+          required: true
+          schema:
+            type: integer
+      security:
+         - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      category_id:
+                        type: integer
+                      description:
+                        type: string
+                      price:
+                        type: integer
+                      image:
+                        type: string
+                      date_stock:
+                        type: string
+                      ametities_id:
+                        type: integer
+                      user_id:
+                        type: integer
+                example:
+                  code: 200
+                  message: Berhasil mengupdate data produk
+                  data:
+                    id: 2
+                    name: Villa minimalis
+                    category_id: 1
+                    description: villa terbaik  
+                    price: 70000
+                    image: http://villaEksklusif/img.jpg 
+                    date_stock:
+                    ametities_id: 12
+                    user_id: 2
+    put:
+      summary: Update Rooms Data
+      tags:
+        - Rooms
+      parameters:
+        - name: id
+          in: path
+          description: ID Rooms
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Update Rooms Data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                price:
+                  type: integer
+                description:
+                  type: string
+              example:
+                price: 70000
+                description: update rooms description 
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      category_id:
+                        type: integer
+                      description:
+                        type: string
+                      price:
+                        type: integer
+                      image:
+                        type: string
+                      date_stock:
+                        type: string
+                      ametities_id:
+                        type: integer
+                      user_id:
+                        type: integer
+                example:
+                  code: 200
+                  message: Berhasil mengupdate data produk
+                  data:
+                    id: 2
+                    name: Villa minimalis
+                    category_id: 1
+                    description: update rooms description 
+                    price: 70000
+                    image: http://villaEksklusif/img.jpg 
+                    date_stock:
+                    ametities_id: 12
+                    user_id: 2
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          description: Authorization Failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+              example:
+                  code: 401
+                  message: Failed User Authorization
+                  data:
+    delete:
+      summary: Delete Rooms
+      tags:
+        - Rooms
+      parameters:
+        - name: id
+          in: path
+          description: ID Rooms
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 200
+                message: success to delete rooms
+                data:
+  /booking:
+    post:
+      summary: create new booking
+      tags:
+        - Booking
+      requestBody:
+        required: true
+        description: add new booking
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rooms_id:
+                  type: integer
+                price:
+                  type: integer
+                date_time:
+                  type: integer
+              example:
+                rooms_id: 5
+                price: 200000
+                date_time: 2
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      rooms_id:
+                        type: integer
+                      user_id:
+                        type: integer
+                      price:
+                        type: integer
+                      date_time:
+                        type: string
+                example:
+                  code: 200
+                  message: success to create a new booking
+                  data:
+                    id: 1
+                    rooms_id: 1
+                    user_id: 2
+                    price: 200000
+                    date_time: 2
+        '400':
+          $ref: '#/components/responses/400'
+  /booking/{id}:  
+    get:
+      summary: get booking by ID
+      tags:
+        - Booking
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      rooms_id:
+                        type: integer
+                      user_id:
+                        type: integer
+                      price:
+                        type: integer
+                      date_time:
+                        type: string
+                example:
+                  code: 200
+                  message: success to get booking
+                  data:
+                    id: 1
+                    rooms_id: 1
+                    user_id: 2
+                    price: 200000
+                    date_time: 2
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          description: Authorization Failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+              example:
+                  code: 401
+                  message: Failed User Authorization
+                  data:
+    put:
+      summary: Update booking
+      tags:
+        - Booking
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Update Booking data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date_time:
+                  type: integer
+              example:
+                  date_time: 5
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      rooms_id:
+                        type: integer
+                      user_id:
+                        type: integer
+                      price:
+                        type: integer
+                      date_time:
+                        type: string
+                example:
+                  code: 200
+                  message: success to update booking data
+                  data:
+                    id: 1
+                    rooms_id: 1
+                    user_id: 2
+                    price: 200000
+                    date_time: 2
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          description: Authorization Failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+              example:
+                  code: 401
+                  success: false
+                  message: Failed User Authorization
+                  data: {}
+    delete:
+      summary: Delete booking
+      tags:
+        - Booking
+      parameters:
+        - name: id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+              example:
+                code: 200
+                message: success to delete booking
+                data:
+  /transaction:
+    post:
+      summary: Create Transaction
+      tags:
+        - Transaction
+      requestBody:
+        required: true
+        description: Create New Transaction
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                booking_id:
+                  type: integer
+                payment_method_id:
+                  type: integer
+                phone:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                    - ongoing
+                    - payed
+                    - cancel
+              example:
+                payment_method_id: 1
+                phone: +6282828828282
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      transaction_id:
+                        type: integer
+                      booking_id:
+                        type: integer
+                      payment_method_id:
+                        type: integer
+                      phone:
+                        type: string
+                      status:
+                        type: string
+                        enum:
+                        - payed
+                        - cancel
+                example:
+                  code: 200
+                  message: success to create newTransaction
+                  data:
+                    transaction_id: 1
+                    booking_id: 1
+                    payment_method_id: 1
+                    phone: '0822626262626'
+                    status: payed
+        '400':
+          $ref: '#/components/responses/400'
+    get:
+      summary: get Transaction detail
+      tags:
+        - Transaction
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      transaction_id:
+                        type: integer
+                      booking_id:
+                        type: integer
+                      payment_method_id:
+                        type: integer
+                      phone:
+                        type: string
+                      status:
+                        type: string
+                        enum:
+                        - payed
+                        - cancel
+                example:
+                  code: 200
+                  success: true
+                  message: Berhasil mendapatkan semua Booking
+                  data:
+                    transaction_id: 1
+                    booking_id: 1
+                    payment_method_id: 1
+                    phone: '0822626262626'
+                    status: ongoing
+    put:
+      summary: Update transaction 
+      tags:
+        - Transaction
+      parameters:
+        - name: id
+          in: path
+          description: user ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: update new data transaction
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payment_method_id:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                    - ongoing
+                    - payed
+                    - cancel
+              example:
+                  payment_method_id: 5
+                  status: payed
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      phone:
+                        type: string
+                      status:
+                        type: string
+                        format: timestamp
+                example:
+                  code: 200
+                  message: success to update transaction
+                  data:
+                    transaction_id: 1
+                    booking_id: 1
+                    payment_method_id: 1
+                    phone: '0822626262626'
+                    status: payed
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          description: Authorization Failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+              example:
+                  code: 401
+                  message: Failed User Authorization
+                  data: {}
+  /paymentmethods:
+    post:
+      summary: Create a new payment method
+      tags:
+        - Payment Methods
+      requestBody:
+        required: true
+        description: Add new payment method to database
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              example:
+                name: OVO
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                example:
+                  code: 200
+                  message: success to get new category
+                  data:
+                    id: 1
+                    name: OVO
+        '400':
+          $ref: '#/components/responses/400'
+    get:
+      summary: get all payment methods
+      tags:
+        - Payment Methods
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                example:
+                  code: 200
+                  success: true
+                  message: success to get all payment methods
+                  data:
+                  - id: 1
+                    name: OVO
+                  - id: 2
+                    name: Dana
+  /paymentmethods/{id}:  
+    put:
+      summary: Update payment methods
+      tags:
+        - Payment Methods
+      parameters:
+        - name: id
+          in: path
+          description: ID payment method 
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Update Data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+              example:
+                id: 1
+                name: Bank Jago
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                example:
+                  code: 200
+                  success: true
+                  message: success to update payment methods
+                  data:
+                    id: 1
+                    name: Bank Jago
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          description: Authorization Failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+              example:
+                  code: 401
+                  success: false
+                  message: Failed User Authorization
+                  data: {}
+    delete:
+      summary: Delete All Payment Methods
+      tags:
+        - Payment Methods
+      parameters:
+        - name: id
+          in: path
+          description: ID payment method 
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/SuccessSingleResponse'
+              example:
+                code: 200
+                success: true
+                message: Success to delete a Payment Methods
+                data: {}
+components:
+  parameters:
+    UserID:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+  schemas:
+    UserLogin:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: test@test.com
+        password: test
+    UserInput:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    SuccessSingleResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        success:
+          type: boolean
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/UserInput'
+  responses:
+    '204':
+      description: Failed to Update
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                example: 204
+              message:
+                type: string
+                example: No data for Update
+              data:
+                type: object
+                example: 
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  email:
+                    type: string
+            example:
+              code: 400
+              message: Invalid Input
+              data:
+    '401':
+      description: Authorization Failed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                example: 401
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: invalid Email or password
+              data:
+                type: object
+                example:
+                  token: {}
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+              message:
+                type: string
+              data:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  email:
+                    type: string
+            example:
+              code: 500
+              message: Something Error on Server
+              data:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

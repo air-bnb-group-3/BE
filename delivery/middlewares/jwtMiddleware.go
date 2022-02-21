@@ -18,8 +18,9 @@ func GenerateToken(u entities.User) (string, error) {
 
 	codes := jwt.MapClaims{
 		"id":       u.ID,
-		"email":    u.Email,
-		"password": u.Password,
+		// "email":    u.Email,
+		// "password": u.Password,
+		"roles": u.Roles,
 		"exp":      time.Now().Add(time.Hour * 24).Unix(),
 		"auth":     true,
 	}
@@ -39,13 +40,23 @@ func ExtractTokenId(e echo.Context) float64 {
 	return 0
 }
 
-func ExtractTokenAdmin(e echo.Context) (result [2]string) {
+func ExtractRoles(e echo.Context) bool {
 	user := e.Get("user").(*jwt.Token) //convert to jwt token from interface
 	if user.Valid {
 		codes := user.Claims.(jwt.MapClaims)
-		result[0] = codes["email"].(string)
-		result[1] = codes["password"].(string)
-		return result
+		id := codes["roles"].(bool)
+		return id
 	}
-	return [2]string{}
+	return false
 }
+
+// func ExtractTokenAdmin(e echo.Context) (result [2]string) {
+// 	user := e.Get("user").(*jwt.Token) //convert to jwt token from interface
+// 	if user.Valid {
+// 		codes := user.Claims.(jwt.MapClaims)
+// 		result[0] = codes["email"].(string)
+// 		result[1] = codes["password"].(string)
+// 		return result
+// 	}
+// 	return [2]string{}
+// }
