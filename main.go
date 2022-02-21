@@ -2,13 +2,17 @@ package main
 
 import (
 	config "app_airbnb/configs"
-	addressController "app_airbnb/delivery/controllers/address"
-	authController "app_airbnb/delivery/controllers/auth"
-	userController "app_airbnb/delivery/controllers/user"
+	_addressController "app_airbnb/delivery/controllers/address"
+	_authController "app_airbnb/delivery/controllers/auth"
+	_userController "app_airbnb/delivery/controllers/user"
+	_ownerController "app_airbnb/delivery/controllers/owner"
+
 	"app_airbnb/delivery/route"
-	addressRepo "app_airbnb/repository/address"
-	authRepo "app_airbnb/repository/auth"
-	userRepo "app_airbnb/repository/user"
+	_addressRepo "app_airbnb/repository/address"
+	_authRepo "app_airbnb/repository/auth"
+	_userRepo "app_airbnb/repository/user"
+	_ownerRepo "app_airbnb/repository/owner"
+
 	"app_airbnb/utils"
 	"fmt"
 	"log"
@@ -21,23 +25,21 @@ func main() {
 	db := utils.InitDB(config)
 
 	//REPOSITORY-DATABASE
-	userRepo := userRepo.New(db)
-	addressRepo := addressRepo.New(db)
-	authRepo := authRepo.New(db)
+	userRepo := _userRepo.New(db)
+	addressRepo := _addressRepo.New(db)
+	authRepo := _authRepo.New(db)
+	ownerRepo := _ownerRepo.New(db)
 
 	//CONTROLLER
-	userController := userController.New(userRepo)
-	addressController := addressController.New(addressRepo)
-	authController := authController.New(authRepo)
+	userController := _userController.New(userRepo)
+	addressController := _addressController.New(addressRepo)
+	authController := _authController.New(authRepo)
+	ownerController := _ownerController.New(ownerRepo)
+
 
 	e := echo.New()
 
-	route.RegisterPath(
-		e,
-		userController,
-		addressController,
-		authController,
-	)
+	route.RegisterPath(e, userController, ownerController, addressController, authController)
 
 	log.Fatal(e.Start(fmt.Sprintf(":%d", config.Port)))
 

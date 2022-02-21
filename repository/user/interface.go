@@ -7,5 +7,5 @@ type User interface {
 	GetById(userId int) (entities.User, error)
 	Update(userId int, newUser entities.User) (entities.User, error)
 	Delete(userId int) error
-	GetAll() ([]entities.User, error)
+	// GetAll() ([]entities.User, error)
 }

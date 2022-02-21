@@ -22,25 +22,19 @@ func New(repository user.User) *UserController {
 
 func (ac *UserController) Register() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		user := InsertUserRequestFormat{}
+		user := CreateUserRequestFormat{}
 
 		if err := c.Bind(&user); err != nil || user.Email == "" || user.Password == "" {
 			return c.JSON(http.StatusBadRequest, common.BadRequest(http.StatusBadRequest, "There is some problem from input", nil))
 		}
 
-		if user.Email == "admin@admin.com" && user.Password == "admin" {
-			user.Status = "admin"
-		} else {
-			user.Status = "user"
-		}
-
-		res, err := ac.repo.Register(entities.User{Name: user.Name, Email: user.Email, Password: user.Password, Status: user.Status})
+		res, err := ac.repo.Register(entities.User{Name: user.Name, Email: user.Email, Password: user.Password})
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))
 		}
 
-		return c.JSON(http.StatusCreated, common.Success(http.StatusCreated, "Success Create User", res))
+		return c.JSON(http.StatusCreated, common.Success(http.StatusCreated, "Success Create User", ToCreateUserResponseFormat(res)))
 	}
 }
 
@@ -54,7 +48,7 @@ func (ac *UserController) GetById() echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "Not Found", nil))
 		}
 
-		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success Get User", res))
+		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success Get User", ToGetUserByIdResponseFormat(res)))
 	}
 }
 
@@ -67,13 +61,13 @@ func (ac *UserController) Update() echo.HandlerFunc {
 			return c.JSON(http.StatusBadRequest, common.BadRequest(http.StatusBadRequest, "There is some problem from input", nil))
 		}
 
-		res, err := ac.repo.Update(userId, entities.User{Name: newUser.Name, Email: newUser.Email, Status: newUser.Status})
+		res, err := ac.repo.Update(userId, entities.User{Name: newUser.Name, Email: newUser.Email, Password: newUser.Password})
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))
 		}
 
-		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success Update User", res))
+		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success Update User", ToUpdateUserResponseFormat(res)))
 	}
 }
 
@@ -91,21 +85,21 @@ func (ac *UserController) Delete() echo.HandlerFunc {
 	}
 }
 
-func (ac *UserController) GetAll() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		email := middlewares.ExtractTokenAdmin(c)[0]
-		password := middlewares.ExtractTokenAdmin(c)[1]
+// func (ac *UserController) GetAll() echo.HandlerFunc {
+// 	return func(c echo.Context) error {
+// 		// email := middlewares.ExtractTokenAdmin(c)[0]
+// 		// password := middlewares.ExtractTokenAdmin(c)[1]
 
-		if email != "admin@admin.com" && password != "admin" {
-			return c.JSON(http.StatusBadRequest, common.BadRequest(http.StatusBadRequest, "invalid input", nil))
-		}
+// 		if email != "admin@admin.com" && password != "admin" {
+// 			return c.JSON(http.StatusBadRequest, common.BadRequest(http.StatusBadRequest, "invalid input", nil))
+// 		}
 
-		res, err := ac.repo.GetAll()
+// 		res, err := ac.repo.GetAll()
 
-		if err != nil || email != "admin@admin.com" && password != "admin" {
-			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))
-		}
+// 		if err != nil || email != "admin@admin.com" && password != "admin" {
+// 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))
+// 		}
 
-		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success Get All User", res))
-	}
-}
+// 		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success Get All User", res))
+// 	}
+// }
