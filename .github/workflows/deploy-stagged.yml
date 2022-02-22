@@ -19,4 +19,6 @@ jobs:
         port: ${{ secrets.PORT }}
         script: |
           cd project
-          git clone https://github.com/e-commerce-group-3/BE.git
+          cd BE
+          git pull origin main
+          docker-compose down --rmi all && docker-compose up --build -d
