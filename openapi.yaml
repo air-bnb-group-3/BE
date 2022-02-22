@@ -1233,7 +1233,7 @@ paths:
             type: integer
       requestBody:
         required: true
-        description: Update Booking data
+        description: Update Booking Data
         content:
           application/json:
             schema:
