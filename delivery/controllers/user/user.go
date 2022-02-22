@@ -84,22 +84,3 @@ func (ac *UserController) Delete() echo.HandlerFunc {
 		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success Delete User", nil))
 	}
 }
-
-// func (ac *UserController) GetAll() echo.HandlerFunc {
-// 	return func(c echo.Context) error {
-// 		// email := middlewares.ExtractTokenAdmin(c)[0]
-// 		// password := middlewares.ExtractTokenAdmin(c)[1]
-
-// 		if email != "admin@admin.com" && password != "admin" {
-// 			return c.JSON(http.StatusBadRequest, common.BadRequest(http.StatusBadRequest, "invalid input", nil))
-// 		}
-
-// 		res, err := ac.repo.GetAll()
-
-// 		if err != nil || email != "admin@admin.com" && password != "admin" {
-// 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))
-// 		}
-
-// 		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success Get All User", res))
-// 	}
-// }

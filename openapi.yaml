@@ -4,7 +4,7 @@ info:
   description: API Documentation
   contact:
     name: BE - Grup 3
-    email: altaBE6@mail.com
+    email: altaBE@mail.com
   version: "1.0"
 servers:
   - url: http://3.1.211.120:8081/{entity}
