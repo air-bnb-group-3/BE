@@ -28,16 +28,6 @@ func (ur *UserRepository) Register(u entities.User) (entities.User, error) {
 	return u, nil
 }
 
-// func (ur *UserRepository) GetAll() ([]entities.User, error) {
-// 	arrUser := []entities.User{}
-
-// 	if err := ur.database.Model(&arrUser).Find(&arrUser).Error; err != nil {
-// 		return nil, err
-// 	}
-
-// 	return arrUser, nil
-// }
-
 func (ur *UserRepository) GetById(userId int) (entities.User, error) {
 	arrUser := entities.User{}
 
