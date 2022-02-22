@@ -983,7 +983,7 @@ paths:
                       - id: 1
                         name: Villa Mewah
                         category_id: 1
-                        description: villa daerah dingin, 2 lantai
+                        description: villa daerah dingin, 2 lantai kolam renang
                         price: 20000
                         image: http://villamewah/img.jpg 
                         date_stock:
