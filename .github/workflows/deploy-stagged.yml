@@ -22,4 +22,3 @@ jobs:
           cd BE
           git pull origin main
           docker-compose down --rmi all && docker-compose up --build -d
-          

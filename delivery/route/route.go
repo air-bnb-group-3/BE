@@ -3,7 +3,7 @@ package route
 import (
 	"app_airbnb/delivery/controllers/address"
 	"app_airbnb/delivery/controllers/auth"
-	"app_airbnb/delivery/controllers/owner"
+	"app_airbnb/delivery/controllers/admin"
 	"app_airbnb/delivery/controllers/user"
 	"app_airbnb/delivery/middlewares"
 
@@ -11,7 +11,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func RegisterPath(e *echo.Echo, uc *user.UserController, oc *owner.OwnerController, ac *address.AddressController, aa *auth.AuthController) {
+func RegisterPath(e *echo.Echo, uc *user.UserController, a *admin.AdminController, ac *address.AddressController, aa *auth.AuthController) {
 	//CORS
 	e.Use(middleware.CORS())
 
@@ -26,13 +26,13 @@ func RegisterPath(e *echo.Echo, uc *user.UserController, oc *owner.OwnerControll
 	e.POST("users/login", aa.Login())
 
 	//ROUTE USERS
-	// e.GET("users", uc.GetAll(), middlewares.JwtMiddleware())
 	e.GET("users/me", uc.GetById(), middlewares.JwtMiddleware())
 	e.PUT("users/me", uc.Update(), middlewares.JwtMiddleware())
 	e.DELETE("users/me", uc.Delete(), middlewares.JwtMiddleware())
-
-	//ROUTE OWNERS
-	e.POST("owners/register", oc.Register())
+	
+	//ROUTE Admin
+	e.POST("admin/register", a.Register())
+	e.GET("admin/users", a.GetAll(), middlewares.JwtMiddleware())
 
 	//ROUTE ADDRESS
 	ea := e.Group("")
