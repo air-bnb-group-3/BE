@@ -5,23 +5,26 @@ info:
   contact:
     name: BE - Grup 3
     email: altaBE@mail.com
-  version: "1.0"
+  version: '1.2'
 servers:
-  - url: http://3.1.211.120:8081/{entity}
+  - url: http://18.136.193.63:8081/{entity}
     variables:
       entity:
         default: users
         enum:
+          - admin
           - users
-          - login
-          - products
-          - addresses
+          - address
+          - rooms
+          - amenities
+          - category
+          - payment methods
+          - booking
+          - transaction
 
 tags:
-  - name: Auth
-    description: User Autorization / Login
-  - name: All Users
-    description: All Users
+  - name: Admin
+    description: Admin
   - name: Users
     description: Users Resgister/Update/Delete
   - name: Addresses
@@ -38,8 +41,96 @@ paths:
   /users/login:
     post:
       tags:
-        - Auth
+        - Users
       summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/UserLogin'
+      responses:
+        '200':
+          description: User terautorisasi
+          content:
+            application/json:
+              schema:
+                type: object
+                # $ref: '#/components/schemas/SuccessSingleResponse'
+              example:
+                code: 200
+                message: Success login, get a new token
+                data:
+                  email: testp@test.com
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        '500':
+          description: Invalid Authorization
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 500
+                message: There are something problem on server
+                data:
+  /admin/register:
+    post:
+      summary: Register New Users
+      tags:
+        - Admin
+      description: Create a New Admin Account
+      requestBody:
+        required: true
+        description: Create Account with valid value
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                  format: password
+              example:
+                name: test
+                email: test@test.com
+                password: test
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                example:
+                  code: 200
+                  message: success to get new Account
+                  data:
+                    name: test
+                    email: test@test.com
+        '400':
+          $ref: '#/components/responses/400'
+  /admin/login:
+    post:
+      tags:
+        - Admin
+      summary: Login admin
       requestBody:
         required: true
         content:
@@ -75,7 +166,7 @@ paths:
     get:
         summary: Get all Users
         tags:
-          - All Users
+          - Admin
         description: Just For Admin
         security:
           - bearerAuth: []
@@ -1233,7 +1324,7 @@ paths:
             type: integer
       requestBody:
         required: true
-        description: Update Booking Data
+        description: Update Booking data
         content:
           application/json:
             schema:
