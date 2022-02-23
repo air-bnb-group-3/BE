@@ -45,11 +45,10 @@ func (repo *ImagesRepository) GetByID(imageId uint) (entities.Images, error) {
 }
 
 // ======================== Update Images =================================
-func (repo *ImagesRepository) Update(userId int, imagesUpdate entities.Images) (entities.Images, error) {
-
-	res := repo.db.Model(&entities.Images{Model: gorm.Model{ID: uint(userId)}}).Updates(imagesUpdate)
-
-	// Where("id = ? AND user_id = ?", imagesUpdate.ID, userId)
+func (repo *ImagesRepository) Update(imageId, roomId uint, imagesUpdate entities.Images) (entities.Images, error) {
+	images := entities.Images{}
+	res := repo.db.Model(&images).Where("id = ? AND rooms_id = ?", imageId, roomId).Updates(imagesUpdate)
+	
 	if res.RowsAffected == 0 {
 		return imagesUpdate, errors.New("tidak ada pemutakhiran pada data image")
 	}
@@ -58,10 +57,10 @@ func (repo *ImagesRepository) Update(userId int, imagesUpdate entities.Images) (
 }
 
 // ======================== Delete Images =================================
-func (repo *ImagesRepository) Delete(imageId, userId uint) error {
+func (repo *ImagesRepository) Delete(imageId, roomId uint) error {
 	images := entities.Images{}
-	rooms := entities.Rooms{}
-	res := repo.db.Model(&images).Where("id = ? AND userId = ?", imageId, rooms.UserID).Delete(&images)
+	
+	res := repo.db.Model(&images).Where("id = ? AND rooms_id = ?", imageId, roomId).Delete(&images)
 	if res.RowsAffected == 0 {
 		return errors.New("tidak ada image yang dihapus")
 	}

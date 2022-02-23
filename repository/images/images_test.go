@@ -216,10 +216,11 @@ func TestUpdateById(t *testing.T) {
 		if errI != nil {
 			t.Fail()
 		}
-
 		mockUp := entities.Images{Image: "iuiubbnijbi"}
-		_, err := repo.Update(int(resU.ID), mockUp)
-
+		roomId := 1
+		imgId := 1
+		_, err := repo.Update(uint(imgId), uint(roomId), mockUp)
+		
 		assert.Nil(t, err)
 
 	})
@@ -258,7 +259,7 @@ func TestUpdateById(t *testing.T) {
 		}
 
 		mockUp := entities.Images{RoomsID: resR.ID, Image: "jhsfkuabkjabkb"}
-		_, err := repo.Update(10, mockUp)
+		_, err := repo.Update(10, 10, mockUp)
 
 		assert.NotNil(t, err)
 

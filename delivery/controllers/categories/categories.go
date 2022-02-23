@@ -86,7 +86,7 @@ func (ctrl *CategoriesController) Update() echo.HandlerFunc {
 			return c.JSON(http.StatusBadRequest, common.BadRequest(http.StatusBadRequest, "There is some problem from input", nil))
 		}
 
-		res, err := ctrl.repo.Update(UpdateCategory.ToUpdateCategoryRequestFormat(uint(categoryId)))
+		res, err := ctrl.repo.Update(uint(categoryId), UpdateCategory.ToUpdateCategoryRequestFormat())
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))
@@ -97,6 +97,10 @@ func (ctrl *CategoriesController) Update() echo.HandlerFunc {
 
 func (ctrl *CategoriesController) Delete() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		isAdmin := middlewares.ExtractRoles(c)
+		if !isAdmin {
+			return c.JSON(http.StatusUnauthorized, common.BadRequest(http.StatusUnauthorized, "access denied", nil))
+		}
 		categoryId, _ := strconv.Atoi(c.Param("categoryid"))
 		err := ctrl.repo.Delete(uint(categoryId))
 		if err != nil {

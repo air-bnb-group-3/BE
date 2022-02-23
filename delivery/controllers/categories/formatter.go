@@ -2,8 +2,6 @@ package categories
 
 import (
 	"app_airbnb/entities"
-
-	"gorm.io/gorm"
 )
 
 type CategoryCreateRequestFormat struct {
@@ -46,10 +44,9 @@ type UpdateCategoryRequestFormat struct {
 	City string `json:"city" form:"city"`
 }
 
-func (UCRF UpdateCategoryRequestFormat) ToUpdateCategoryRequestFormat(CategoryID uint) entities.Categories {
+func (UCRF UpdateCategoryRequestFormat) ToUpdateCategoryRequestFormat() entities.Categories {
 	return entities.Categories{
-		Model: gorm.Model{ID: CategoryID},
-		City:  UCRF.City,
+		City: UCRF.City,
 	}
 }
 
