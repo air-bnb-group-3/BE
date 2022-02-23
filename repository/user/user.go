@@ -31,7 +31,7 @@ func (ur *UserRepository) Register(u entities.User) (entities.User, error) {
 func (ur *UserRepository) GetById(userId int) (entities.User, error) {
 	arrUser := entities.User{}
 
-	result := ur.database.Preload("Address").Where("ID = ?", userId).First(&arrUser)
+	result := ur.database.Where("ID = ?", userId).First(&arrUser)
 	if err := result.Error; err != nil {
 		return arrUser, err
 	}

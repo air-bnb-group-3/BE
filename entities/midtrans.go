@@ -6,5 +6,5 @@ import (
 
 type Midtrans struct {
 	gorm.Model
-	Booking []Booking `gorm:"ForeignKey:MidtransID"`
+	Transactions []Transactions `gorm:"ForeignKey:MidtransID"`
 }

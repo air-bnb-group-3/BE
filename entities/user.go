@@ -10,7 +10,6 @@ type User struct {
 	Email    string    `gorm:"unique" json:"email"`
 	Password string    `json:"-"`
 	Roles    bool      `gorm:"type:bool" json:"roles"`
-	Address  Address   `gorm:"ForeignKey:User_ID"`
 	Rooms    []Rooms   `gorm:"ForeignKey:UserID"`
 	Booking  []Booking `gorm:"ForeignKey:UserID"`
 }
