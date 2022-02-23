@@ -38,9 +38,5 @@ func (ac *AuthController) Login() echo.HandlerFunc {
 		}
 		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "berhasil masuk, mendapatkan token baru", token))
 
-		// return c.JSON(http.StatusOK, common.Success(nil, "success login", map[string]interface{}{
-		// 	"data":  checkedUser,
-		// 	"token": token,
-		// }))
 	}
 }
