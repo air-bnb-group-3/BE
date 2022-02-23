@@ -1,0 +1,17 @@
+mode: set
+app_airbnb/repository/rooms/rooms.go:14.40,16.2 1 1
+app_airbnb/repository/rooms/rooms.go:19.86,20.56 1 1
+app_airbnb/repository/rooms/rooms.go:23.2,23.22 1 1
+app_airbnb/repository/rooms/rooms.go:20.56,22.3 1 1
+app_airbnb/repository/rooms/rooms.go:27.65,30.20 3 1
+app_airbnb/repository/rooms/rooms.go:33.2,33.19 1 1
+app_airbnb/repository/rooms/rooms.go:30.20,32.3 1 1
+app_airbnb/repository/rooms/rooms.go:37.75,39.88 2 1
+app_airbnb/repository/rooms/rooms.go:42.2,42.18 1 1
+app_airbnb/repository/rooms/rooms.go:39.88,41.3 1 1
+app_airbnb/repository/rooms/rooms.go:46.113,49.27 3 1
+app_airbnb/repository/rooms/rooms.go:52.2,53.25 2 1
+app_airbnb/repository/rooms/rooms.go:49.27,51.3 1 1
+app_airbnb/repository/rooms/rooms.go:57.64,61.27 3 1
+app_airbnb/repository/rooms/rooms.go:64.2,64.12 1 1
+app_airbnb/repository/rooms/rooms.go:61.27,63.3 1 1

@@ -611,27 +611,9 @@ paths:
               properties:
                 images_1:
                   type: string
-                images_2:
-                  type: string
-                images_3:
-                  type: string
-                images_4:
-                  type: string
-                images_5:
-                  type: string
-                images_6:
-                  type: string
-                images_7:
-                  type: string
               example:
-                images_1: http://aefibeabibign.jpg
-                images_2: http://aefibeabibign.jpg
-                images_3: http://aefibeabibign.jpg
-                images_4: http://aefibeabibign.jpg
-                images_5: http://aefibeabibign.jpg
-                images_6: http://aefibeabibign.jpg
-                images_7: http://aefibeabibign.jpg
-                
+                rooms_id: 1
+                images: http://aefibeabibign.jpg
       security:
         - bearerAuth: []
       responses:
@@ -658,13 +640,7 @@ paths:
                   message: success to create new images
                   data:
                     id: 1
-                    images_1: http://aefibeabibign.jpg
-                    images_2: http://aefibeabibign.jpg
-                    images_3: http://aefibeabibign.jpg
-                    images_4: http://aefibeabibign.jpg
-                    images_5: http://aefibeabibign.jpg
-                    images_6: http://aefibeabibign.jpg
-                    images_7: http://aefibeabibign.jpg
+                    images: http://aefibeabibign.jpg
         '400':
           $ref: '#/components/responses/400'
         '500':
@@ -745,30 +721,12 @@ paths:
                         type: integer
                       images_1:
                         type: string
-                      images_2:
-                        type: string
-                      images_3:
-                        type: string
-                      images_4:
-                        type: string
-                      images_5:
-                        type: string
-                      images_6:
-                        type: string
-                      images_7:
-                        type: string
                 example:
                   code: 200
                   message: Success to get images by id
                   data:
                     id: 1
                     images_1: http://aefibeabibign.jpg
-                    images_2: http://aefibeabibign.jpg
-                    images_3: http://aefibeabibign.jpg
-                    images_4: http://aefibeabibign.jpg
-                    images_5: http://aefibeabibign.jpg
-                    images_6: http://aefibeabibign.jpg
-                    images_7: http://aefibeabibign.jpg
         '400':
           $ref: '#/components/responses/400'
         '500':
