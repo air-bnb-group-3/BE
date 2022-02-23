@@ -1,0 +1,17 @@
+mode: set
+app_airbnb/repository/categories/categories.go:14.45,16.2 1 1
+app_airbnb/repository/categories/categories.go:19.104,20.59 1 1
+app_airbnb/repository/categories/categories.go:23.2,23.25 1 1
+app_airbnb/repository/categories/categories.go:20.59,22.3 1 1
+app_airbnb/repository/categories/categories.go:27.75,30.25 3 1
+app_airbnb/repository/categories/categories.go:33.2,33.24 1 1
+app_airbnb/repository/categories/categories.go:30.25,32.3 1 1
+app_airbnb/repository/categories/categories.go:37.89,39.100 2 1
+app_airbnb/repository/categories/categories.go:42.2,42.22 1 1
+app_airbnb/repository/categories/categories.go:39.100,41.3 1 1
+app_airbnb/repository/categories/categories.go:46.126,49.27 3 1
+app_airbnb/repository/categories/categories.go:52.2,53.30 2 1
+app_airbnb/repository/categories/categories.go:49.27,51.3 1 1
+app_airbnb/repository/categories/categories.go:57.65,60.27 3 1
+app_airbnb/repository/categories/categories.go:63.2,63.12 1 1
+app_airbnb/repository/categories/categories.go:60.27,62.3 1 1
