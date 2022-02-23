@@ -1,0 +1,8 @@
+mode: set
+app_airbnb/repository/admin/admin.go:14.40,18.2 1 1
+app_airbnb/repository/admin/admin.go:20.84,24.60 2 1
+app_airbnb/repository/admin/admin.go:28.2,28.22 1 1
+app_airbnb/repository/admin/admin.go:24.60,26.3 1 1
+app_airbnb/repository/admin/admin.go:31.62,34.73 2 1
+app_airbnb/repository/admin/admin.go:38.2,38.21 1 1
+app_airbnb/repository/admin/admin.go:34.73,36.3 1 0
