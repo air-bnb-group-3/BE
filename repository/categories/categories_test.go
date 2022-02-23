@@ -114,7 +114,7 @@ func TestUpdateById(t *testing.T) {
 			t.Fatal()
 		}
 		mockUp := entities.Categories{City: "Malang"}
-		_, errU := repo.Update(res.ID, mockUp)
+		_, errU := repo.Update(int(res.ID), mockUp)
 		assert.Nil(t, errU)
 
 	})

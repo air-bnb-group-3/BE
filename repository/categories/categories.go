@@ -1,8 +1,8 @@
 package categories
 
 import (
-	"errors"
 	"app_airbnb/entities"
+	"errors"
 
 	"gorm.io/gorm"
 )
@@ -43,9 +43,9 @@ func (repo *CategoriesRepository) GetByID(categoryId uint) (entities.Categories,
 }
 
 // ======================== Update Category =================================
-func (repo *CategoriesRepository) Update(categoriesUpdate entities.Categories) (entities.Categories, error) {
-	categories := entities.Categories{}
-	res := repo.db.Model(&categories).Updates(categoriesUpdate)
+func (repo *CategoriesRepository) Update(categoryID int, categoriesUpdate entities.Categories) (entities.Categories, error) {
+
+	res := repo.db.Model(&entities.Categories{Model: gorm.Model{ID: uint(categoryID)}}).Updates(categoriesUpdate)
 	if res.RowsAffected == 0 {
 		return categoriesUpdate, errors.New("tidak ada pemutakhiran pada data category")
 	}

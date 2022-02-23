@@ -133,7 +133,7 @@ func TestGetById(t *testing.T) {
 			t.Fail()
 		}
 
-		_, err := repo.GetByID(resI.ID, resI.RoomsID)
+		_, err := repo.GetByID(resI.ID)
 
 		assert.Nil(t, err)
 
@@ -172,7 +172,7 @@ func TestGetById(t *testing.T) {
 			t.Fail()
 		}
 
-		_, err := repo.GetByID(10, 10)
+		_, err := repo.GetByID(10)
 
 		assert.NotNil(t, err)
 
@@ -212,13 +212,13 @@ func TestUpdateById(t *testing.T) {
 		}
 
 		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
-		resI, errI := repo.Insert(mockImages)
+		_, errI := repo.Insert(mockImages)
 		if errI != nil {
 			t.Fail()
 		}
 
-		mockUp := entities.Images{Image: "jhsfkuabkjabkb"}
-		_, err := repo.Update(int(resI.ID), 1, mockUp)
+		mockUp := entities.Images{Image: "iuiubbnijbi"}
+		_, err := repo.Update(int(resU.ID), mockUp)
 
 		assert.Nil(t, err)
 
@@ -258,7 +258,7 @@ func TestUpdateById(t *testing.T) {
 		}
 
 		mockUp := entities.Images{RoomsID: resR.ID, Image: "jhsfkuabkjabkb"}
-		_, err := repo.Update(10, 10, mockUp)
+		_, err := repo.Update(10, mockUp)
 
 		assert.NotNil(t, err)
 
@@ -303,7 +303,7 @@ func TestDeleteById(t *testing.T) {
 			t.Fail()
 		}
 
-		err := repo.Delete(resI.ID, resI.RoomsID, resU.ID)
+		err := repo.Delete(resI.ID, resR.UserID)
 
 		assert.Nil(t, err)
 
@@ -342,7 +342,7 @@ func TestDeleteById(t *testing.T) {
 			t.Fail()
 		}
 
-		err := repo.Delete(10, 10, 10)
+		err := repo.Delete(10, 10)
 
 		assert.NotNil(t, err)
 
@@ -382,12 +382,12 @@ func TestGetALL(t *testing.T) {
 		}
 
 		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
-		resI, errI := repo.Insert(mockImages)
+		_, errI := repo.Insert(mockImages)
 		if errI != nil {
 			t.Fail()
 		}
 
-		_, err := repo.GetAll(resI.RoomsID)
+		_, err := repo.GetAll()
 
 		assert.Nil(t, err)
 
@@ -426,9 +426,9 @@ func TestGetALL(t *testing.T) {
 			t.Fail()
 		}
 
-		_, err := repo.GetAll(100)
+		_, err := repo.GetAll()
 
-		assert.NotNil(t, err)
+		assert.Nil(t, err)
 
 	})
 }
