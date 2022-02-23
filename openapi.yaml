@@ -14,9 +14,7 @@ servers:
         enum:
           - admin
           - users
-          - address
           - rooms
-          - amenities
           - category
           - payment methods
           - booking
@@ -27,14 +25,12 @@ tags:
     description: Admin
   - name: Users
     description: Users Resgister/Update/Delete
-  - name: Addresses
-    description: Register Addresses
+  - name: Images
+    description: Rooms Images
   - name: Rooms
     description: Rooms Methods
   - name: Category
     description: Category Methods
-  - name: Amenities
-    description: Amenities Register
   - name: Payment Methods
     description: Payment Methods Register
 paths:
@@ -189,8 +185,6 @@ paths:
                       properties:
                         id:
                           type: integer
-                        address_id:
-                          type: integer
                         name:
                           type: string
                         email:
@@ -214,14 +208,12 @@ paths:
                           format: date-time
                       example:
                         - id: 1
-                          address_id: 1
                           name: Frans Ihsan
                           email: frans@frans.com
                           created_at: 2022-02-15T05:19:20Z
                           updated_at: 2022-02-15T05:20:20Z
                           deleted_at: 2022-02-15T05:21:20Z
                         - id: 2
-                          address_id: 1
                           name: Frans Ihsan
                           email: frans@frans.com
                           created_at: 2022-02-15T05:19:20Z
@@ -306,8 +298,6 @@ paths:
                       properties:
                         id:
                           type: integer
-                        address_id:
-                          type: integer
                         name:
                           type: string
                         email:
@@ -331,7 +321,6 @@ paths:
                           format: date-time
                       example:
                           id: 1
-                          address_id: 1
                           name: Frans Ihsan
                           email: frans@frans.com
                           created_at: 2022-02-15T05:19:20Z
@@ -385,243 +374,6 @@ paths:
                 code: 200
                 message: success to delete user data
                 data:
-  /address:
-    post:
-      summary: Add Addresses
-      tags:
-        - Addresses
-      requestBody:
-        required: true
-        description: Add the addresses
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                street:
-                  type: string
-                city:
-                  type: string
-                region:
-                  type: string
-                postal_code:
-                  type: integer
-              example:
-                street: Jl. Raya Danau Maninjau
-                city: Malang
-                region: Jawa Timur
-                postal code: 123456
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                  message:
-                    type: string
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      street:
-                        type: string
-                      city:
-                        type: string
-                      region:
-                        type: string
-                      postal_code:
-                        type: integer
-                example:
-                  code: 200
-                  message: Success to add address
-                  data:
-                    id: 1
-                    street: JL. Raya Danau Maninjau
-                    city: Malang
-                    region: Jawa Timur
-                    postal_code: 123456
-        '400':
-          $ref: '#/components/responses/400'
-    get:
-      summary: Get all address
-      tags:
-        - Addresses
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    code:
-                      type: integer
-                    message:
-                      type: string
-                    data:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        street:
-                          type: string
-                        city:
-                          type: string
-                        region:
-                          type: string
-                        postal_code:
-                          type: integer
-                  example:
-                    code: 200
-                    message: Success to get all address
-                    data:
-                      - id: 1
-                        street: Jl. Raya Danau Maninjau
-                        city: Malang
-                        province: Jawa Timur
-                      - id: 2
-                        street: Jl. Pahlawan
-                        city: Surabaya
-                        province: Jawa Tengah
-  /address/{id}:
-    get:
-      summary: Get address by ID
-      tags:
-        - Addresses
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    code:
-                      type: integer
-                    message:
-                      type: string
-                    data:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        street:
-                          type: string
-                        city:
-                          type: string
-                        region:
-                          type: string
-                        postal_code:
-                          type: integer
-                  example:
-                    code: 200
-                    message: Success to get all address
-                    data:
-                      id: 1
-                      street: Jl. Raya Danau Maninjau
-                      city: Malang
-                      province: Jawa Timur
-    put:
-      summary: Update data alamat
-      tags:
-        - Addresses
-      requestBody:
-        required: true
-        description: Mengubah data alamat dengan input yang sesuai
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                street:
-                  type: string
-                city:
-                  type: string
-                region:
-                  type: string
-                postal_code:
-                  type: integer
-              example:
-                street: Jl. Jendral Soedirman
-                city: Semarang
-                region: Jawa Tengah
-                postal_code: 999999
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                  success:
-                    type: boolean
-                  message:
-                    type: string
-                  data:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                      street:
-                        type: string
-                      city:
-                        type: string
-                      region:
-                        type: string
-                      postal_code:
-                        type: integer
-                example:
-                  code: 200
-                  message: Success to Updata Address Datas
-                  data:
-                    id: 1
-                    street: Jl. Jendral Soedirman
-                    city: Semarang
-                    region: Jawa Tengah
-                    postal_code: 999999
-        '400':
-          $ref: '#/components/responses/400'
-        '500':
-          $ref: '#/components/responses/500'
-    delete:
-      summary: Delete Addresses Data
-      tags:
-        - Addresses
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                $ref: '#/components/schemas/SuccessSingleResponse'
-              example:
-                code: 200
-                success: true
-                message: Success to Delete Address Data
-                data: 
   /admin/categories:
     post:
       summary: Add / Create Category (For Admin)
@@ -638,7 +390,7 @@ paths:
                 name:
                   type: string
               example:
-                name: Villa
+                name: Surabaya
       security:
         - bearerAuth: []
       responses:
@@ -665,7 +417,7 @@ paths:
                   message: success to create new category
                   data:
                     id: 1
-                    name : Villa
+                    name : Surabaya
         '400':
           $ref: '#/components/responses/400'
         '500':
@@ -703,10 +455,10 @@ paths:
                     message: success to get all category
                     data:
                     - id: 1
-                      name: Villa
+                      name: Surabaya
                       rooms: [{}]
                     - id: 2
-                      name: Hotel
+                      name: Bandung
                       rooms: [{}]
         '400':
           $ref: '#/components/responses/400'
@@ -754,16 +506,13 @@ paths:
                   message: Success to get category by id
                   data:
                     id: 1
-                    name: Villa
+                    name: Surabaya
                     rooms:
                     - id: 1
                       name: villa mewah 4 kamar
                       price: 20000
-                      location: Surabaya
                     - id: 2
-                      name: villa minimalis eksklusif
-                      price: 50000
-                      location: Semarang
+                      name: villa minimalis 
         '400':
           $ref: '#/components/responses/400'
         '500':
@@ -790,7 +539,7 @@ paths:
                 name:
                   type: string
               example:
-                name: Kos-Kosan
+                name: Bandung
       security:
         - bearerAuth: []
       responses:
@@ -821,7 +570,7 @@ paths:
                   message: Berhasil mengupdate data produk
                   data:
                     id: 1
-                    name: Kos-Kosan
+                    name: Bandung
                     rooms: [{}]
     delete:
       summary: Delete a category
@@ -845,7 +594,268 @@ paths:
                 type: object
               example:
                 code: 200
-                message: sukses menghapus produk
+                message: success to delete
+                data:
+  /images:
+    post:
+      summary: Add / Create Images for rooms
+      tags:
+        - Images
+      requestBody:
+        required: true
+        description: Create / Add Category Data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                images_1:
+                  type: string
+                images_2:
+                  type: string
+                images_3:
+                  type: string
+                images_4:
+                  type: string
+                images_5:
+                  type: string
+                images_6:
+                  type: string
+                images_7:
+                  type: string
+              example:
+                images_1: http://aefibeabibign.jpg
+                images_2: http://aefibeabibign.jpg
+                images_3: http://aefibeabibign.jpg
+                images_4: http://aefibeabibign.jpg
+                images_5: http://aefibeabibign.jpg
+                images_6: http://aefibeabibign.jpg
+                images_7: http://aefibeabibign.jpg
+                
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                example:
+                  code: 201
+                  message: success to create new images
+                  data:
+                    id: 1
+                    images_1: http://aefibeabibign.jpg
+                    images_2: http://aefibeabibign.jpg
+                    images_3: http://aefibeabibign.jpg
+                    images_4: http://aefibeabibign.jpg
+                    images_5: http://aefibeabibign.jpg
+                    images_6: http://aefibeabibign.jpg
+                    images_7: http://aefibeabibign.jpg
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    # get:
+    #   summary: get all Category
+    #   tags:
+    #     - Images
+    #   responses:
+    #     '200':
+    #       description: OK
+    #       content:
+    #         application/json:
+    #           schema:
+    #             type: object
+    #             properties:
+    #               code:
+    #                 type: integer
+    #               message:
+    #                 type: string
+    #               data:
+    #                 type: array
+    #                 items :
+    #                   type: object
+    #                   properties:
+    #                     id:
+    #                       type: integer
+    #                     name:
+    #                       type: string
+    #                     rooms:
+    #                       type: array
+    #             example:
+    #                 code: 201
+    #                 message: success to get all category
+    #                 data:
+    #                 - id: 1
+    #                   name: Surabaya
+    #                   rooms: [{}]
+    #                 - id: 2
+    #                   name: Bandung
+    #                   rooms: [{}]
+    #     '400':
+    #       $ref: '#/components/responses/400'
+    #     '500':
+    #       $ref: '#/components/responses/500'
+  /images/{id}:
+    get:
+      summary: Get Images By ID
+      tags:
+        - Images
+      parameters:
+        - name: id
+          in: path
+          description: ID Images
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      images_1:
+                        type: string
+                      images_2:
+                        type: string
+                      images_3:
+                        type: string
+                      images_4:
+                        type: string
+                      images_5:
+                        type: string
+                      images_6:
+                        type: string
+                      images_7:
+                        type: string
+                example:
+                  code: 200
+                  message: Success to get images by id
+                  data:
+                    id: 1
+                    images_1: http://aefibeabibign.jpg
+                    images_2: http://aefibeabibign.jpg
+                    images_3: http://aefibeabibign.jpg
+                    images_4: http://aefibeabibign.jpg
+                    images_5: http://aefibeabibign.jpg
+                    images_6: http://aefibeabibign.jpg
+                    images_7: http://aefibeabibign.jpg
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      summary: Update images data
+      tags:
+        - Images
+      parameters:
+        - name: id
+          in: path
+          description: ID Images
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Updata images data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                image_(numb):
+                  type: string
+              example:
+                image_1: http://jbaejcyjahbckabk.jpg
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      rooms:
+                        type: string
+                example:
+                  code: 200
+                  message: success to update images
+                  data:
+                   id: 1
+                   images_1: http://jbaejcyjahbckabk.jpg
+                   images_2: http://aefibeabibign.jpg
+                   images_3: http://aefibeabibign.jpg
+                   images_4: http://aefibeabibign.jpg
+                   images_5: http://aefibeabibign.jpg
+                   images_6: http://aefibeabibign.jpg
+                   images_7: http://aefibeabibign.jpg
+    delete:
+      summary: Delete images
+      tags:
+        - Images
+      parameters:
+        - name: id
+          in: path
+          description: ID images
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: 200
+                message: success to delete
                 data:
   /rooms:
     post:
@@ -868,12 +878,16 @@ paths:
                   type: string
                 price:
                   type: integer
-                image:
-                  type: string
+                image_id:
+                  type: integer
                 date_stock:
                   type: string
-                ametities_id:
+                total_person:
                   type: integer
+                total_rooms:
+                  type: integer
+                size_bed:
+                  type: string
                 user_id:
                   type: integer
               example:
@@ -881,9 +895,11 @@ paths:
                 category_id: 1
                 description: villa daerah dingin, 2 lantai
                 price: 20000
-                image: http://villamewah/img.jpg 
+                image_id : 1
                 date_stock:
-                ametities_id: 1
+                total_person: 2
+                total_rooms: 1
+                size_bed: queen
                 user_id: 1
       security:
         - bearerAuth: []
@@ -902,34 +918,42 @@ paths:
                   data:
                     type: object
                     properties:
+                      id:
+                        type: integer
                       name:
                         type: string
                       category_id:
-                         type: integer
+                        type: integer
                       description:
-                         type: string
-                      price:
-                          type: integer
-                      image:
                         type: string
+                      price:
+                        type: integer
+                      image_id:
+                        type: integer
                       date_stock:
                         type: string
-                      ametities_id:
+                      total_person:
                         type: integer
+                      total_rooms:
+                        type: integer
+                      size_bed:
+                        type: string
                       user_id:
                         type: integer
                 example:
                   code: 201
                   message: sukses menambahkan produk baru
                   data:
-                    id: 1
+                    id : 1
                     name: Villa Mewah
                     category_id: 1
                     description: villa daerah dingin, 2 lantai
                     price: 20000
-                    image: http://villamewah/img.jpg 
+                    image_id : 1
                     date_stock:
-                    ametities_id: 1
+                    total_person: 2
+                    total_rooms: 1
+                    size_bed: queen
                     user_id: 1
         '400':
           $ref: '#/components/responses/400'
@@ -958,46 +982,54 @@ paths:
                       items:
                         type: object
                         properties:
-                          id:
+                           id:
                             type: integer
-                          name:
+                           name:
                             type: string
-                          category_id:
+                           category_id:
                             type: integer
-                          description:
+                           description:
                             type: string
-                          price:
-                              type: integer
-                          image:
-                            type: string
-                          date_stock:
-                            type: string
-                          ametities_id:
+                           price:
                             type: integer
-                          user_id:
+                           image_id:
+                            type: integer
+                           date_stock:
+                            type: string
+                           total_person:
+                            type: integer
+                           total_rooms:
+                            type: integer
+                           size_bed:
+                            type: string
+                           user_id:
                             type: integer
                 example:
                     code: 200
-                    message: sukses mendapatkan semua produk
+                    message: success to get all rooms
                     data:
-                      - id: 1
+                      - id : 1
                         name: Villa Mewah
                         category_id: 1
-                        description: villa daerah dingin, 2 lantai kolam renang
+                        description: villa daerah dingin, 2 lantai
                         price: 20000
-                        image: http://villamewah/img.jpg 
+                        image_id : 1
                         date_stock:
-                        ametities_id: 1
+                        total_person: 2
+                        total_rooms: 1
+                        size_bed: queen
                         user_id: 1
-                      - id: 2
-                        name: Villa minimalis
+                      - id : 2
+                        name: Villa Mewah
                         category_id: 1
-                        description: villa minimalis 2 kamar murah eksklusif
+                        description: villa daerah dingin, 2 lantai
                         price: 20000
-                        image: http://villaEksklusif/img.jpg 
+                        image_id : 1
                         date_stock:
-                        ametities_id: 12
-                        user_id: 2
+                        total_person: 2
+                        total_rooms: 1
+                        size_bed: queen
+                        user_id: 1
   /rooms/{id}:
     get:
       summary: Update Rooms Data
@@ -1039,27 +1071,33 @@ paths:
                         type: string
                       price:
                         type: integer
-                      image:
-                        type: string
+                      image_id:
+                        type: integer
                       date_stock:
                         type: string
-                      ametities_id:
+                      total_person:
                         type: integer
+                      total_rooms:
+                        type: integer
+                      size_bed:
+                        type: string
                       user_id:
                         type: integer
                 example:
                   code: 200
                   message: Berhasil mengupdate data produk
                   data:
-                    id: 2
-                    name: Villa minimalis
+                    id : 2
+                    name: Villa Mewah
                     category_id: 1
-                    description: villa terbaik  
-                    price: 70000
-                    image: http://villaEksklusif/img.jpg 
+                    description: villa daerah dingin, 2 lantai
+                    price: 20000
+                    image_id : 1
                     date_stock:
-                    ametities_id: 12
-                    user_id: 2
+                    total_person: 2
+                    total_rooms: 1
+                    size_bed: queen
+                    user_id: 1
     put:
       summary: Update Rooms Data
       tags:
@@ -1115,27 +1153,33 @@ paths:
                         type: string
                       price:
                         type: integer
-                      image:
-                        type: string
+                      image_id:
+                        type: integer
                       date_stock:
                         type: string
-                      ametities_id:
+                      total_person:
                         type: integer
+                      total_rooms:
+                        type: integer
+                      size_bed:
+                        type: string
                       user_id:
                         type: integer
                 example:
                   code: 200
                   message: Berhasil mengupdate data produk
                   data:
-                    id: 2
-                    name: Villa minimalis
+                    id : 2
+                    name: Villa Mewah
                     category_id: 1
-                    description: update rooms description 
+                    description: update rooms description
                     price: 70000
-                    image: http://villaEksklusif/img.jpg 
+                    image_id : 1
                     date_stock:
-                    ametities_id: 12
-                    user_id: 2
+                    total_person: 2
+                    total_rooms: 1
+                    size_bed: queen
+                    user_id: 1
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -1447,10 +1491,11 @@ paths:
                 status:
                   type: string
                   enum:
-                    - ongoing
+                    - waiting
                     - payed
                     - cancel
               example:
+                booking_id: 1
                 payment_method_id: 1
                 phone: +6282828828282
       security:
