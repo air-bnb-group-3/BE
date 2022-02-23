@@ -24,9 +24,9 @@ func (repo *ImagesRepository) Insert(newImage entities.Images) (entities.Images,
 }
 
 // ======================== Get All Images =================================
-func (repo *ImagesRepository) GetAll(roomId uint) ([]entities.Images, error) {
+func (repo *ImagesRepository) GetAll() ([]entities.Images, error) {
 	images := []entities.Images{}
-	repo.db.Model(&images).Where("rooms_id = ?", roomId).Find(&images)
+	repo.db.Model(&images).Find(&images)
 
 	// repo.db.Find(&images)
 	if len(images) < 1 {
@@ -36,18 +36,18 @@ func (repo *ImagesRepository) GetAll(roomId uint) ([]entities.Images, error) {
 }
 
 // ======================== Get Images By ID ==================================
-func (repo *ImagesRepository) GetByID(imageId, roomId uint) (entities.Images, error) {
+func (repo *ImagesRepository) GetByID(imageId uint) (entities.Images, error) {
 	image := entities.Images{}
-	if err := repo.db.Model(&image).Where("id = ? AND rooms_id = ?", imageId, roomId).First(&image).Error; err != nil {
+	if err := repo.db.Model(&image).Where("id = ?", imageId).First(&image).Error; err != nil {
 		return image, errors.New("image yang dipilih belum tersedia")
 	}
 	return image, nil
 }
 
 // ======================== Update Images =================================
-func (repo *ImagesRepository) Update(imageId int, userId int, imagesUpdate entities.Images) (entities.Images, error) {
+func (repo *ImagesRepository) Update(userId int, imagesUpdate entities.Images) (entities.Images, error) {
 	images := entities.Images{}
-	res := repo.db.Model(&images).Where("id = ? AND user_id = ? AND rooms_id = ?", imageId, userId, images.RoomsID).Updates(imagesUpdate)
+	res := repo.db.Model(&images).Where("id = ? AND user_id = ?", imagesUpdate.ID, userId).Updates(imagesUpdate)
 	if res.RowsAffected == 0 {
 		return imagesUpdate, errors.New("tidak ada pemutakhiran pada data image")
 	}
@@ -56,9 +56,9 @@ func (repo *ImagesRepository) Update(imageId int, userId int, imagesUpdate entit
 }
 
 // ======================== Delete Images =================================
-func (repo *ImagesRepository) Delete(imageId, roomId, userId uint) error {
+func (repo *ImagesRepository) Delete(imageId, userId uint) error {
 	images := entities.Images{}
-	res := repo.db.Model(&images).Where("id = ? AND rooms_id = ? AND user_id = ?", imageId, roomId, userId).Delete(&images)
+	res := repo.db.Model(&images).Where("id = ? AND user_id = ?", imageId, userId).Delete(&images)
 	if res.RowsAffected == 0 {
 		return errors.New("tidak ada image yang dihapus")
 	}
