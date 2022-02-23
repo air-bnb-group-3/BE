@@ -43,9 +43,9 @@ func (repo *CategoriesRepository) GetByID(categoryId uint) (entities.Categories,
 }
 
 // ======================== Update Category =================================
-func (repo *CategoriesRepository) Update(categoryId uint, categoriesUpdate entities.Categories) (entities.Categories, error) {
+func (repo *CategoriesRepository) Update(categoriesUpdate entities.Categories) (entities.Categories, error) {
 	categories := entities.Categories{}
-	res := repo.db.Model(&categories).Where("id = ?", categoryId).Updates(categoriesUpdate)
+	res := repo.db.Model(&categories).Updates(categoriesUpdate)
 	if res.RowsAffected == 0 {
 		return categoriesUpdate, errors.New("tidak ada pemutakhiran pada data category")
 	}
