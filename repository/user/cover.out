@@ -1,0 +1,14 @@
+mode: set
+app_airbnb/repository/user/user.go:14.39,18.2 1 1
+app_airbnb/repository/user/user.go:20.76,24.53 2 1
+app_airbnb/repository/user/user.go:28.2,28.15 1 1
+app_airbnb/repository/user/user.go:24.53,26.3 1 1
+app_airbnb/repository/user/user.go:31.70,35.37 3 1
+app_airbnb/repository/user/user.go:39.2,39.21 1 1
+app_airbnb/repository/user/user.go:35.37,37.3 1 1
+app_airbnb/repository/user/user.go:42.92,47.73 3 1
+app_airbnb/repository/user/user.go:51.2,51.18 1 1
+app_airbnb/repository/user/user.go:47.73,49.3 1 1
+app_airbnb/repository/user/user.go:54.52,58.63 2 1
+app_airbnb/repository/user/user.go:61.2,62.12 2 1
+app_airbnb/repository/user/user.go:58.63,60.3 1 1
