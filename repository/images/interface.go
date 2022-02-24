@@ -6,6 +6,6 @@ type Images interface {
 	Insert(newImage entities.Images) (entities.Images, error)
 	GetAll() ([]entities.Images, error)
 	GetById(imgId uint) (entities.Images, error)
-	Update(imgId, roomId uint, newImage entities.Images) (entities.Images, error)
-	Delete(imgId, roomId uint) error
+	Update(imgId, userId uint, newImage entities.Images) (entities.Images, error)
+	Delete(imgId, userId uint) error
 }

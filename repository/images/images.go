@@ -45,9 +45,9 @@ func (repo *ImagesRepository) GetByID(imageId uint) (entities.Images, error) {
 }
 
 // ======================== Update Images =================================
-func (repo *ImagesRepository) Update(imageId, roomId uint, imagesUpdate entities.Images) (entities.Images, error) {
+func (repo *ImagesRepository) Update(imageId, userId uint, imagesUpdate entities.Images) (entities.Images, error) {
 	images := entities.Images{}
-	res := repo.db.Model(&images).Where("id = ? AND rooms_id = ?", imageId, roomId).Updates(imagesUpdate)
+	res := repo.db.Model(&images).Where("id = ? AND user_id = ?", imageId, userId).Updates(imagesUpdate)
 	
 	if res.RowsAffected == 0 {
 		return imagesUpdate, errors.New("tidak ada pemutakhiran pada data image")
@@ -57,10 +57,10 @@ func (repo *ImagesRepository) Update(imageId, roomId uint, imagesUpdate entities
 }
 
 // ======================== Delete Images =================================
-func (repo *ImagesRepository) Delete(imageId, roomId uint) error {
+func (repo *ImagesRepository) Delete(imageId, userId uint) error {
 	images := entities.Images{}
 	
-	res := repo.db.Model(&images).Where("id = ? AND rooms_id = ?", imageId, roomId).Delete(&images)
+	res := repo.db.Model(&images).Where("id = ? AND user_id = ?", imageId, userId).Delete(&images)
 	if res.RowsAffected == 0 {
 		return errors.New("tidak ada image yang dihapus")
 	}
