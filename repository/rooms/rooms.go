@@ -52,7 +52,7 @@ func (repo *RoomsRepository) GetByID(Id uint) (entities.Rooms, error) {
 }
 
 // ======================== Update Rooms ==================================
-func (repo *RoomsRepository) Update(roomId int, userId int, roomsUpdate entities.Rooms) (entities.Rooms, error) {
+func (repo *RoomsRepository) Update(roomId uint, userId uint, roomsUpdate entities.Rooms) (entities.Rooms, error) {
 	rooms := entities.Rooms{}
 	res := repo.db.Model(&rooms).Where("id = ? AND user_id = ?", roomId, userId).Updates(roomsUpdate)
 	if res.RowsAffected == 0 {

@@ -271,7 +271,7 @@ func TestUpdateById(t *testing.T) {
 			Name: "Rumah MEWAH BROW",
 		}
 
-		resUP, err := repo.Update(int(res.ID), int(res.UserID), mockUP)
+		resUP, err := repo.Update(uint(res.ID), uint(res.UserID), mockUP)
 
 		assert.Nil(t, err)
 		assert.Equal(t, "Rumah MEWAH BROW", resUP.Name)

@@ -3,8 +3,9 @@ package route
 import (
 	"app_airbnb/delivery/controllers/admin"
 	"app_airbnb/delivery/controllers/auth"
-	"app_airbnb/delivery/controllers/categories"
-	"app_airbnb/delivery/controllers/rooms"
+
+	// "app_airbnb/delivery/controllers/categories"
+	// "app_airbnb/delivery/controllers/rooms"
 	"app_airbnb/delivery/controllers/user"
 	"app_airbnb/delivery/middlewares"
 
@@ -12,7 +13,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func RegisterPath(e *echo.Echo, uc *user.UserController, a *admin.AdminController, aa *auth.AuthController, r *rooms.RoomsController, cat *categories.CategoriesController) {
+func RegisterPath(e *echo.Echo, uc *user.UserController, a *admin.AdminController, aa *auth.AuthController) {
 	//CORS
 	e.Use(middleware.CORS())
 
@@ -35,19 +36,19 @@ func RegisterPath(e *echo.Echo, uc *user.UserController, a *admin.AdminControlle
 	e.POST("admin/register", a.Register())
 	e.GET("admin/users", a.GetAll(), middlewares.JwtMiddleware())
 
-	// ROUTE Category
-	e.POST("/categories", cat.Insert(), middlewares.JwtMiddleware())
-	e.GET("/categories", cat.GetAll())
-	e.GET("/categories/:categoryid", cat.GetById())
-	e.PUT("/categories/:categoryid", cat.Update(), middlewares.JwtMiddleware())
-	e.DELETE("/categories/:categoryid", cat.Delete(), middlewares.JwtMiddleware())
+	// // ROUTE Category
+	// e.POST("/categories", cat.Insert(), middlewares.JwtMiddleware())
+	// e.GET("/categories", cat.GetAll())
+	// e.GET("/categories/:categoryid", cat.GetById())
+	// e.PUT("/categories/:categoryid", cat.Update(), middlewares.JwtMiddleware())
+	// e.DELETE("/categories/:categoryid", cat.Delete(), middlewares.JwtMiddleware())
 
-	//ROUTE Rooms
-	e.POST("/rooms", r.Insert(), middlewares.JwtMiddleware())
-	e.GET("/rooms", r.GetAll())
-	e.GET("/rooms", r.GetByUID(), middlewares.JwtMiddleware())
-	e.GET("/rooms/:roomid", r.GetById())
-	e.PUT("/rooms/:roomid", r.Update(), middlewares.JwtMiddleware())
-	e.DELETE("/rooms/:roomid", r.Delete(), middlewares.JwtMiddleware())
+	// //ROUTE Rooms
+	// e.POST("/rooms", r.Insert(), middlewares.JwtMiddleware())
+	// e.GET("/rooms", r.GetAll())
+	// e.GET("/rooms", r.GetByUID(), middlewares.JwtMiddleware())
+	// // e.GET("/rooms/:roomid", r.GetById())
+	// e.PUT("/rooms/:roomid", r.Update(), middlewares.JwtMiddleware())
+	// e.DELETE("/rooms/:roomid", r.Delete(), middlewares.JwtMiddleware())
 
 }
