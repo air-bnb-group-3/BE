@@ -93,333 +93,333 @@ func TestCreate(t *testing.T) {
 	})
 }
 
-func TestGetById(t *testing.T) {
-	config := configs.GetConfig()
-	db := utils.InitDB(config)
-	repo := New(db)
-
-	t.Run("Success to create Images", func(t *testing.T) {
-		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-
-		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
-		resU, errU := repoU.New(db).Register(mockUser)
-		if errU != nil {
-			t.Fail()
-		}
-
-		mockCat := entities.Categories{City: "Surabaya"}
-		resC, errC := repoC.New(db).Insert(mockCat)
-		if errC != nil {
-			t.Fail()
-		}
-
-		mockRooms := entities.Rooms{
-			Name:       "Rumah",
-			UserID:     resU.ID,
-			CategoryID: resC.ID,
-		}
-		resR, errR := repoR.New(db).Insert(mockRooms)
-		if errR != nil {
-			t.Fail()
-		}
-
-		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
-		resI, errI := repo.Insert(mockImages)
-		if errI != nil {
-			t.Fail()
-		}
-
-		_, err := repo.GetByID(resI.ID)
-
-		assert.Nil(t, err)
-
-	})
-
-	t.Run("Success to create Images", func(t *testing.T) {
-		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-
-		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
-		resU, errU := repoU.New(db).Register(mockUser)
-		if errU != nil {
-			t.Fail()
-		}
-
-		mockCat := entities.Categories{City: "Surabaya"}
-		resC, errC := repoC.New(db).Insert(mockCat)
-		if errC != nil {
-			t.Fail()
-		}
-
-		mockRooms := entities.Rooms{
-			Name:       "Rumah",
-			UserID:     resU.ID,
-			CategoryID: resC.ID,
-		}
-		resR, errR := repoR.New(db).Insert(mockRooms)
-		if errR != nil {
-			t.Fail()
-		}
-
-		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
-		_, errI := repo.Insert(mockImages)
-		if errI != nil {
-			t.Fail()
-		}
-
-		_, err := repo.GetByID(10)
-
-		assert.NotNil(t, err)
-
-	})
-}
-
-func TestUpdateById(t *testing.T) {
-	config := configs.GetConfig()
-	db := utils.InitDB(config)
-	repo := New(db)
-
-	t.Run("Success to create Images", func(t *testing.T) {
-		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-
-		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
-		resU, errU := repoU.New(db).Register(mockUser)
-		if errU != nil {
-			t.Fail()
-		}
-
-		mockCat := entities.Categories{City: "Surabaya"}
-		resC, errC := repoC.New(db).Insert(mockCat)
-		if errC != nil {
-			t.Fail()
-		}
-
-		mockRooms := entities.Rooms{
-			Name:       "Rumah",
-			UserID:     resU.ID,
-			CategoryID: resC.ID,
-		}
-		resR, errR := repoR.New(db).Insert(mockRooms)
-		if errR != nil {
-			t.Fail()
-		}
-
-		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
-		_, errI := repo.Insert(mockImages)
-		if errI != nil {
-			t.Fail()
-		}
-		mockUp := entities.Images{Image: "iuiubbnijbi"}
-		roomId := 1
-		imgId := 1
-		_, err := repo.Update(uint(imgId), uint(roomId), mockUp)
-
-		assert.Nil(t, err)
-
-	})
-
-	t.Run("Success to create Images", func(t *testing.T) {
-		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-
-		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
-		resU, errU := repoU.New(db).Register(mockUser)
-		if errU != nil {
-			t.Fail()
-		}
-
-		mockCat := entities.Categories{City: "Surabaya"}
-		resC, errC := repoC.New(db).Insert(mockCat)
-		if errC != nil {
-			t.Fail()
-		}
-
-		mockRooms := entities.Rooms{
-			Name:       "Rumah",
-			UserID:     resU.ID,
-			CategoryID: resC.ID,
-		}
-		resR, errR := repoR.New(db).Insert(mockRooms)
-		if errR != nil {
-			t.Fail()
-		}
-
-		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
-		_, errI := repo.Insert(mockImages)
-		if errI != nil {
-			t.Fail()
-		}
-
-		mockUp := entities.Images{RoomsID: resR.ID, Image: "jhsfkuabkjabkb"}
-		_, err := repo.Update(10, 10, mockUp)
-
-		assert.NotNil(t, err)
-
-	})
-}
-
-func TestDeleteById(t *testing.T) {
-	config := configs.GetConfig()
-	db := utils.InitDB(config)
-	repo := New(db)
-
-	t.Run("Success to create Images", func(t *testing.T) {
-		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-
-		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
-		resU, errU := repoU.New(db).Register(mockUser)
-		if errU != nil {
-			t.Fail()
-		}
-
-		mockCat := entities.Categories{City: "Surabaya"}
-		resC, errC := repoC.New(db).Insert(mockCat)
-		if errC != nil {
-			t.Fail()
-		}
-
-		mockRooms := entities.Rooms{
-			Name:       "Rumah",
-			UserID:     resU.ID,
-			CategoryID: resC.ID,
-		}
-		resR, errR := repoR.New(db).Insert(mockRooms)
-		if errR != nil {
-			t.Fail()
-		}
-
-		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
-		resI, errI := repo.Insert(mockImages)
-		if errI != nil {
-			t.Fail()
-		}
-
-		err := repo.Delete(resI.ID, resR.UserID)
-
-		assert.Nil(t, err)
-
-	})
-
-	t.Run("Success to create Images", func(t *testing.T) {
-		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-
-		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
-		resU, errU := repoU.New(db).Register(mockUser)
-		if errU != nil {
-			t.Fail()
-		}
-
-		mockCat := entities.Categories{City: "Surabaya"}
-		resC, errC := repoC.New(db).Insert(mockCat)
-		if errC != nil {
-			t.Fail()
-		}
-
-		mockRooms := entities.Rooms{
-			Name:       "Rumah",
-			UserID:     resU.ID,
-			CategoryID: resC.ID,
-		}
-		resR, errR := repoR.New(db).Insert(mockRooms)
-		if errR != nil {
-			t.Fail()
-		}
-
-		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
-		_, errI := repo.Insert(mockImages)
-		if errI != nil {
-			t.Fail()
-		}
-
-		err := repo.Delete(10, 10)
-
-		assert.NotNil(t, err)
-
-	})
-}
-
-func TestGetALL(t *testing.T) {
-	config := configs.GetConfig()
-	db := utils.InitDB(config)
-	repo := New(db)
-
-	t.Run("Success to create Images", func(t *testing.T) {
-		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-
-		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
-		resU, errU := repoU.New(db).Register(mockUser)
-		if errU != nil {
-			t.Fail()
-		}
-
-		mockCat := entities.Categories{City: "Surabaya"}
-		resC, errC := repoC.New(db).Insert(mockCat)
-		if errC != nil {
-			t.Fail()
-		}
-
-		mockRooms := entities.Rooms{
-			Name:       "Rumah",
-			UserID:     resU.ID,
-			CategoryID: resC.ID,
-		}
-		resR, errR := repoR.New(db).Insert(mockRooms)
-		if errR != nil {
-			t.Fail()
-		}
-
-		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
-		_, errI := repo.Insert(mockImages)
-		if errI != nil {
-			t.Fail()
-		}
-
-		_, err := repo.GetAll()
-
-		assert.Nil(t, err)
-
-	})
-
-	t.Run("Success to create Images", func(t *testing.T) {
-		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
-
-		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
-		resU, errU := repoU.New(db).Register(mockUser)
-		if errU != nil {
-			t.Fail()
-		}
-
-		mockCat := entities.Categories{City: "Surabaya"}
-		resC, errC := repoC.New(db).Insert(mockCat)
-		if errC != nil {
-			t.Fail()
-		}
-
-		mockRooms := entities.Rooms{
-			Name:       "Rumah",
-			UserID:     resU.ID,
-			CategoryID: resC.ID,
-		}
-		resR, errR := repoR.New(db).Insert(mockRooms)
-		if errR != nil {
-			t.Fail()
-		}
-
-		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
-		_, errI := repo.Insert(mockImages)
-		if errI != nil {
-			t.Fail()
-		}
-
-		_, err := repo.GetAll()
-
-		assert.Nil(t, err)
-
-	})
-}
+// func TestGetById(t *testing.T) {
+// 	config := configs.GetConfig()
+// 	db := utils.InitDB(config)
+// 	repo := New(db)
+
+// 	t.Run("Success to create Images", func(t *testing.T) {
+// 		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+// 		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+
+// 		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
+// 		resU, errU := repoU.New(db).Register(mockUser)
+// 		if errU != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockCat := entities.Categories{City: "Surabaya"}
+// 		resC, errC := repoC.New(db).Insert(mockCat)
+// 		if errC != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockRooms := entities.Rooms{
+// 			Name:       "Rumah",
+// 			UserID:     resU.ID,
+// 			CategoryID: resC.ID,
+// 		}
+// 		resR, errR := repoR.New(db).Insert(mockRooms)
+// 		if errR != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
+// 		resI, errI := repo.Insert(mockImages)
+// 		if errI != nil {
+// 			t.Fail()
+// 		}
+
+// 		_, err := repo.GetByID(resI.ID)
+
+// 		assert.Nil(t, err)
+
+// 	})
+
+// 	t.Run("Success to create Images", func(t *testing.T) {
+// 		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+// 		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+
+// 		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
+// 		resU, errU := repoU.New(db).Register(mockUser)
+// 		if errU != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockCat := entities.Categories{City: "Surabaya"}
+// 		resC, errC := repoC.New(db).Insert(mockCat)
+// 		if errC != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockRooms := entities.Rooms{
+// 			Name:       "Rumah",
+// 			UserID:     resU.ID,
+// 			CategoryID: resC.ID,
+// 		}
+// 		resR, errR := repoR.New(db).Insert(mockRooms)
+// 		if errR != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
+// 		_, errI := repo.Insert(mockImages)
+// 		if errI != nil {
+// 			t.Fail()
+// 		}
+
+// 		_, err := repo.GetByID(10)
+
+// 		assert.NotNil(t, err)
+
+// 	})
+// }
+
+// func TestUpdateById(t *testing.T) {
+// 	config := configs.GetConfig()
+// 	db := utils.InitDB(config)
+// 	repo := New(db)
+
+// 	t.Run("Success to create Images", func(t *testing.T) {
+// 		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+// 		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+
+// 		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
+// 		resU, errU := repoU.New(db).Register(mockUser)
+// 		if errU != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockCat := entities.Categories{City: "Surabaya"}
+// 		resC, errC := repoC.New(db).Insert(mockCat)
+// 		if errC != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockRooms := entities.Rooms{
+// 			Name:       "Rumah",
+// 			UserID:     resU.ID,
+// 			CategoryID: resC.ID,
+// 		}
+// 		resR, errR := repoR.New(db).Insert(mockRooms)
+// 		if errR != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
+// 		_, errI := repo.Insert(mockImages)
+// 		if errI != nil {
+// 			t.Fail()
+// 		}
+// 		mockUp := entities.Images{Image: "iuiubbnijbi"}
+// 		roomId := 1
+// 		imgId := 1
+// 		_, err := repo.Update(uint(imgId), uint(roomId), mockUp)
+
+// 		assert.Nil(t, err)
+
+// 	})
+
+// 	t.Run("Success to create Images", func(t *testing.T) {
+// 		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+// 		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+
+// 		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
+// 		resU, errU := repoU.New(db).Register(mockUser)
+// 		if errU != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockCat := entities.Categories{City: "Surabaya"}
+// 		resC, errC := repoC.New(db).Insert(mockCat)
+// 		if errC != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockRooms := entities.Rooms{
+// 			Name:       "Rumah",
+// 			UserID:     resU.ID,
+// 			CategoryID: resC.ID,
+// 		}
+// 		resR, errR := repoR.New(db).Insert(mockRooms)
+// 		if errR != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
+// 		_, errI := repo.Insert(mockImages)
+// 		if errI != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockUp := entities.Images{RoomsID: resR.ID, Image: "jhsfkuabkjabkb"}
+// 		_, err := repo.Update(10, 10, mockUp)
+
+// 		assert.NotNil(t, err)
+
+// 	})
+// }
+
+// func TestDeleteById(t *testing.T) {
+// 	config := configs.GetConfig()
+// 	db := utils.InitDB(config)
+// 	repo := New(db)
+
+// 	t.Run("Success to create Images", func(t *testing.T) {
+// 		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+// 		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+
+// 		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
+// 		resU, errU := repoU.New(db).Register(mockUser)
+// 		if errU != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockCat := entities.Categories{City: "Surabaya"}
+// 		resC, errC := repoC.New(db).Insert(mockCat)
+// 		if errC != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockRooms := entities.Rooms{
+// 			Name:       "Rumah",
+// 			UserID:     resU.ID,
+// 			CategoryID: resC.ID,
+// 		}
+// 		resR, errR := repoR.New(db).Insert(mockRooms)
+// 		if errR != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
+// 		resI, errI := repo.Insert(mockImages)
+// 		if errI != nil {
+// 			t.Fail()
+// 		}
+
+// 		err := repo.Delete(resI.ID, resR.UserID)
+
+// 		assert.Nil(t, err)
+
+// 	})
+
+// 	t.Run("Success to create Images", func(t *testing.T) {
+// 		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+// 		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+
+// 		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
+// 		resU, errU := repoU.New(db).Register(mockUser)
+// 		if errU != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockCat := entities.Categories{City: "Surabaya"}
+// 		resC, errC := repoC.New(db).Insert(mockCat)
+// 		if errC != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockRooms := entities.Rooms{
+// 			Name:       "Rumah",
+// 			UserID:     resU.ID,
+// 			CategoryID: resC.ID,
+// 		}
+// 		resR, errR := repoR.New(db).Insert(mockRooms)
+// 		if errR != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
+// 		_, errI := repo.Insert(mockImages)
+// 		if errI != nil {
+// 			t.Fail()
+// 		}
+
+// 		err := repo.Delete(10, 10)
+
+// 		assert.NotNil(t, err)
+
+// 	})
+// }
+
+// func TestGetALL(t *testing.T) {
+// 	config := configs.GetConfig()
+// 	db := utils.InitDB(config)
+// 	repo := New(db)
+
+// 	t.Run("Success to create Images", func(t *testing.T) {
+// 		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+// 		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+
+// 		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
+// 		resU, errU := repoU.New(db).Register(mockUser)
+// 		if errU != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockCat := entities.Categories{City: "Surabaya"}
+// 		resC, errC := repoC.New(db).Insert(mockCat)
+// 		if errC != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockRooms := entities.Rooms{
+// 			Name:       "Rumah",
+// 			UserID:     resU.ID,
+// 			CategoryID: resC.ID,
+// 		}
+// 		resR, errR := repoR.New(db).Insert(mockRooms)
+// 		if errR != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
+// 		_, errI := repo.Insert(mockImages)
+// 		if errI != nil {
+// 			t.Fail()
+// 		}
+
+// 		_, err := repo.GetAll()
+
+// 		assert.Nil(t, err)
+
+// 	})
+
+// 	t.Run("Success to create Images", func(t *testing.T) {
+// 		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+// 		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{}, &entities.Images{})
+
+// 		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
+// 		resU, errU := repoU.New(db).Register(mockUser)
+// 		if errU != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockCat := entities.Categories{City: "Surabaya"}
+// 		resC, errC := repoC.New(db).Insert(mockCat)
+// 		if errC != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockRooms := entities.Rooms{
+// 			Name:       "Rumah",
+// 			UserID:     resU.ID,
+// 			CategoryID: resC.ID,
+// 		}
+// 		resR, errR := repoR.New(db).Insert(mockRooms)
+// 		if errR != nil {
+// 			t.Fail()
+// 		}
+
+// 		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
+// 		_, errI := repo.Insert(mockImages)
+// 		if errI != nil {
+// 			t.Fail()
+// 		}
+
+// 		_, err := repo.GetAll()
+
+// 		assert.Nil(t, err)
+
+// 	})
+// }
