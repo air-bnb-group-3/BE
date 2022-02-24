@@ -24,12 +24,12 @@ func (RCRF RoomCreateRequestFormat) ToRoomEntity(UserID uint) entities.Rooms {
 		TotalPerson: RCRF.TotalPerson,
 		TotalRooms:  RCRF.TotalRooms,
 		SizeBed:     RCRF.SizeBed,
-		DateStock:   RCRF.DateStock,
 		UserID:      UserID,
 	}
 }
 
 type RoomCreateResponseFormat struct {
+	ID          uint   `json:"id"`
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
@@ -42,6 +42,7 @@ type RoomCreateResponseFormat struct {
 
 func ToRoomCreateResponseFormat(RoomResponse entities.Rooms) RoomCreateResponseFormat {
 	return RoomCreateResponseFormat{
+		ID:          RoomResponse.ID,
 		CategoryID:  RoomResponse.CategoryID,
 		Name:        RoomResponse.Name,
 		Description: RoomResponse.Description,
@@ -49,11 +50,11 @@ func ToRoomCreateResponseFormat(RoomResponse entities.Rooms) RoomCreateResponseF
 		TotalPerson: RoomResponse.TotalPerson,
 		TotalRooms:  RoomResponse.TotalRooms,
 		SizeBed:     RoomResponse.SizeBed,
-		DateStock:   RoomResponse.DateStock,
 	}
 }
 
 type RoomGetResponseFormat struct {
+	ID          uint   `json:"id"`
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
@@ -67,6 +68,7 @@ type RoomGetResponseFormat struct {
 func ToRoomGetResponseFormat(RoomResponses []entities.Rooms) []RoomGetResponseFormat {
 	RoomGetResponses := make([]RoomGetResponseFormat, len(RoomResponses))
 	for i := 0; i < len(RoomResponses); i++ {
+		RoomGetResponses[i].ID = RoomResponses[i].ID
 		RoomGetResponses[i].CategoryID = RoomResponses[i].CategoryID
 		RoomGetResponses[i].Name = RoomResponses[i].Name
 		RoomGetResponses[i].Description = RoomResponses[i].Description
@@ -74,12 +76,12 @@ func ToRoomGetResponseFormat(RoomResponses []entities.Rooms) []RoomGetResponseFo
 		RoomGetResponses[i].TotalPerson = RoomResponses[i].TotalPerson
 		RoomGetResponses[i].TotalRooms = RoomResponses[i].TotalRooms
 		RoomGetResponses[i].SizeBed = RoomResponses[i].SizeBed
-		RoomGetResponses[i].DateStock = RoomResponses[i].DateStock
 	}
 	return RoomGetResponses
 }
 
 type RoomGetByIdResponseFormat struct {
+	ID          uint   `json:"id"`
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
@@ -92,6 +94,7 @@ type RoomGetByIdResponseFormat struct {
 
 func ToRoomByIdGetResponseFormat(RoomResponse entities.Rooms) RoomGetByIdResponseFormat {
 	return RoomGetByIdResponseFormat{
+		ID:          RoomResponse.ID,
 		CategoryID:  RoomResponse.CategoryID,
 		Name:        RoomResponse.Name,
 		Description: RoomResponse.Description,
@@ -99,7 +102,6 @@ func ToRoomByIdGetResponseFormat(RoomResponse entities.Rooms) RoomGetByIdRespons
 		TotalPerson: RoomResponse.TotalPerson,
 		TotalRooms:  RoomResponse.TotalRooms,
 		SizeBed:     RoomResponse.SizeBed,
-		DateStock:   RoomResponse.DateStock,
 	}
 }
 
@@ -123,11 +125,11 @@ func (URRF UpdateRoomRequestFormat) ToUpdateRoomRequestFormat() entities.Rooms {
 		TotalPerson: URRF.TotalPerson,
 		TotalRooms:  URRF.TotalRooms,
 		SizeBed:     URRF.SizeBed,
-		DateStock:   URRF.DateStock,
 	}
 }
 
 type UpdateRoomResponseFormat struct {
+	ID          uint   `json:"id"`
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
@@ -140,6 +142,7 @@ type UpdateRoomResponseFormat struct {
 
 func ToUpdateRoomResponseFormat(RoomResponse entities.Rooms) UpdateRoomResponseFormat {
 	return UpdateRoomResponseFormat{
+		ID:          RoomResponse.ID,
 		CategoryID:  RoomResponse.CategoryID,
 		Name:        RoomResponse.Name,
 		Description: RoomResponse.Description,
@@ -147,6 +150,5 @@ func ToUpdateRoomResponseFormat(RoomResponse entities.Rooms) UpdateRoomResponseF
 		TotalPerson: RoomResponse.TotalPerson,
 		TotalRooms:  RoomResponse.TotalRooms,
 		SizeBed:     RoomResponse.SizeBed,
-		DateStock:   RoomResponse.DateStock,
 	}
 }

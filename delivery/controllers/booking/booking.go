@@ -33,7 +33,7 @@ func (bc *BookingController) Create() echo.HandlerFunc {
 				nil))
 		}
 
-		res, err := bc.repo.Create(user_id, entities.Booking{RoomsID: uint(newBooking.RoomsID), DateTime: newBooking.DateTime})
+		res, err := bc.repo.Create(user_id, entities.Booking{RoomsID: uint(newBooking.RoomsID)})
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(
@@ -101,7 +101,7 @@ func (bc *BookingController) Update() echo.HandlerFunc {
 			))
 		}
 
-		res, err := bc.repo.Update(user_id, entities.Booking{RoomsID: upBooking.RoomsID, DateTime: upBooking.DateTime})
+		res, err := bc.repo.Update(user_id, entities.Booking{RoomsID: upBooking.RoomsID})
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(
