@@ -49,11 +49,22 @@ func (ctrl *RoomsController) GetAll() echo.HandlerFunc {
 	}
 }
 
+func (ctrl *RoomsController) GetByUID() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		userID := middlewares.ExtractTokenId(c)
+		res, err := ctrl.repo.GetByUID(uint(userID))
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))
+		}
+		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success Get All Room", ToRoomGetResponseFormat(res)))
+	}
+}
+
 func (ctrl *RoomsController) GetById() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		roomId, _ := strconv.Atoi(c.Param("roomid"))
+		Id, _ := strconv.Atoi(c.Param("roomid"))
 
-		res, err := ctrl.repo.GetById(uint(roomId))
+		res, err := ctrl.repo.GetById(uint(Id))
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))

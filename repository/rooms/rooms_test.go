@@ -160,6 +160,81 @@ func TestGetById(t *testing.T) {
 	})
 }
 
+func TestGetByUId(t *testing.T) {
+	config := configs.GetConfig()
+	db := utils.InitDB(config)
+	repo := New(db)
+
+	t.Run("Success to create rooms", func(t *testing.T) {
+		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{})
+		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{})
+
+		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
+		resU, errU := repoU.New(db).Register(mockUser)
+		if errU != nil {
+			t.Fail()
+		}
+
+		mockCat := entities.Categories{City: "Surabaya"}
+		resC, errC := repoC.New(db).Insert(mockCat)
+		if errC != nil {
+			t.Fail()
+		}
+
+		mockRooms := entities.Rooms{
+			Name:       "Rumah",
+			UserID:     resU.ID,
+			CategoryID: resC.ID,
+			DateStock:  "2022-02-23",
+		}
+		_, errR := repo.Insert(mockRooms)
+		if errR != nil {
+			t.Fatal()
+		}
+
+		_, err := repo.GetByUID(resU.ID)
+
+		assert.Nil(t, err)
+
+	})
+
+	t.Run("Fail to create rooms", func(t *testing.T) {
+		db.Migrator().DropTable(&entities.Rooms{}, &entities.User{}, &entities.Categories{})
+		db.AutoMigrate(&entities.Rooms{}, &entities.User{}, &entities.Categories{})
+
+		mockUser := entities.User{Name: "test", Email: "test", Password: "test"}
+		resU, errU := repoU.New(db).Register(mockUser)
+		if errU != nil {
+			t.Fail()
+		}
+
+		mockCat := entities.Categories{City: "Surabaya"}
+		resC, errC := repoC.New(db).Insert(mockCat)
+		if errC != nil {
+			t.Fail()
+		}
+
+		mockRooms := entities.Rooms{
+			Name:       "Rumah",
+			UserID:     resU.ID,
+			CategoryID: resC.ID,
+			DateStock:  "2022-02-23",
+		}
+		_, errr := repo.Insert(mockRooms)
+		if errr != nil {
+			t.Fail()
+		}
+
+		if err := repo.Delete(1, resU.ID); err != nil {
+			t.Fail()
+		}
+
+		_, errA := repo.GetByUID(1000)
+		assert.Nil(t, errA)
+
+	})
+}
+
 func TestUpdateById(t *testing.T) {
 	config := configs.GetConfig()
 	db := utils.InitDB(config)

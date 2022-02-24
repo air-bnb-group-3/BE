@@ -1,8 +1,8 @@
 package rooms
 
 import (
-	"errors"
 	"app_airbnb/entities"
+	"errors"
 
 	"gorm.io/gorm"
 )
@@ -33,10 +33,19 @@ func (repo *RoomsRepository) GetAll() ([]entities.Rooms, error) {
 	return rooms, nil
 }
 
+// ======================== Get Rooms By User_ID ==================================
+func (repo *RoomsRepository) GetByUID(userId uint) ([]entities.Rooms, error) {
+	room := []entities.Rooms{}
+	if err := repo.db.Model(&room).Where("user_id = ?", userId).Find(&room).Error; err != nil {
+		return room, errors.New("room yang dipilih belum tersedia")
+	}
+	return room, nil
+}
+
 // ======================== Get Rooms By ID ==================================
-func (repo *RoomsRepository) GetByID(roomId uint) (entities.Rooms, error) {
+func (repo *RoomsRepository) GetByID(Id uint) (entities.Rooms, error) {
 	room := entities.Rooms{}
-	if err := repo.db.Model(&room).Where("id = ?", roomId).First(&room).Error; err != nil {
+	if err := repo.db.Model(&room).Where("id = ?", Id).First(&room).Error; err != nil {
 		return room, errors.New("room yang dipilih belum tersedia")
 	}
 	return room, nil

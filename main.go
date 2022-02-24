@@ -5,8 +5,6 @@ import (
 	_adminController "app_airbnb/delivery/controllers/admin"
 	_authController "app_airbnb/delivery/controllers/auth"
 	_categoryController "app_airbnb/delivery/controllers/categories"
-
-	// _imagesController "app_airbnb/delivery/controllers/images"
 	_roomsController "app_airbnb/delivery/controllers/rooms"
 	_userController "app_airbnb/delivery/controllers/user"
 
@@ -32,7 +30,6 @@ func main() {
 	userRepo := _userRepo.New(db)
 	authRepo := _authRepo.New(db)
 	adminRepo := _adminRepo.New(db)
-	// imageRepo := _imagesRepo.New(db)
 	roomsRepo := _roomsRepo.New(db)
 	categoryRepo := _categoryRepo.New(db)
 
@@ -40,7 +37,6 @@ func main() {
 	userController := _userController.New(userRepo)
 	authController := _authController.New(authRepo)
 	adminController := _adminController.New(adminRepo)
-	// imagesController := _imagesController.New(imageRepo)
 	roomsController := _roomsController.New(roomsRepo)
 	categoryController := _categoryController.New(categoryRepo)
 
