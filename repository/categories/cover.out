@@ -9,7 +9,7 @@ app_airbnb/repository/categories/categories.go:30.25,32.3 1 1
 app_airbnb/repository/categories/categories.go:37.89,39.100 2 1
 app_airbnb/repository/categories/categories.go:42.2,42.22 1 1
 app_airbnb/repository/categories/categories.go:39.100,41.3 1 1
-app_airbnb/repository/categories/categories.go:46.126,49.27 3 1
+app_airbnb/repository/categories/categories.go:46.125,49.27 2 1
 app_airbnb/repository/categories/categories.go:52.2,53.30 2 1
 app_airbnb/repository/categories/categories.go:49.27,51.3 1 1
 app_airbnb/repository/categories/categories.go:57.65,60.27 3 1
