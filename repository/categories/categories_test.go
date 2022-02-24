@@ -82,7 +82,7 @@ func TestGetById(t *testing.T) {
 			t.Fatal()
 		}
 
-		_, errU := repo.GetByID(1)
+		_, errU := repo.GetById(1)
 		assert.Nil(t, errU)
 
 	})
@@ -95,7 +95,7 @@ func TestGetById(t *testing.T) {
 			t.Fatal()
 		}
 		repo.Delete(1)
-		_, errU := repo.GetByID(1)
+		_, errU := repo.GetById(1)
 		assert.NotNil(t, errU)
 	})
 }

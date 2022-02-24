@@ -121,7 +121,7 @@ func TestGetById(t *testing.T) {
 			t.Fatal()
 		}
 
-		_, err := repo.GetByID(1)
+		_, err := repo.GetById(1)
 
 		assert.Nil(t, err)
 
@@ -154,7 +154,7 @@ func TestGetById(t *testing.T) {
 			t.Fail()
 		}
 
-		_, errA := repo.GetByID(10)
+		_, errA := repo.GetById(10)
 		assert.NotNil(t, errA)
 
 	})
