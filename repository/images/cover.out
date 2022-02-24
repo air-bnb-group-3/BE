@@ -9,9 +9,9 @@ app_airbnb/repository/images/images.go:32.21,34.3 1 0
 app_airbnb/repository/images/images.go:39.78,41.91 2 1
 app_airbnb/repository/images/images.go:44.2,44.19 1 1
 app_airbnb/repository/images/images.go:41.91,43.3 1 1
-app_airbnb/repository/images/images.go:48.105,53.27 2 1
-app_airbnb/repository/images/images.go:56.2,57.26 2 1
-app_airbnb/repository/images/images.go:53.27,55.3 1 1
-app_airbnb/repository/images/images.go:61.66,65.27 4 1
-app_airbnb/repository/images/images.go:68.2,68.12 1 0
-app_airbnb/repository/images/images.go:65.27,67.3 1 1
+app_airbnb/repository/images/images.go:48.115,52.27 3 1
+app_airbnb/repository/images/images.go:55.2,56.26 2 1
+app_airbnb/repository/images/images.go:52.27,54.3 1 1
+app_airbnb/repository/images/images.go:60.66,64.27 3 1
+app_airbnb/repository/images/images.go:67.2,67.12 1 1
+app_airbnb/repository/images/images.go:64.27,66.3 1 1
