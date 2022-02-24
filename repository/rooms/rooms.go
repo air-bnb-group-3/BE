@@ -43,7 +43,7 @@ func (repo *RoomsRepository) GetByUID(userId uint) ([]entities.Rooms, error) {
 }
 
 // ======================== Get Rooms By ID ==================================
-func (repo *RoomsRepository) GetByID(Id uint) (entities.Rooms, error) {
+func (repo *RoomsRepository) GetById(Id uint) (entities.Rooms, error) {
 	room := entities.Rooms{}
 	if err := repo.db.Model(&room).Where("id = ?", Id).First(&room).Error; err != nil {
 		return room, errors.New("room yang dipilih belum tersedia")
