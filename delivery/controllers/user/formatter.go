@@ -13,14 +13,14 @@ type CreateUserRequestFormat struct {
 }
 
 type CreateUserResponseFormat struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 func ToCreateUserResponseFormat(UserResponse entities.User) CreateUserResponseFormat {
 	return CreateUserResponseFormat{
-		Name:     UserResponse.Name,
-		Email:    UserResponse.Email,
+		Name:  UserResponse.Name,
+		Email: UserResponse.Email,
 	}
 }
 
@@ -41,25 +41,55 @@ type UpdateUserRequestFormat struct {
 // }
 
 type UpdateUserResponseFormat struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 func ToUpdateUserResponseFormat(UserResponse entities.User) UpdateUserResponseFormat {
 	return UpdateUserResponseFormat{
-		Name:     UserResponse.Name,
-		Email:    UserResponse.Email,
+		Name:  UserResponse.Name,
+		Email: UserResponse.Email,
 	}
 }
 
 type GetUserByIdResponseFormat struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 func ToGetUserByIdResponseFormat(UserResponse entities.User) GetUserByIdResponseFormat {
 	return GetUserByIdResponseFormat{
-		Name:     UserResponse.Name,
-		Email:    UserResponse.Email,
+		Name:  UserResponse.Name,
+		Email: UserResponse.Email,
 	}
+}
+
+type InsertUserResponseFormat struct {
+	Code    int           `json:"code"`
+	Message string        `json:"message"`
+	Data    entities.User `json:"data"`
+}
+
+type GetUsersResponseFormat struct {
+	Code    int             `json:"code"`
+	Message string          `json:"message"`
+	Data    []entities.User `json:"data"`
+}
+
+type GetAllUserResponseFormat struct {
+	Code    int           `json:"code"`
+	Message string        `json:"message"`
+	Data    entities.User `json:"data"`
+}
+
+type UpdateResponseFormat struct {
+	Code    int           `json:"code"`
+	Message string        `json:"message"`
+	Data    entities.User `json:"data"`
+}
+
+type DeleteUserResponseFormat struct {
+	Code    int         `json:"code"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data"`
 }
