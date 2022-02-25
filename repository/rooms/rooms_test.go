@@ -5,7 +5,7 @@ import (
 	"app_airbnb/entities"
 	repoC "app_airbnb/repository/categories"
 	repoU "app_airbnb/repository/user"
-	"app_airbnb/utils"
+	utils "app_airbnb/utils/mysql"
 	"testing"
 
 	"github.com/labstack/gommon/log"

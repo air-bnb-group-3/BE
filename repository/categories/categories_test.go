@@ -3,7 +3,7 @@ package categories
 import (
 	"app_airbnb/configs"
 	"app_airbnb/entities"
-	"app_airbnb/utils"
+	utils "app_airbnb/utils/mysql"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

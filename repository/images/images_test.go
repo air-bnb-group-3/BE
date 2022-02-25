@@ -6,7 +6,7 @@ import (
 	repoC "app_airbnb/repository/categories"
 	repoR "app_airbnb/repository/rooms"
 	repoU "app_airbnb/repository/user"
-	"app_airbnb/utils"
+	utils "app_airbnb/utils/mysql"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -220,7 +220,7 @@ func TestUpdateById(t *testing.T) {
 		roomId := 1
 		imgId := 1
 		_, err := repo.Update(uint(imgId), uint(roomId), mockUp)
-		
+
 		assert.Nil(t, err)
 
 	})

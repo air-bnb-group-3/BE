@@ -17,7 +17,7 @@ import (
 	_roomsRepo "app_airbnb/repository/rooms"
 	_userRepo "app_airbnb/repository/user"
 
-	"app_airbnb/utils"
+	utils "app_airbnb/utils/mysql"
 	"fmt"
 	"log"
 
