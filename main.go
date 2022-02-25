@@ -20,7 +20,7 @@ import (
 	_userRepo "app_airbnb/repository/user"
 
 	awss3 "app_airbnb/utils/aws_S3"
-	midtrans "app_airbnb/utils/midtrans"
+	// midtrans "app_airbnb/utils/midtrans"
 	utils "app_airbnb/utils/mysql"
 	"fmt"
 	"log"
@@ -53,8 +53,8 @@ func main() {
 
 	route.RegisterPath(e, userController, adminController, authController, categoryController, roomsController, imageController)
 
-	c := midtrans.InitConnection()
-	midtrans.CreateTransaction(c)
+	// c := midtrans.InitConnection()
+	// midtrans.CreateTransaction(c)
 
 	log.Fatal(e.Start(fmt.Sprintf(":%d", config.Port)))
 
