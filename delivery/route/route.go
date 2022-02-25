@@ -5,6 +5,7 @@ import (
 	"app_airbnb/delivery/controllers/auth"
 
 	"app_airbnb/delivery/controllers/categories"
+	"app_airbnb/delivery/controllers/images"
 	"app_airbnb/delivery/controllers/rooms"
 	"app_airbnb/delivery/controllers/user"
 	"app_airbnb/delivery/middlewares"
@@ -13,7 +14,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func RegisterPath(e *echo.Echo, uc *user.UserController, a *admin.AdminController, aa *auth.AuthController, cat *categories.CategoriesController, r *rooms.RoomsController) {
+func RegisterPath(e *echo.Echo, uc *user.UserController, a *admin.AdminController, aa *auth.AuthController, cat *categories.CategoriesController, r *rooms.RoomsController, i *images.ImagesController) {
 	//CORS
 	e.Use(middleware.CORS())
 
@@ -50,5 +51,8 @@ func RegisterPath(e *echo.Echo, uc *user.UserController, a *admin.AdminControlle
 	e.GET("/rooms/:roomid", r.GetById())
 	e.PUT("/rooms/:roomid", r.Update(), middlewares.JwtMiddleware())
 	e.DELETE("/rooms/:roomid", r.Delete(), middlewares.JwtMiddleware())
+
+	//ROUTE Images
+	e.POST("/images/:roomsid", i.Insert(), middlewares.JwtMiddleware())
 
 }

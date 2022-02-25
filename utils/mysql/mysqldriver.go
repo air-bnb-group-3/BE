@@ -36,4 +36,5 @@ func AutoMigrate(DB *gorm.DB) {
 	DB.AutoMigrate(&entities.Images{})
 	DB.AutoMigrate(&entities.Categories{})
 	DB.AutoMigrate(&entities.Rooms{})
+	DB.AutoMigrate(&entities.Images{})
 }
