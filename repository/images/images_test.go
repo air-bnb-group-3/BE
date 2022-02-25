@@ -38,7 +38,6 @@ func TestCreate(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		resR, errR := repoR.New(db).Insert(mockRooms)
 		if errR != nil {
@@ -74,7 +73,6 @@ func TestCreate(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		resR, errR := repoR.New(db).Insert(mockRooms)
 		if errR != nil {
@@ -120,7 +118,6 @@ func TestGetById(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		resR, errR := repoR.New(db).Insert(mockRooms)
 		if errR != nil {
@@ -159,7 +156,6 @@ func TestGetById(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		resR, errR := repoR.New(db).Insert(mockRooms)
 		if errR != nil {
@@ -204,7 +200,6 @@ func TestUpdateById(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		resR, errR := repoR.New(db).Insert(mockRooms)
 		if errR != nil {
@@ -245,7 +240,6 @@ func TestUpdateById(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		resR, errR := repoR.New(db).Insert(mockRooms)
 		if errR != nil {
@@ -291,7 +285,6 @@ func TestDeleteById(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		resR, errR := repoR.New(db).Insert(mockRooms)
 		if errR != nil {
@@ -330,7 +323,6 @@ func TestDeleteById(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		resR, errR := repoR.New(db).Insert(mockRooms)
 		if errR != nil {
@@ -375,7 +367,6 @@ func TestGetALL(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		resR, errR := repoR.New(db).Insert(mockRooms)
 		if errR != nil {
@@ -414,7 +405,6 @@ func TestGetALL(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		resR, errR := repoR.New(db).Insert(mockRooms)
 		if errR != nil {

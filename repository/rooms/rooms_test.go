@@ -38,7 +38,6 @@ func TestCreate(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		res, err := repo.Insert(mockRooms)
 		log.Info(err)
@@ -68,7 +67,6 @@ func TestCreate(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		_, errr := repo.Insert(mockRooms)
 		if errr != nil {
@@ -80,7 +78,6 @@ func TestCreate(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     1,
 			CategoryID: 1,
-			DateStock:  "2022-02-23",
 		}
 		_, err := repo.Insert(mockRoomss)
 
@@ -114,7 +111,6 @@ func TestGetById(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		_, errR := repo.Insert(mockRooms)
 		if errR != nil {
@@ -147,7 +143,6 @@ func TestGetById(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		_, errr := repo.Insert(mockRooms)
 		if errr != nil {
@@ -185,7 +180,6 @@ func TestGetByUId(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		_, errR := repo.Insert(mockRooms)
 		if errR != nil {
@@ -218,7 +212,6 @@ func TestGetByUId(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		_, errr := repo.Insert(mockRooms)
 		if errr != nil {
@@ -260,7 +253,6 @@ func TestUpdateById(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		res, errR := repo.Insert(mockRooms)
 		if errR != nil {
@@ -298,7 +290,6 @@ func TestUpdateById(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		_, errr := repo.Insert(mockRooms)
 		if errr != nil {
@@ -340,7 +331,6 @@ func TestDeleteById(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		res, errR := repo.Insert(mockRooms)
 		if errR != nil {
@@ -373,7 +363,6 @@ func TestDeleteById(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		_, errr := repo.Insert(mockRooms)
 		if errr != nil {
@@ -412,7 +401,6 @@ func TestGetALL(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		_, errR := repo.Insert(mockRooms)
 		if errR != nil {
@@ -445,7 +433,6 @@ func TestGetALL(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		_, errr := repo.Insert(mockRooms)
 		if errr != nil {

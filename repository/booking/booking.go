@@ -54,7 +54,7 @@ func (br *BookingRepository) GetByID(Id uint) (entities.Rooms, error) {
 
 func (br *BookingRepository) Update(userId int, bookingUpdate entities.Booking) (entities.Booking, error) {
 
-	res := br.db.Model(&entities.Booking{Model: gorm.Model{ID: uint(userId)}}).Updates(entities.Booking{RoomsID: bookingUpdate.RoomsID, DateTime: bookingUpdate.DateTime})
+	res := br.db.Model(&entities.Booking{Model: gorm.Model{ID: uint(userId)}}).Updates(entities.Booking{RoomsID: bookingUpdate.RoomsID})
 
 	if res.RowsAffected == 0 {
 		return bookingUpdate, errors.New("tidak ada pemutakhiran pada data booking")

@@ -44,13 +44,12 @@ func TestCreate(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		resR, errR := repoR.New(db).Insert(mockRooms)
 		if errR != nil {
 			t.Fail()
 		}
-		mockBooking := entities.Booking{RoomsID: resR.ID, UserID: resU1.ID, DateTime: 2}
+		mockBooking := entities.Booking{RoomsID: resR.ID, UserID: resU1.ID}
 		res, err := repo.Create(int(resR.ID), mockBooking)
 		log.Info(res)
 
@@ -83,7 +82,6 @@ func TestCreate(t *testing.T) {
 			Name:       "Rumah",
 			UserID:     resU.ID,
 			CategoryID: resC.ID,
-			DateStock:  "2022-02-23",
 		}
 		resR, errR := repoR.New(db).Insert(mockRooms)
 		if errR != nil {
