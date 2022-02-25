@@ -53,6 +53,6 @@ func RegisterPath(e *echo.Echo, uc *user.UserController, a *admin.AdminControlle
 	e.DELETE("/rooms/:roomid", r.Delete(), middlewares.JwtMiddleware())
 
 	//ROUTE Images
-	e.POST("/images/:roomsid", i.Insert(), middlewares.JwtMiddleware())
+	e.POST("/images", i.Insert(), middlewares.JwtMiddleware())
 
 }
