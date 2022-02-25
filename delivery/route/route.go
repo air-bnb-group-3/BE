@@ -46,13 +46,13 @@ func RegisterPath(e *echo.Echo, uc *user.UserController, a *admin.AdminControlle
 
 	//ROUTE Rooms
 	e.POST("/rooms", r.Insert(), middlewares.JwtMiddleware())
-	e.GET("/rooms", r.GetAll())
+	e.GET("/rooms/all", r.GetAll())
 	e.GET("/rooms", r.GetByUID(), middlewares.JwtMiddleware())
 	e.GET("/rooms/:roomid", r.GetById())
 	e.PUT("/rooms/:roomid", r.Update(), middlewares.JwtMiddleware())
 	e.DELETE("/rooms/:roomid", r.Delete(), middlewares.JwtMiddleware())
 
 	//ROUTE Images
-	e.POST("/images/:roomsid", i.Insert(), middlewares.JwtMiddleware())
+	e.POST("/images", i.Insert(), middlewares.JwtMiddleware())
 
 }

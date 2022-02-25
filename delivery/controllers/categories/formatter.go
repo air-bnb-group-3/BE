@@ -19,13 +19,16 @@ func ToCategoryCreateResponseFormat(CategoryResponse entities.Categories) Catego
 }
 
 type CategoryGetResponseFormat struct {
+	ID   int    `json:"id"`
 	City string `json:"city"`
 }
 
 func ToCategoryGetResponseFormat(CategoryResponses []entities.Categories) []CategoryGetResponseFormat {
 	CategoryGetResponses := make([]CategoryGetResponseFormat, len(CategoryResponses))
 	for i := 0; i < len(CategoryResponses); i++ {
+		CategoryGetResponses[i].ID = int(CategoryResponses[i].ID)
 		CategoryGetResponses[i].City = CategoryResponses[i].City
+
 	}
 	return CategoryGetResponses
 }

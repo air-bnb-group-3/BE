@@ -9,20 +9,20 @@ type AdminCreateRequestFormat struct {
 }
 
 type AdminCreateResponseFormat struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 func ToAdminCreateResponseFormat(AdminResponse entities.User) AdminCreateResponseFormat {
 	return AdminCreateResponseFormat{
-		Name:     AdminResponse.Name,
-		Email:    AdminResponse.Email,
+		Name:  AdminResponse.Name,
+		Email: AdminResponse.Email,
 	}
 }
 
 type AdminGetResponseFormat struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
 }
 
 func ToAdminGetResponseFormat(AdminResponses []entities.User) []AdminGetResponseFormat {
@@ -32,4 +32,10 @@ func ToAdminGetResponseFormat(AdminResponses []entities.User) []AdminGetResponse
 		AdminGetResponses[i].Email = AdminResponses[i].Email
 	}
 	return AdminGetResponses
+}
+
+type ResponseFormat struct {
+	Code    int           `json:"code"`
+	Message string        `json:"message"`
+	Data    entities.User `json:"data"`
 }

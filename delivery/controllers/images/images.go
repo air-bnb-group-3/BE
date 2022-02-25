@@ -3,7 +3,6 @@ package images
 import (
 	"app_airbnb/delivery/controllers/common"
 	s3 "app_airbnb/utils/aws_S3"
-	"strconv"
 
 	// "app_airbnb/delivery/middlewares"
 
@@ -31,15 +30,17 @@ func New(repository images.Images, aws *session.Session) *ImagesController {
 
 func (img *ImagesController) Insert() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		// UserID := middlewares.ExtractTokenId(c)
 		newImage := CreateImage{}
-		newImage.RoomsID, _ = strconv.Atoi(c.FormValue("rooms_id"))
+
+		c.Bind(&newImage)
 
 		file, err := c.FormFile("file")
 		if err != nil {
 			log.Info(err)
 		}
 
-		fileName := s3.DoUpload(img.conn, *file)
+		fileName := s3.Upload(img.conn, *file)
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))
