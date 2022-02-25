@@ -54,6 +54,7 @@ func ToRoomCreateResponseFormat(RoomResponse entities.Rooms) RoomCreateResponseF
 }
 
 type RoomGetResponseFormat struct {
+	ID          uint   `json:"id"`
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
@@ -67,6 +68,7 @@ type RoomGetResponseFormat struct {
 func ToRoomGetResponseFormat(RoomResponses []entities.Rooms) []RoomGetResponseFormat {
 	RoomGetResponses := make([]RoomGetResponseFormat, len(RoomResponses))
 	for i := 0; i < len(RoomResponses); i++ {
+		RoomGetResponses[i].ID = RoomResponses[i].ID
 		RoomGetResponses[i].CategoryID = RoomResponses[i].CategoryID
 		RoomGetResponses[i].Name = RoomResponses[i].Name
 		RoomGetResponses[i].Description = RoomResponses[i].Description
@@ -79,6 +81,7 @@ func ToRoomGetResponseFormat(RoomResponses []entities.Rooms) []RoomGetResponseFo
 }
 
 type RoomGetByIdResponseFormat struct {
+	ID          uint   `json:"id"`
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
@@ -91,6 +94,7 @@ type RoomGetByIdResponseFormat struct {
 
 func ToRoomByIdGetResponseFormat(RoomResponse entities.Rooms) RoomGetByIdResponseFormat {
 	return RoomGetByIdResponseFormat{
+		ID:          RoomResponse.ID,
 		CategoryID:  RoomResponse.CategoryID,
 		Name:        RoomResponse.Name,
 		Description: RoomResponse.Description,
@@ -125,6 +129,7 @@ func (URRF UpdateRoomRequestFormat) ToUpdateRoomRequestFormat() entities.Rooms {
 }
 
 type UpdateRoomResponseFormat struct {
+	ID          uint   `json:"id"`
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
@@ -137,6 +142,7 @@ type UpdateRoomResponseFormat struct {
 
 func ToUpdateRoomResponseFormat(RoomResponse entities.Rooms) UpdateRoomResponseFormat {
 	return UpdateRoomResponseFormat{
+		ID:          RoomResponse.ID,
 		CategoryID:  RoomResponse.CategoryID,
 		Name:        RoomResponse.Name,
 		Description: RoomResponse.Description,
