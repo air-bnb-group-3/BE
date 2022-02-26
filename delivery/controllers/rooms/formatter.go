@@ -56,6 +56,7 @@ type RoomGetResponseFormat struct {
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	Address     string `json:"address"`
 	Price       int    `json:"price"`
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
@@ -69,6 +70,7 @@ func ToRoomGetResponseFormat(RoomResponses []entities.Rooms) []RoomGetResponseFo
 		RoomGetResponses[i].CategoryID = RoomResponses[i].CategoryID
 		RoomGetResponses[i].Name = RoomResponses[i].Name
 		RoomGetResponses[i].Description = RoomResponses[i].Description
+		RoomGetResponses[i].Address = RoomResponses[i].Address
 		RoomGetResponses[i].Price = RoomResponses[i].Price
 		RoomGetResponses[i].TotalPerson = RoomResponses[i].TotalPerson
 		RoomGetResponses[i].TotalRooms = RoomResponses[i].TotalRooms
