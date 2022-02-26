@@ -68,7 +68,7 @@ func (ctrl *CategoriesController) GetById() echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))
 		}
 
-		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success Get Category By ID", res))
+		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success Get Category By ID", ToCategoryByIdGetResponseFormat(res)))
 	}
 }
 

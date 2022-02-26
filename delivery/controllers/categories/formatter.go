@@ -34,12 +34,14 @@ func ToCategoryGetResponseFormat(CategoryResponses []entities.Categories) []Cate
 }
 
 type CategoryGetByIdResponseFormat struct {
-	City string `json:"city"`
+	City  string `json:"city"`
+	Rooms []entities.Rooms
 }
 
 func ToCategoryByIdGetResponseFormat(CategoryRespon entities.Categories) CategoryGetByIdResponseFormat {
 	return CategoryGetByIdResponseFormat{
-		City: CategoryRespon.City,
+		City:  CategoryRespon.City,
+		Rooms: CategoryRespon.Rooms,
 	}
 }
 
