@@ -84,6 +84,7 @@ type RoomGetByIdResponseFormat struct {
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	Address     string `json:"address"`
 	Price       int    `json:"price"`
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
@@ -97,6 +98,7 @@ func ToRoomByIdGetResponseFormat(RoomResponse entities.Rooms) RoomGetByIdRespons
 		CategoryID:  RoomResponse.CategoryID,
 		Name:        RoomResponse.Name,
 		Description: RoomResponse.Description,
+		Address:     RoomResponse.Address,
 		Price:       RoomResponse.Price,
 		TotalPerson: RoomResponse.TotalPerson,
 		TotalRooms:  RoomResponse.TotalRooms,
@@ -132,6 +134,7 @@ type UpdateRoomResponseFormat struct {
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	Address     string `json:"address"`
 	Price       int    `json:"price"`
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
@@ -144,6 +147,7 @@ func ToUpdateRoomResponseFormat(RoomResponse entities.Rooms) UpdateRoomResponseF
 		CategoryID:  RoomResponse.CategoryID,
 		Name:        RoomResponse.Name,
 		Description: RoomResponse.Description,
+		Address:     RoomResponse.Address,
 		Price:       RoomResponse.Price,
 		TotalPerson: RoomResponse.TotalPerson,
 		TotalRooms:  RoomResponse.TotalRooms,
