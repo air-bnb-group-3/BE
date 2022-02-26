@@ -8,6 +8,7 @@ type RoomCreateRequestFormat struct {
 	CategoryID  uint   `json:"category_id" form:"category_id"`
 	Name        string `json:"name" form:"name"`
 	Description string `json:"description" form:"description"`
+	Address     string `json:"address" form:"address"`
 	Price       int    `json:"price" form:"price"`
 	TotalPerson int    `json:"total_person" form:"total_person"`
 	TotalRooms  int    `json:"total_rooms" form:"total_rooms"`
@@ -19,6 +20,7 @@ func (RCRF RoomCreateRequestFormat) ToRoomEntity(UserID uint) entities.Rooms {
 		CategoryID:  RCRF.CategoryID,
 		Name:        RCRF.Name,
 		Description: RCRF.Description,
+		Address:     RCRF.Address,
 		Price:       RCRF.Price,
 		TotalPerson: RCRF.TotalPerson,
 		TotalRooms:  RCRF.TotalRooms,
@@ -32,22 +34,26 @@ type RoomCreateResponseFormat struct {
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	Address     string `json:"address"`
 	Price       int    `json:"price"`
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
 	SizeBed     string `json:"size_bed"`
+	Images      []entities.Images
 }
 
 func ToRoomCreateResponseFormat(RoomResponse entities.Rooms) RoomCreateResponseFormat {
 	return RoomCreateResponseFormat{
-		ID:          RoomResponse.ID,
-		CategoryID:  RoomResponse.CategoryID,
-		Name:        RoomResponse.Name,
-		Description: RoomResponse.Description,
-		Price:       RoomResponse.Price,
-		TotalPerson: RoomResponse.TotalPerson,
-		TotalRooms:  RoomResponse.TotalRooms,
-		SizeBed:     RoomResponse.SizeBed,
+		ID:         RoomResponse.ID,
+		CategoryID: RoomResponse.CategoryID,
+		Name:       RoomResponse.Name,
+		// Description: RoomResponse.Description,
+		// Address:     RoomResponse.Address,
+		// Price:       RoomResponse.Price,
+		// TotalPerson: RoomResponse.TotalPerson,
+		// TotalRooms:  RoomResponse.TotalRooms,
+		// SizeBed:     RoomResponse.SizeBed,
+		// Images:      RoomResponse.Images,
 	}
 }
 

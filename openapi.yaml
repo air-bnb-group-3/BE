@@ -271,7 +271,7 @@ paths:
                     email: test@test.com
         '400':
           $ref: '#/components/responses/400'
-  /users/me:
+  /users:
     get:
         summary: User Profile
         tags:
