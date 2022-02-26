@@ -13,12 +13,14 @@ type CreateUserRequestFormat struct {
 }
 
 type CreateUserResponseFormat struct {
+	ID    int    `json:"id"`
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
 
 func ToCreateUserResponseFormat(UserResponse entities.User) CreateUserResponseFormat {
 	return CreateUserResponseFormat{
+		ID:    int(UserResponse.ID),
 		Name:  UserResponse.Name,
 		Email: UserResponse.Email,
 	}
@@ -53,12 +55,14 @@ func ToUpdateUserResponseFormat(UserResponse entities.User) UpdateUserResponseFo
 }
 
 type GetUserByIdResponseFormat struct {
+	ID    int    `json:"id"`
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
 
 func ToGetUserByIdResponseFormat(UserResponse entities.User) GetUserByIdResponseFormat {
 	return GetUserByIdResponseFormat{
+		ID:    int(UserResponse.ID),
 		Name:  UserResponse.Name,
 		Email: UserResponse.Email,
 	}

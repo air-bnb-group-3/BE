@@ -16,7 +16,8 @@ func New(db *gorm.DB) *ImagesRepository {
 }
 
 // ======================== Insert Images =================================
-func (repo *ImagesRepository) Insert(newImage entities.Images) (entities.Images, error) {
+func (repo *ImagesRepository) Insert(rooms_id int, newImage entities.Images) (entities.Images, error) {
+	newImage.RoomsID = uint(rooms_id)
 	if err := repo.db.Create(&newImage).Error; err != nil {
 		return newImage, errors.New("gagal memasukkan data image")
 	}

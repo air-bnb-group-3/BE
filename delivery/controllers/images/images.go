@@ -31,24 +31,29 @@ func New(repository images.Images, aws *session.Session) *ImagesController {
 func (img *ImagesController) Insert() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		// UserID := middlewares.ExtractTokenId(c)
-		newImage := CreateImage{}
+		form, errM := c.MultipartForm()
+		if errM != nil {
+			return c.JSON(http.StatusBadRequest, common.BadRequest(http.StatusBadRequest, "invalid input multipart form", nil))
+		}
 
-		c.Bind(&newImage)
+		files := form.File["files"]
 
-		file, err := c.FormFile("file")
-		if err != nil {
+		for _, file := range files {
+			newImage := CreateImage{}
+			src, err := file.Open()
+			if err != nil {
+				return err
+			}
 			log.Info(err)
+
+			s := s3.InitS3("AKIAVOMUO3KKNSP4RXWR", "o3T3ozzKzrdIfiDTPMVFMgP7NWfpFm75hxtX2Cww", "ap-southeast-1")
+
+			filename := s3.Upload(s, src, file)
+
+			newImage.Url = "https://airbnb-app.s3.ap-southeast-1.amazonaws.com/" + filename
 		}
 
-		fileName := s3.Upload(img.conn, *file)
-
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))
-		}
-
-		return c.JSON(http.StatusCreated, common.Success(http.StatusCreated, "Success Insert Image", map[string]interface{}{
-			"link": fileName,
-		}))
+		return c.JSON(http.StatusCreated, common.Success(http.StatusCreated, "Success Insert Image", nil))
 	}
 }
 
