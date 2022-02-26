@@ -45,7 +45,7 @@ func main() {
 	userController := _userController.New(userRepo)
 	authController := _authController.New(authRepo)
 	adminController := _adminController.New(adminRepo)
-	roomsController := _roomsController.New(roomsRepo)
+	roomsController := _roomsController.New(roomsRepo, imageRepo)
 	categoryController := _categoryController.New(categoryRepo)
 	imageController := _imagesController.New(imageRepo, awsConn)
 

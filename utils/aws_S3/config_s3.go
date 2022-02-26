@@ -1,13 +1,16 @@
 package awss3
 
 import (
+	"bytes"
 	"mime/multipart"
 	"net/http"
+	"path/filepath"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3/s3manager"
+	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/globalsign/mgo/bson"
 	"github.com/labstack/gommon/log"
 )
 
@@ -16,7 +19,9 @@ func InitS3(key, secret, region string) *session.Session {
 		&aws.Config{
 			Region: aws.String(region),
 			Credentials: credentials.NewStaticCredentials(
-				key, secret, "o3T3ozzKzrdIfiDTPMVFMgP7NWfpFm75hxtX2Cww",
+				"AKIAVOMUO3KKNSP4RXWR",
+				"o3T3ozzKzrdIfiDTPMVFMgP7NWfpFm75hxtX2Cww",
+				"",
 			),
 		},
 	)
@@ -27,31 +32,25 @@ func InitS3(key, secret, region string) *session.Session {
 	return conect
 }
 
-func Upload(sess *session.Session, file multipart.FileHeader) string {
-	manager := s3manager.NewUploader(sess)
-	src, err := file.Open()
-	if err != nil {
-		log.Info(err)
-	}
+func Upload(sess *session.Session, file multipart.File, fileHeader *multipart.FileHeader) string {
 
-	defer src.Close()
-	buffer := make([]byte, file.Size)
-	src.Read(buffer)
-	body, _ := file.Open()
+	size := fileHeader.Size
+	buffer := make([]byte, size)
+	file.Read(buffer)
 
-	res, err := manager.Upload(
-		&s3manager.UploadInput{
-			Bucket:      aws.String("airbnb-app"),
-			ACL:         aws.String("public-read"),
-			ContentType: aws.String(http.DetectContentType(buffer)),
-			Key:         aws.String(file.Filename),
-			Body:        body,
-		},
-	)
+	fileTemp := "" + bson.NewObjectId().Hex() + filepath.Ext(fileHeader.Filename)
+
+	_, err := s3.New(sess).PutObject(&s3.PutObjectInput{
+		Bucket:      aws.String("airbnb-app"),
+		ACL:         aws.String("public-read-write"),
+		ContentType: aws.String(http.DetectContentType(buffer)),
+		Key:         aws.String(fileTemp),
+		Body:        bytes.NewReader(buffer),
+	})
+
 	if err != nil {
-		log.Info(res)
 		log.Error("Upload error : ", err)
 	}
 
-	return ""
+	return fileTemp
 }

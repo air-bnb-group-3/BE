@@ -46,7 +46,7 @@ func TestCreate(t *testing.T) {
 
 		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
 
-		res, err := repo.Insert(mockImages)
+		res, err := repo.Insert(int(resR.ID), mockImages)
 
 		assert.Equal(t, "jhsrgkhbgkskgs", res.Image)
 		assert.Nil(t, err)
@@ -81,13 +81,13 @@ func TestCreate(t *testing.T) {
 
 		mockImages := entities.Images{RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
 
-		_, errM := repo.Insert(mockImages)
+		_, errM := repo.Insert(int(resR.ID), mockImages)
 		if errM != nil {
 			t.Fail()
 		}
 
 		mockImagess := entities.Images{Model: gorm.Model{ID: 1}, RoomsID: resR.ID, Image: "jhsrgkhbgkskgs"}
-		_, err := repo.Insert(mockImagess)
+		_, err := repo.Insert(int(resR.ID), mockImagess)
 		assert.NotNil(t, err)
 
 	})

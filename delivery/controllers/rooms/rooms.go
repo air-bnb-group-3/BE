@@ -3,7 +3,10 @@ package rooms
 import (
 	"app_airbnb/delivery/controllers/common"
 	"app_airbnb/delivery/middlewares"
+	"app_airbnb/entities"
+	"app_airbnb/repository/images"
 	"app_airbnb/repository/rooms"
+	s3 "app_airbnb/utils/aws_S3"
 	"net/http"
 	"strconv"
 
@@ -11,12 +14,14 @@ import (
 )
 
 type RoomsController struct {
-	repo rooms.Rooms
+	repo      rooms.Rooms
+	repoImage images.Images
 }
 
-func New(repository rooms.Rooms) *RoomsController {
+func New(repository rooms.Rooms, repoImage images.Images) *RoomsController {
 	return &RoomsController{
-		repo: repository,
+		repo:      repository,
+		repoImage: repoImage,
 	}
 }
 
@@ -33,6 +38,25 @@ func (ctrl *RoomsController) Insert() echo.HandlerFunc {
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))
+		}
+
+		form, errM := c.MultipartForm()
+		if errM != nil {
+			return c.JSON(http.StatusBadRequest, common.BadRequest(http.StatusBadRequest, "Error Multiform Input", nil))
+		}
+		files := form.File["files"]
+
+		for _, file := range files {
+			newImage := entities.Images{}
+			src, _ := file.Open()
+			s := s3.InitS3("AKIAVOMUO3KKNSP4RXWR", "o3T3ozzKzrdIfiDTPMVFMgP7NWfpFm75hxtX2Cww", "ap-southeast-1")
+			filename := s3.Upload(s, src, file)
+			newImage.Image = "https://airbnb-app.s3.ap-southeast-1.amazonaws.com/" + filename
+
+			_, errI := ctrl.repoImage.Insert(int(res.ID), entities.Images{RoomsID: res.ID, Image: newImage.Image})
+			if errI != nil {
+				return c.JSON(http.StatusInternalServerError, common.InternalServerError(nil, "error in upload image", nil))
+			}
 		}
 
 		return c.JSON(http.StatusCreated, common.Success(http.StatusCreated, "Success Create Room", ToRoomCreateResponseFormat(res)))
