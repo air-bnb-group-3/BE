@@ -12,7 +12,6 @@ type RoomCreateRequestFormat struct {
 	TotalPerson int    `json:"total_person" form:"total_person"`
 	TotalRooms  int    `json:"total_rooms" form:"total_rooms"`
 	SizeBed     string `json:"size_bed" form:"size_bed"`
-	DateStock   string `json:"date_stock" form:"date_stock"`
 }
 
 func (RCRF RoomCreateRequestFormat) ToRoomEntity(UserID uint) entities.Rooms {
@@ -37,7 +36,6 @@ type RoomCreateResponseFormat struct {
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
 	SizeBed     string `json:"size_bed"`
-	DateStock   string `json:"date_stock"`
 }
 
 func ToRoomCreateResponseFormat(RoomResponse entities.Rooms) RoomCreateResponseFormat {
@@ -62,7 +60,6 @@ type RoomGetResponseFormat struct {
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
 	SizeBed     string `json:"size_bed"`
-	DateStock   string `json:"date_stock"`
 }
 
 func ToRoomGetResponseFormat(RoomResponses []entities.Rooms) []RoomGetResponseFormat {
@@ -89,7 +86,7 @@ type RoomGetByIdResponseFormat struct {
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
 	SizeBed     string `json:"size_bed"`
-	DateStock   string `json:"date_stock"`
+	Images      []entities.Images
 }
 
 func ToRoomByIdGetResponseFormat(RoomResponse entities.Rooms) RoomGetByIdResponseFormat {
@@ -102,6 +99,7 @@ func ToRoomByIdGetResponseFormat(RoomResponse entities.Rooms) RoomGetByIdRespons
 		TotalPerson: RoomResponse.TotalPerson,
 		TotalRooms:  RoomResponse.TotalRooms,
 		SizeBed:     RoomResponse.SizeBed,
+		Images:      RoomResponse.Images,
 	}
 }
 
@@ -113,7 +111,6 @@ type UpdateRoomRequestFormat struct {
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
 	SizeBed     string `json:"size_bed"`
-	DateStock   string `json:"date_stock"`
 }
 
 func (URRF UpdateRoomRequestFormat) ToUpdateRoomRequestFormat() entities.Rooms {
@@ -137,7 +134,6 @@ type UpdateRoomResponseFormat struct {
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
 	SizeBed     string `json:"size_bed"`
-	DateStock   string `json:"date_stock"`
 }
 
 func ToUpdateRoomResponseFormat(RoomResponse entities.Rooms) UpdateRoomResponseFormat {

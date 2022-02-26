@@ -16,7 +16,7 @@ func InitS3(key, secret, region string) *session.Session {
 		&aws.Config{
 			Region: aws.String(region),
 			Credentials: credentials.NewStaticCredentials(
-				key, secret, "",
+				key, secret, "o3T3ozzKzrdIfiDTPMVFMgP7NWfpFm75hxtX2Cww",
 			),
 		},
 	)
@@ -27,7 +27,7 @@ func InitS3(key, secret, region string) *session.Session {
 	return conect
 }
 
-func DoUpload(sess *session.Session, file multipart.FileHeader) string {
+func Upload(sess *session.Session, file multipart.FileHeader) string {
 	manager := s3manager.NewUploader(sess)
 	src, err := file.Open()
 	if err != nil {
@@ -41,7 +41,7 @@ func DoUpload(sess *session.Session, file multipart.FileHeader) string {
 
 	res, err := manager.Upload(
 		&s3manager.UploadInput{
-			Bucket:      aws.String("app-airbnb"),
+			Bucket:      aws.String("airbnb-app"),
 			ACL:         aws.String("public-read"),
 			ContentType: aws.String(http.DetectContentType(buffer)),
 			Key:         aws.String(file.Filename),

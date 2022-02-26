@@ -68,8 +68,8 @@ func ToUpdateImageResponseFormat(ImageResponse entities.Images) UpdateImageRespo
 }
 
 type CreateImage struct {
-	RoomsID int    `json:"rooms_id" form:"rooms_id"`
-	Url     string `json:"image"`
+	RoomsID int `json:"rooms_id" form:"rooms_id"`
+	Url     string
 }
 
 type UploadImage struct {
