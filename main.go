@@ -4,7 +4,7 @@ import (
 	config "app_airbnb/configs"
 	_adminController "app_airbnb/delivery/controllers/admin"
 	_authController "app_airbnb/delivery/controllers/auth"
-
+	_bookingController "app_airbnb/delivery/controllers/booking"
 	_categoryController "app_airbnb/delivery/controllers/categories"
 	_imagesController "app_airbnb/delivery/controllers/images"
 	_roomsController "app_airbnb/delivery/controllers/rooms"
@@ -13,7 +13,7 @@ import (
 	"app_airbnb/delivery/route"
 	_adminRepo "app_airbnb/repository/admin"
 	_authRepo "app_airbnb/repository/auth"
-
+	_bookingRepo "app_airbnb/repository/booking"
 	_categoryRepo "app_airbnb/repository/categories"
 	_imagesRepo "app_airbnb/repository/images"
 	_roomsRepo "app_airbnb/repository/rooms"
@@ -40,6 +40,7 @@ func main() {
 	roomsRepo := _roomsRepo.New(db)
 	categoryRepo := _categoryRepo.New(db)
 	imageRepo := _imagesRepo.New(db)
+	bookingRepo := _bookingRepo.New(db)
 
 	//CONTROLLER
 	userController := _userController.New(userRepo)
@@ -48,10 +49,19 @@ func main() {
 	roomsController := _roomsController.New(roomsRepo, imageRepo)
 	categoryController := _categoryController.New(categoryRepo)
 	imageController := _imagesController.New(imageRepo, awsConn)
+	bookingController := _bookingController.New(bookingRepo)
 
 	e := echo.New()
 
-	route.RegisterPath(e, userController, adminController, authController, categoryController, roomsController, imageController)
+	route.RegisterPath(e,
+		userController,
+		adminController,
+		authController,
+		categoryController,
+		roomsController,
+		imageController,
+		bookingController,
+	)
 
 	// c := midtrans.InitConnection()
 	// midtrans.CreateTransaction(c)

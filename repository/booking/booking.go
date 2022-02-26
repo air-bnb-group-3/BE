@@ -17,31 +17,49 @@ func New(db *gorm.DB) *BookingRepository {
 	}
 }
 
-func (br *BookingRepository) Create(user_id int, newBook entities.Booking) (entities.Booking, error) {
-	newBook.UserID = uint(user_id)
-	Booking := entities.Booking{}
-
-	res := br.db.Model(entities.Booking{}).Where("user_id = ? AND rooms_id = ?", user_id, newBook.RoomsID).First(&Booking)
-	if res.Error == nil {
-		res := br.db.Model(entities.Booking{}).Where("ID = ?", Booking.ID).Update("rooms_id", Booking.RoomsID+newBook.RoomsID)
-		if res.Error != nil {
-			return entities.Booking{}, nil
-		}
-		return entities.Booking{}, nil
+func (repo *BookingRepository) Create(newBooking entities.Booking) (entities.Booking, error) {
+	booking := entities.Booking{}
+	res := repo.db.Where("user_id = ? AND rooms_id = ?", newBooking.UserID, newBooking.RoomsID).First(&booking)
+	if res.RowsAffected > 0 {
+		return booking, errors.New("booking sudah ada")
 	}
 
-	if err := br.db.Create(&newBook).Error; err != nil {
-		return newBook, errors.New("terjadi kesalahan input dalam proses booking")
+	bookingcheck := entities.Booking{}
+
+	availableCheck := repo.db.Where("rooms_id = ? AND status = 'payed' AND check_in <= ? AND check_out >= ?", newBooking.RoomsID, newBooking.CheckOut, newBooking.CheckIn).Find(&bookingcheck)
+
+	if availableCheck.RowsAffected != 0 {
+		return bookingcheck, errors.New("tempat yang dipilih sudah dibooking")
 	}
-	return newBook, nil
+
+	if err := repo.db.Create(&newBooking).Error; err != nil {
+		return newBooking, errors.New("gagal memasukkan data booking")
+	}
+	return newBooking, nil
 }
 
-func (br *BookingRepository) GetByUID(userId uint) ([]entities.Rooms, error) {
-	room := []entities.Rooms{}
-	if err := br.db.Model(&room).Where("user_id = ?", userId).Find(&room).Error; err != nil {
-		return room, errors.New("anda tidak memiliki booking")
+func (br *BookingRepository) GetByUserID(userId uint) ([]entities.Booking, error) {
+	Booking := []entities.Booking{}
+	if err := br.db.Model(&Booking).Where("user_id = ?", userId).Find(&Booking).Error; err != nil {
+		return []entities.Booking{}, errors.New("anda tidak memiliki booking")
 	}
-	return room, nil
+	return Booking, nil
+}
+
+func (repo *BookingRepository) Update(bookingId, userId uint, bookingUpdate entities.Booking) (entities.Booking, error) {
+	booking := entities.Booking{}
+	CheckDate := repo.db.Where("rooms_id = ? AND status = 'payed' AND check_in <= ? AND check_out >= ?", bookingUpdate.RoomsID, bookingUpdate.CheckOut, bookingUpdate.CheckIn).Find(&booking)
+	if CheckDate.RowsAffected != 0 {
+		return booking, errors.New("tempat yang dipilih sudah dibooking")
+	}
+
+	res := repo.db.Model(&booking).Where("id = ? AND user_id = ?", bookingId, userId).Updates(bookingUpdate)
+
+	if res.RowsAffected == 0 {
+		return bookingUpdate, errors.New("tidak ada pemutakhiran pada data booking")
+	}
+	repo.db.Where("id = ?", bookingUpdate.ID).First(&booking)
+	return booking, nil
 }
 
 func (br *BookingRepository) GetByID(Id uint) (entities.Rooms, error) {
@@ -50,16 +68,6 @@ func (br *BookingRepository) GetByID(Id uint) (entities.Rooms, error) {
 		return room, errors.New("booking yang dipilih belum tersedia")
 	}
 	return room, nil
-}
-
-func (br *BookingRepository) Update(userId int, bookingUpdate entities.Booking) (entities.Booking, error) {
-
-	res := br.db.Model(&entities.Booking{Model: gorm.Model{ID: uint(userId)}}).Updates(entities.Booking{RoomsID: bookingUpdate.RoomsID})
-
-	if res.RowsAffected == 0 {
-		return bookingUpdate, errors.New("tidak ada pemutakhiran pada data booking")
-	}
-	return bookingUpdate, nil
 }
 
 func (br *BookingRepository) Delete(user_id int, booking_id int) error {
