@@ -111,6 +111,7 @@ type UpdateRoomRequestFormat struct {
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	Address     string `json:"address"`
 	Price       int    `json:"price"`
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
@@ -122,6 +123,7 @@ func (URRF UpdateRoomRequestFormat) ToUpdateRoomRequestFormat() entities.Rooms {
 		CategoryID:  URRF.CategoryID,
 		Name:        URRF.Name,
 		Description: URRF.Description,
+		Address:     URRF.Address,
 		Price:       URRF.Price,
 		TotalPerson: URRF.TotalPerson,
 		TotalRooms:  URRF.TotalRooms,
