@@ -11,8 +11,8 @@ type Rooms struct {
 	Name        string    `gorm:"type:varchar(100)" json:"name"`
 	Description string    `gorm:"type:text" json:"description"`
 	Address     string    `gorm:"type:text" json:"address"`
-	Latitude    float64   `gorm:"type:float64" json:"latitude"`
-	Longitude   float64   `gorm:"type:float64" json:"longitude"`
+	Latitude    float64   `json:"latitude"`
+	Longitude   float64   `json:"longitude"`
 	Price       int       `gorm:"type:int(11)" json:"price"`
 	TotalPerson int       `gorm:"type:int(11)" json:"total_person"`
 	TotalRooms  int       `gorm:"type:int(11)" json:"total_rooms"`
