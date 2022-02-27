@@ -19,8 +19,9 @@ func ToCategoryCreateResponseFormat(CategoryResponse entities.Categories) Catego
 }
 
 type CategoryGetResponseFormat struct {
-	ID   int    `json:"id"`
-	City string `json:"city"`
+	ID    int    `json:"id"`
+	City  string `json:"city"`
+	Rooms []entities.Rooms
 }
 
 func ToCategoryGetResponseFormat(CategoryResponses []entities.Categories) []CategoryGetResponseFormat {
@@ -28,18 +29,21 @@ func ToCategoryGetResponseFormat(CategoryResponses []entities.Categories) []Cate
 	for i := 0; i < len(CategoryResponses); i++ {
 		CategoryGetResponses[i].ID = int(CategoryResponses[i].ID)
 		CategoryGetResponses[i].City = CategoryResponses[i].City
+		CategoryGetResponses[i].Rooms = CategoryResponses[i].Rooms
 
 	}
 	return CategoryGetResponses
 }
 
 type CategoryGetByIdResponseFormat struct {
+	ID    int    `json:"id"`
 	City  string `json:"city"`
 	Rooms []entities.Rooms
 }
 
 func ToCategoryByIdGetResponseFormat(CategoryRespon entities.Categories) CategoryGetByIdResponseFormat {
 	return CategoryGetByIdResponseFormat{
+		ID:    int(CategoryRespon.ID),
 		City:  CategoryRespon.City,
 		Rooms: CategoryRespon.Rooms,
 	}
