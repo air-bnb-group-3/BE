@@ -36,7 +36,7 @@ func (repo *CategoriesRepository) GetAll() ([]entities.Categories, error) {
 // ======================== Get Category By ID ==================================
 func (repo *CategoriesRepository) GetById(categoryId uint) (entities.Categories, error) {
 	category := entities.Categories{}
-	if err := repo.db.Preload("Rooms").Where("id = ?", categoryId).First(&category).Error; err != nil {
+	if err := repo.db.Preload("Rooms").Preload("").Where("id = ?", categoryId).First(&category).Error; err != nil {
 		return category, errors.New("category yang dipilih belum tersedia")
 	}
 	return category, nil
