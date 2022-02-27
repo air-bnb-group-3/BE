@@ -26,7 +26,7 @@ func (repo *CategoriesRepository) Insert(newCategory entities.Categories) (entit
 // ======================== Get All Category =================================
 func (repo *CategoriesRepository) GetAll() ([]entities.Categories, error) {
 	categories := []entities.Categories{}
-	repo.db.Find(&categories)
+	repo.db.Preload("Rooms").Find(&categories)
 	if len(categories) < 1 {
 		return nil, errors.New("belum ada category yang terdaftar")
 	}
