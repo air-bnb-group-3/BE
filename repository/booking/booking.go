@@ -36,6 +36,7 @@ func (repo *BookingRepository) Create(newBooking entities.Booking) (entities.Boo
 		return newBooking, errors.New("gagal memasukkan data booking")
 	}
 	return newBooking, nil
+
 }
 
 func (br *BookingRepository) GetByUserID(userId uint) ([]entities.Booking, error) {

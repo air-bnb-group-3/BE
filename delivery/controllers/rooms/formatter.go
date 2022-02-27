@@ -5,16 +5,16 @@ import (
 )
 
 type RoomCreateRequestFormat struct {
-	CategoryID  uint    `json:"category_id" form:"category_id"`
-	Name        string  `json:"name" form:"name"`
-	Description string  `json:"description" form:"description"`
-	Address     string  `json:"address" form:"address"`
-	Latitude    float64 `json:"latitude"`
-	Longitude   float64 `json:"longitude"`
-	Price       int     `json:"price" form:"price"`
-	TotalPerson int     `json:"total_person" form:"total_person"`
-	TotalRooms  int     `json:"total_rooms" form:"total_rooms"`
-	SizeBed     string  `json:"size_bed" form:"size_bed"`
+	CategoryID  uint   `json:"category_id" form:"category_id"`
+	Name        string `json:"name" form:"name"`
+	Description string `json:"description" form:"description"`
+	Address     string `json:"address" form:"address"`
+	Latitude    int    `json:"latitude"`
+	Longitude   int    `json:"longitude"`
+	Price       int    `json:"price" form:"price"`
+	TotalPerson int    `json:"total_person" form:"total_person"`
+	TotalRooms  int    `json:"total_rooms" form:"total_rooms"`
+	SizeBed     string `json:"size_bed" form:"size_bed"`
 }
 
 func (RCRF RoomCreateRequestFormat) ToRoomEntity(UserID uint) entities.Rooms {
@@ -64,17 +64,17 @@ func ToRoomCreateResponseFormat(RoomResponse entities.Rooms) RoomCreateResponseF
 }
 
 type RoomGetResponseFormat struct {
-	ID          uint    `json:"id"`
-	CategoryID  uint    `json:"category_id"`
-	Name        string  `json:"name"`
-	Description string  `json:"description"`
-	Address     string  `json:"address"`
-	Latitude    float64 `json:"latitude"`
-	Longitude   float64 `json:"longitude"`
-	Price       int     `json:"price"`
-	TotalPerson int     `json:"total_person"`
-	TotalRooms  int     `json:"total_rooms"`
-	SizeBed     string  `json:"size_bed"`
+	ID          uint   `json:"id"`
+	CategoryID  uint   `json:"category_id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Address     string `json:"address"`
+	Latitude    int    `json:"latitude"`
+	Longitude   int    `json:"longitude"`
+	Price       int    `json:"price"`
+	TotalPerson int    `json:"total_person"`
+	TotalRooms  int    `json:"total_rooms"`
+	SizeBed     string `json:"size_bed"`
 }
 
 func ToRoomGetResponseFormat(RoomResponses []entities.Rooms) []RoomGetResponseFormat {
@@ -96,17 +96,17 @@ func ToRoomGetResponseFormat(RoomResponses []entities.Rooms) []RoomGetResponseFo
 }
 
 type RoomGetByIdResponseFormat struct {
-	ID          uint    `json:"id"`
-	CategoryID  uint    `json:"category_id"`
-	Name        string  `json:"name"`
-	Description string  `json:"description"`
-	Latitude    float64 `json:"latitude"`
-	Longitude   float64 `json:"longitude"`
-	Address     string  `json:"address"`
-	Price       int     `json:"price"`
-	TotalPerson int     `json:"total_person"`
-	TotalRooms  int     `json:"total_rooms"`
-	SizeBed     string  `json:"size_bed"`
+	ID          uint   `json:"id"`
+	CategoryID  uint   `json:"category_id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Latitude    int    `json:"latitude"`
+	Longitude   int    `json:"longitude"`
+	Address     string `json:"address"`
+	Price       int    `json:"price"`
+	TotalPerson int    `json:"total_person"`
+	TotalRooms  int    `json:"total_rooms"`
+	SizeBed     string `json:"size_bed"`
 	Images      []entities.Images
 }
 
@@ -128,16 +128,16 @@ func ToRoomByIdGetResponseFormat(RoomResponse entities.Rooms) RoomGetByIdRespons
 }
 
 type UpdateRoomRequestFormat struct {
-	CategoryID  uint    `json:"category_id"`
-	Name        string  `json:"name"`
-	Description string  `json:"description"`
-	Address     string  `json:"address"`
-	Latitude    float64 `json:"latitude"`
-	Longitude   float64 `json:"longitude"`
-	Price       int     `json:"price"`
-	TotalPerson int     `json:"total_person"`
-	TotalRooms  int     `json:"total_rooms"`
-	SizeBed     string  `json:"size_bed"`
+	CategoryID  uint   `json:"category_id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Address     string `json:"address"`
+	Latitude    int    `json:"latitude"`
+	Longitude   int    `json:"longitude"`
+	Price       int    `json:"price"`
+	TotalPerson int    `json:"total_person"`
+	TotalRooms  int    `json:"total_rooms"`
+	SizeBed     string `json:"size_bed"`
 }
 
 func (URRF UpdateRoomRequestFormat) ToUpdateRoomRequestFormat() entities.Rooms {
@@ -156,17 +156,17 @@ func (URRF UpdateRoomRequestFormat) ToUpdateRoomRequestFormat() entities.Rooms {
 }
 
 type UpdateRoomResponseFormat struct {
-	ID          uint    `json:"id"`
-	CategoryID  uint    `json:"category_id"`
-	Name        string  `json:"name"`
-	Description string  `json:"description"`
-	Address     string  `json:"address"`
-	Latitude    float64 `json:"latitude"`
-	Longitude   float64 `json:"longitude"`
-	Price       int     `json:"price"`
-	TotalPerson int     `json:"total_person"`
-	TotalRooms  int     `json:"total_rooms"`
-	SizeBed     string  `json:"size_bed"`
+	ID          uint   `json:"id"`
+	CategoryID  uint   `json:"category_id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Address     string `json:"address"`
+	Latitude    int    `json:"latitude"`
+	Longitude   int    `json:"longitude"`
+	Price       int    `json:"price"`
+	TotalPerson int    `json:"total_person"`
+	TotalRooms  int    `json:"total_rooms"`
+	SizeBed     string `json:"size_bed"`
 }
 
 func ToUpdateRoomResponseFormat(RoomResponse entities.Rooms) UpdateRoomResponseFormat {

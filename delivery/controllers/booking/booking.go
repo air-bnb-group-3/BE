@@ -53,6 +53,7 @@ func (bc *BookingController) Create() echo.HandlerFunc {
 			"success to create Booking",
 			ToBookingCreateResponseFormat(res),
 		))
+
 	}
 }
 

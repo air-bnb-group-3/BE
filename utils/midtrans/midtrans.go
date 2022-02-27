@@ -1,6 +1,8 @@
 package midtrans
 
 import (
+	// "app_airbnb/delivery/controllers/booking"
+
 	"github.com/labstack/gommon/log"
 	"github.com/midtrans/midtrans-go"
 	"github.com/midtrans/midtrans-go/coreapi"
@@ -19,8 +21,8 @@ func CreateTransaction(core coreapi.Client) *coreapi.ChargeResponse {
 			Desc: "test to payment process",
 		},
 		TransactionDetails: midtrans.TransactionDetails{
-			OrderID:  "id booking", /*id booking*/
-			GrossAmt: 200000,       /*total price di booking*/
+			OrderID:  "",     /*id booking*/
+			GrossAmt: 200000, /*total price di booking*/
 		},
 		Items: &[]midtrans.ItemDetails{
 			{Name: "Purchase 1", Price: 100000, Qty: 2},
