@@ -9,8 +9,8 @@ type Booking struct {
 	gorm.Model
 	RoomsID        uint
 	UserID         uint
-	Check_in       datatypes.Date
-	Check_out      datatypes.Date
-	PaymentMethods string `gorm:"type:enum('klikbca');default:'klikbca'"`
-	Status         string `gorm:"type:enum('payed','cancel','waiting');default:'waiting'"`
+	CheckIn        datatypes.Date //string `gorm:"type:datetime"`
+	CheckOut       datatypes.Date //string `gorm:"type:datetime"`
+	PaymentMethods string         `gorm:"type:enum('klikbca');default:'klikbca'"`
+	Status         string         `gorm:"type:enum('payed','cancel','waiting');default:'waiting'"`
 }

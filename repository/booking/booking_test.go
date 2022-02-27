@@ -50,7 +50,7 @@ func TestCreate(t *testing.T) {
 			t.Fail()
 		}
 		mockBooking := entities.Booking{RoomsID: resR.ID, UserID: resU1.ID}
-		res, err := repo.Create(int(resR.ID), mockBooking)
+		res, err := repo.Create(mockBooking)
 		log.Info(res)
 
 		assert.Nil(t, err)
@@ -89,14 +89,14 @@ func TestCreate(t *testing.T) {
 		}
 
 		mockBooking := entities.Booking{RoomsID: resR.ID, UserID: resU1.ID}
-		res, err := repo.Create(int(resR.ID), mockBooking)
+		res, err := repo.Create(mockBooking)
 		if err != nil {
 			t.Fail()
 		}
 		log.Info(res)
 
 		mockBookingg := entities.Booking{Model: gorm.Model{ID: 1}, RoomsID: resR.ID, UserID: resU1.ID}
-		resB, errB := repo.Create(int(resR.ID), mockBookingg)
+		resB, errB := repo.Create(mockBookingg)
 		log.Info(resB)
 
 		assert.NotNil(t, errB)
