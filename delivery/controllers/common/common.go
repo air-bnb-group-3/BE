@@ -25,6 +25,19 @@ func Success(code interface{}, msg interface{}, data interface{}) Response {
 	}
 }
 
+func Update(code interface{}, msg interface{}) Response {
+	if code == nil {
+		code = http.StatusOK
+	}
+	if msg == nil {
+		msg = "success"
+	}
+	return Response{
+		Code:    code,
+		Message: msg,
+	}
+}
+
 func InternalServerError(code interface{}, msg interface{}, data interface{}) Response {
 	if code == nil {
 		code = http.StatusInternalServerError
