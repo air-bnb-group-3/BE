@@ -64,7 +64,7 @@ func main() {
 	)
 
 	// c := midtrans.InitConnection()
-	// midtrans.CreateTransaction(c)
+	// Booking.CreateTransaction(c)
 
 	log.Fatal(e.Start(fmt.Sprintf(":%d", config.Port)))
 
