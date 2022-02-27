@@ -9,6 +9,8 @@ type RoomCreateRequestFormat struct {
 	Name        string `json:"name" form:"name"`
 	Description string `json:"description" form:"description"`
 	Address     string `json:"address" form:"address"`
+	Latitude    int    `json:"latitude"`
+	Longitude   int    `json:"longitude"`
 	Price       int    `json:"price" form:"price"`
 	TotalPerson int    `json:"total_person" form:"total_person"`
 	TotalRooms  int    `json:"total_rooms" form:"total_rooms"`
@@ -21,6 +23,8 @@ func (RCRF RoomCreateRequestFormat) ToRoomEntity(UserID uint) entities.Rooms {
 		Name:        RCRF.Name,
 		Description: RCRF.Description,
 		Address:     RCRF.Address,
+		Latitude:    RCRF.Latitude,
+		Longitude:   RCRF.Longitude,
 		Price:       RCRF.Price,
 		TotalPerson: RCRF.TotalPerson,
 		TotalRooms:  RCRF.TotalRooms,
@@ -35,6 +39,8 @@ type RoomCreateResponseFormat struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Address     string `json:"address"`
+	Latitude    int    `json:"latitude"`
+	Longitude   int    `json:"longitude"`
 	Price       int    `json:"price"`
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
@@ -63,6 +69,8 @@ type RoomGetResponseFormat struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Address     string `json:"address"`
+	Latitude    int    `json:"latitude"`
+	Longitude   int    `json:"longitude"`
 	Price       int    `json:"price"`
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
@@ -77,6 +85,8 @@ func ToRoomGetResponseFormat(RoomResponses []entities.Rooms) []RoomGetResponseFo
 		RoomGetResponses[i].Name = RoomResponses[i].Name
 		RoomGetResponses[i].Description = RoomResponses[i].Description
 		RoomGetResponses[i].Address = RoomResponses[i].Address
+		RoomGetResponses[i].Latitude = RoomResponses[i].Latitude
+		RoomGetResponses[i].Longitude = RoomResponses[i].Longitude
 		RoomGetResponses[i].Price = RoomResponses[i].Price
 		RoomGetResponses[i].TotalPerson = RoomResponses[i].TotalPerson
 		RoomGetResponses[i].TotalRooms = RoomResponses[i].TotalRooms
@@ -90,6 +100,8 @@ type RoomGetByIdResponseFormat struct {
 	CategoryID  uint   `json:"category_id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	Latitude    int    `json:"latitude"`
+	Longitude   int    `json:"longitude"`
 	Address     string `json:"address"`
 	Price       int    `json:"price"`
 	TotalPerson int    `json:"total_person"`
@@ -105,6 +117,8 @@ func ToRoomByIdGetResponseFormat(RoomResponse entities.Rooms) RoomGetByIdRespons
 		Name:        RoomResponse.Name,
 		Description: RoomResponse.Description,
 		Address:     RoomResponse.Address,
+		Latitude:    RoomResponse.Latitude,
+		Longitude:   RoomResponse.Longitude,
 		Price:       RoomResponse.Price,
 		TotalPerson: RoomResponse.TotalPerson,
 		TotalRooms:  RoomResponse.TotalRooms,
@@ -118,6 +132,8 @@ type UpdateRoomRequestFormat struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Address     string `json:"address"`
+	Latitude    int    `json:"latitude"`
+	Longitude   int    `json:"longitude"`
 	Price       int    `json:"price"`
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
@@ -130,6 +146,8 @@ func (URRF UpdateRoomRequestFormat) ToUpdateRoomRequestFormat() entities.Rooms {
 		Name:        URRF.Name,
 		Description: URRF.Description,
 		Address:     URRF.Address,
+		Latitude:    URRF.Latitude,
+		Longitude:   URRF.Longitude,
 		Price:       URRF.Price,
 		TotalPerson: URRF.TotalPerson,
 		TotalRooms:  URRF.TotalRooms,
@@ -143,6 +161,8 @@ type UpdateRoomResponseFormat struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Address     string `json:"address"`
+	Latitude    int    `json:"latitude"`
+	Longitude   int    `json:"longitude"`
 	Price       int    `json:"price"`
 	TotalPerson int    `json:"total_person"`
 	TotalRooms  int    `json:"total_rooms"`
@@ -156,6 +176,8 @@ func ToUpdateRoomResponseFormat(RoomResponse entities.Rooms) UpdateRoomResponseF
 		Name:        RoomResponse.Name,
 		Description: RoomResponse.Description,
 		Address:     RoomResponse.Address,
+		Latitude:    RoomResponse.Latitude,
+		Longitude:   RoomResponse.Longitude,
 		Price:       RoomResponse.Price,
 		TotalPerson: RoomResponse.TotalPerson,
 		TotalRooms:  RoomResponse.TotalRooms,
