@@ -62,12 +62,12 @@ func (repo *BookingRepository) Update(bookingId, userId uint, bookingUpdate enti
 	return booking, nil
 }
 
-func (br *BookingRepository) GetByID(Id uint) (entities.Rooms, error) {
-	room := entities.Rooms{}
-	if err := br.db.Model(&room).Where("id = ?", Id).First(&room).Error; err != nil {
-		return room, errors.New("booking yang dipilih belum tersedia")
+func (br *BookingRepository) GetByID(Id uint) (entities.Booking, error) {
+	booking := entities.Booking{}
+	if err := br.db.Model(&booking).Where("id = ?", Id).First(&booking).Error; err != nil {
+		return booking, errors.New("booking yang dipilih belum tersedia")
 	}
-	return room, nil
+	return booking, nil
 }
 
 func (br *BookingRepository) Delete(user_id int, booking_id int) error {

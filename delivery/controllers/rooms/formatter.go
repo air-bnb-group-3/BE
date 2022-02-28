@@ -128,16 +128,16 @@ func ToRoomByIdGetResponseFormat(RoomResponse entities.Rooms) RoomGetByIdRespons
 }
 
 type UpdateRoomRequestFormat struct {
-	CategoryID  uint    `json:"category_id"`
-	Name        string  `json:"name"`
-	Description string  `json:"description"`
-	Address     string  `json:"address"`
-	Latitude    float64 `json:"latitude"`
-	Longitude   float64 `json:"longitude"`
-	Price       int     `json:"price"`
-	TotalPerson int     `json:"total_person"`
-	TotalRooms  int     `json:"total_rooms"`
-	SizeBed     string  `json:"size_bed"`
+	CategoryID  uint    `json:"category_id" form:"category_id"`
+	Name        string  `json:"name" form:"name"`
+	Description string  `json:"description" form:"description"`
+	Address     string  `json:"address" form:"address"`
+	Latitude    float64 `json:"latitude" form:"latitutde"`
+	Longitude   float64 `json:"longitude" form:"longitude"`
+	Price       int     `json:"price" form:"price"`
+	TotalPerson int     `json:"total_person" form:"total_person"`
+	TotalRooms  int     `json:"total_rooms" form:"total_rooms"`
+	SizeBed     string  `json:"size_bed" form:"size_bed"`
 }
 
 func (URRF UpdateRoomRequestFormat) ToUpdateRoomRequestFormat() entities.Rooms {

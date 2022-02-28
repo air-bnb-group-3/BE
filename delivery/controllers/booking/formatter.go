@@ -102,3 +102,14 @@ func ToUpdateBookingResponseFormat(BookingResponse entities.Booking) UpdateBooki
 		Status:         BookingResponse.Status,
 	}
 }
+
+type PaymentTypeRequest struct {
+	Payment_method string `json:"payment_method" validate:"required"`
+}
+
+type PaymentResponse struct {
+	OrderID     string `json:"order_id"`
+	GrossAmount string `json:"gross_amount"`
+	PaymentType string `json:"payment_type"`
+	Url         string `json:"url"`
+}
