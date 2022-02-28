@@ -86,12 +86,12 @@ func (ctrl *CategoriesController) Update() echo.HandlerFunc {
 			return c.JSON(http.StatusBadRequest, common.BadRequest(http.StatusBadRequest, "There is some problem from input", nil))
 		}
 
-		res, err := ctrl.repo.Update(uint(categoryId), UpdateCategory.ToUpdateCategoryRequestFormat())
+		_, err := ctrl.repo.Update(uint(categoryId), UpdateCategory.ToUpdateCategoryRequestFormat())
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))
 		}
-		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "success update category", ToUpdateCategoryResponseFormat(res)))
+		return c.JSON(http.StatusOK, common.Update(http.StatusOK, "success update category"))
 	}
 }
 
