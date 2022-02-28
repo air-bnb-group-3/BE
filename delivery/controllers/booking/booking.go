@@ -196,10 +196,10 @@ func (bc *BookingController) CreatePayment() echo.HandlerFunc {
 				},
 				TransactionDetails: midtrans.TransactionDetails{
 					OrderID:  strconv.Itoa(int(res_booking.ID)), /*id booking*/
-					GrossAmt: 40000,                             /*		GrossAmt = price * QTY		*/
+					GrossAmt: int64(res_booking.PriceTotal),                             /*		GrossAmt = price * QTY		*/
 				},
 				Items: &[]midtrans.ItemDetails{
-					{Name: strconv.Itoa(int(res_booking.UserID)), Price: 20000, Qty: 2},
+					{Name: strconv.Itoa(int(res_booking.UserID)), Price: int64(res_booking.Price), Qty: int32(res_booking.Days)},
 					/*
 						Price : Price Rooms yang dipilih
 						QTY : selesih hari pemesanan (days := int(Check_out.Sub(Check_in) / 24))

@@ -62,9 +62,12 @@ func (repo *BookingRepository) Update(bookingId, userId uint, bookingUpdate enti
 	return booking, nil
 }
 
-func (br *BookingRepository) GetByID(bookingId uint) (entities.Booking, error) {
-	booking := entities.Booking{}
-	if err := br.db.Model(&booking).Where("booking_id = ?", bookingId).First(&booking).Error; err != nil {
+func (br *BookingRepository) GetByID(bookingId uint) (BookingGetByIdResp, error) {
+	// booking := entities.Booking{}
+	booking := BookingGetByIdResp{}
+	resp := br.db.Model(&entities.Booking{}).Where("bookings.id = ?", bookingId).Select("bookings.id as ID, bookings.user_id as UserID, rooms.name as Name, rooms.description as Description,rooms.price as Price, bookings.check_in as CheckIn, bookings.check_out as CheckOut, bookings.status as Status, bookings.rooms_id as RoomsID, DATEDIFF(bookings.check_out, bookings.check_in) as Days, DATEDIFF(bookings.check_out, bookings.check_in) * rooms.price as PriceTotal").Joins("inner join rooms on bookings.rooms_id = rooms.id").First(&booking)
+	// if err := br.db.Model(&booking).Where("booking_id = ?", bookingId).First(&booking).Error; err != nil {
+	if resp.Error != nil {
 		return booking, errors.New("booking yang dipilih belum tersedia")
 	}
 	return booking, nil
