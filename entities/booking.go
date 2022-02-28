@@ -12,5 +12,5 @@ type Booking struct {
 	CheckIn        datatypes.Date //string `gorm:"type:datetime"`
 	CheckOut       datatypes.Date //string `gorm:"type:datetime"`
 	PaymentMethods string         `gorm:"type:enum('klikbca');default:'klikbca'"`
-	Status         string         `gorm:"type:enum('payed','cancel','waiting');default:'waiting'"`
+	Status         string         `gorm:"type:enum('paid','cancel','waiting');default:'waiting'"`
 }
