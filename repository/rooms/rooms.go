@@ -58,7 +58,7 @@ func (repo *RoomsRepository) Update(roomId uint, userId uint, roomsUpdate entiti
 	if res.RowsAffected == 0 {
 		return roomsUpdate, errors.New("tidak ada pemutakhiran pada data room")
 	}
-	repo.db.First(&roomsUpdate)
+	roomsUpdate.ID = roomId
 	return roomsUpdate, nil
 }
 

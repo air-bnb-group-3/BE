@@ -100,7 +100,7 @@ func (ctrl *RoomsController) GetById() echo.HandlerFunc {
 
 func (ctrl *RoomsController) Update() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		roomId, _ := strconv.Atoi(c.Param("room_id"))
+		roomId, _ := strconv.Atoi(c.Param("roomid"))
 		UserID := middlewares.ExtractTokenId(c)
 
 		var UpdateRoom = UpdateRoomRequestFormat{}
