@@ -41,7 +41,7 @@ func (bc *BookingController) Create() echo.HandlerFunc {
 				nil))
 		}
 
-		layoutFormat := "2006-01-02"
+		layoutFormat := "2006-01-02 15:04:05"
 		Check_in, _ := time.Parse(layoutFormat, newBooking.CheckIn)
 		Check_out, _ := time.Parse(layoutFormat, newBooking.CheckOut)
 
@@ -191,10 +191,10 @@ func (bc *BookingController) CreatePayment() echo.HandlerFunc {
 				},
 				TransactionDetails: midtrans.TransactionDetails{
 					OrderID:  strconv.Itoa(int(res_booking.ID)), /*id booking*/
-					GrossAmt: 8787,                              /*		GrossAmt = price * QTY		*/
+					GrossAmt: 40000,                             /*		GrossAmt = price * QTY		*/
 				},
 				Items: &[]midtrans.ItemDetails{
-					{Name: strconv.Itoa(int(res_booking.UserID)), Price: 938719, Qty: 2},
+					{Name: strconv.Itoa(int(res_booking.UserID)), Price: 20000, Qty: 2},
 					/*
 						Price : Price Rooms yang dipilih
 						QTY : selesih hari pemesanan (days := int(Check_out.Sub(Check_in) / 24))

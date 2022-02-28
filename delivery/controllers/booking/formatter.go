@@ -19,9 +19,11 @@ type BookingCreateRequestFormat struct {
 
 func (Booking BookingCreateRequestFormat) ToBookingEntity(CheckIn, CheckOut datatypes.Date, UserID uint) entities.Booking {
 	return entities.Booking{
-		RoomsID:        Booking.RoomsID,
-		CheckIn:        CheckIn,
-		CheckOut:       CheckOut,
+		RoomsID:  Booking.RoomsID,
+		CheckIn:  CheckIn,
+		CheckOut: CheckOut,
+		// Days:           Booking.Days,
+		// Price:          Booking.Price,
 		PaymentMethods: Booking.PaymentMethods,
 		Status:         Booking.Status,
 		UserID:         UserID,
