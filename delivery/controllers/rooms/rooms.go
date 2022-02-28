@@ -100,7 +100,7 @@ func (ctrl *RoomsController) GetById() echo.HandlerFunc {
 
 func (ctrl *RoomsController) Update() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		roomId, _ := strconv.Atoi(c.Param("roomid"))
+		roomId, _ := strconv.Atoi(c.Param("room_id"))
 		UserID := middlewares.ExtractTokenId(c)
 
 		var UpdateRoom = UpdateRoomRequestFormat{}
@@ -110,25 +110,6 @@ func (ctrl *RoomsController) Update() echo.HandlerFunc {
 		}
 
 		res, err := ctrl.repo.Update(uint(roomId), uint(UserID), UpdateRoom.ToUpdateRoomRequestFormat())
-
-		form, errM := c.MultipartForm()
-		if errM != nil {
-			return c.JSON(http.StatusBadRequest, common.BadRequest(http.StatusBadRequest, "Error Multiform Input", nil))
-		}
-		files := form.File["files"]
-
-		for _, file := range files {
-			newImage := entities.Images{}
-			src, _ := file.Open()
-			s := s3.InitS3("AKIAVOMUO3KKNSP4RXWR", "o3T3ozzKzrdIfiDTPMVFMgP7NWfpFm75hxtX2Cww", "ap-southeast-1")
-			filename := s3.Upload(s, src, file)
-			newImage.Image = "https://airbnb-app.s3.ap-southeast-1.amazonaws.com/" + filename
-
-			_, errI := ctrl.repoImage.Insert(int(res.ID), entities.Images{RoomsID: res.ID, Image: newImage.Image})
-			if errI != nil {
-				return c.JSON(http.StatusInternalServerError, common.InternalServerError(nil, "error in upload image", nil))
-			}
-		}
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "There is some error on server", nil))

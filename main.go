@@ -26,12 +26,16 @@ import (
 	"log"
 
 	"github.com/labstack/echo/v4"
+	"github.com/midtrans/midtrans-go"
+	"github.com/midtrans/midtrans-go/coreapi"
 )
 
 func main() {
 	config := config.GetConfig()
 	db := utils.InitDB(config)
 	awsConn := awss3.InitS3(config.S3_KEY, config.S3_SECRET, config.S3_REGION)
+	midtransConfig := coreapi.Client{}
+	midtransConfig.New(config.Midtrans, midtrans.Sandbox)
 
 	//REPOSITORY-DATABASE
 	userRepo := _userRepo.New(db)
@@ -49,7 +53,7 @@ func main() {
 	roomsController := _roomsController.New(roomsRepo, imageRepo)
 	categoryController := _categoryController.New(categoryRepo)
 	imageController := _imagesController.New(imageRepo, awsConn)
-	bookingController := _bookingController.New(bookingRepo)
+	bookingController := _bookingController.New(bookingRepo, midtransConfig)
 
 	e := echo.New()
 
