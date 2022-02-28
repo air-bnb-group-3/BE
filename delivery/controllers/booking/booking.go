@@ -47,8 +47,6 @@ func (bc *BookingController) Create() echo.HandlerFunc {
 
 		res, err := bc.repo.Create(newBooking.ToBookingEntity(datatypes.Date(Check_in), datatypes.Date(Check_out), uint(UserID)))
 
-		// days := int(Check_out.Sub(Check_in) / 24)
-
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(
 				http.StatusInternalServerError,

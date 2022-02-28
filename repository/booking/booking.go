@@ -27,6 +27,7 @@ func (repo *BookingRepository) Create(newBooking entities.Booking) (entities.Boo
 	bookingcheck := entities.Booking{}
 
 	availableCheck := repo.db.Where("rooms_id = ? AND status = 'payed' AND check_in <= ? AND check_out >= ?", newBooking.RoomsID, newBooking.CheckOut, newBooking.CheckIn).Find(&bookingcheck)
+
 	if availableCheck.RowsAffected != 0 {
 		return bookingcheck, errors.New("tempat yang dipilih sudah dibooking")
 	}
