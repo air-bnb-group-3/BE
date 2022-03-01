@@ -68,7 +68,11 @@ func RegisterPath(e *echo.Echo,
 
 	//ROUTE Booking
 	e.POST("/booking", b.Create(), middlewares.JwtMiddleware())
+	e.POST("/booking/:booking_id", b.CreatePayment(), middlewares.JwtMiddleware())
+	e.POST("/booking/callback", b.CallBack())
+
 	e.GET("/booking", b.GetByUserID(), middlewares.JwtMiddleware())
+	e.GET("/booking/:booking_id", b.GetById(), middlewares.JwtMiddleware())
 	e.PUT("/booking", b.Update(), middlewares.JwtMiddleware())
 
 }
