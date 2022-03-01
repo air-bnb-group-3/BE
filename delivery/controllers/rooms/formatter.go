@@ -50,16 +50,16 @@ type RoomCreateResponseFormat struct {
 
 func ToRoomCreateResponseFormat(RoomResponse entities.Rooms) RoomCreateResponseFormat {
 	return RoomCreateResponseFormat{
-		ID:         RoomResponse.ID,
-		CategoryID: RoomResponse.CategoryID,
-		Name:       RoomResponse.Name,
-		// Description: RoomResponse.Description,
-		// Address:     RoomResponse.Address,
-		// Price:       RoomResponse.Price,
-		// TotalPerson: RoomResponse.TotalPerson,
-		// TotalRooms:  RoomResponse.TotalRooms,
-		// SizeBed:     RoomResponse.SizeBed,
-		// Images:      RoomResponse.Images,
+		ID:          RoomResponse.ID,
+		CategoryID:  RoomResponse.CategoryID,
+		Name:        RoomResponse.Name,
+		Description: RoomResponse.Description,
+		Address:     RoomResponse.Address,
+		Price:       RoomResponse.Price,
+		TotalPerson: RoomResponse.TotalPerson,
+		TotalRooms:  RoomResponse.TotalRooms,
+		SizeBed:     RoomResponse.SizeBed,
+		Images:      RoomResponse.Images,
 	}
 }
 

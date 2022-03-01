@@ -27,7 +27,6 @@ func (repo *BookingRepository) Create(newBooking entities.Booking) (entities.Boo
 	bookingcheck := entities.Booking{}
 
 	availableCheck := repo.db.Where("rooms_id = ? AND status = 'payed' AND check_in <= ? AND check_out >= ?", newBooking.RoomsID, newBooking.CheckOut, newBooking.CheckIn).Find(&bookingcheck)
-
 	if availableCheck.RowsAffected != 0 {
 		return bookingcheck, errors.New("tempat yang dipilih sudah dibooking")
 	}
@@ -48,7 +47,7 @@ func (br *BookingRepository) GetByUserID(userId uint) ([]entities.Booking, error
 
 func (repo *BookingRepository) Update(bookingId, userId uint, bookingUpdate entities.Booking) (entities.Booking, error) {
 	booking := entities.Booking{}
-	CheckDate := repo.db.Where("rooms_id = ? AND status = 'payed' AND check_in <= ? AND check_out >= ?", bookingUpdate.RoomsID, bookingUpdate.CheckOut, bookingUpdate.CheckIn).Find(&booking)
+	CheckDate := repo.db.Where("rooms_id = ? AND status = 'paid' AND check_in <= ? AND check_out >= ?", bookingUpdate.RoomsID, bookingUpdate.CheckOut, bookingUpdate.CheckIn).Find(&booking)
 	if CheckDate.RowsAffected != 0 {
 		return booking, errors.New("tempat yang dipilih sudah dibooking")
 	}
@@ -62,9 +61,17 @@ func (repo *BookingRepository) Update(bookingId, userId uint, bookingUpdate enti
 	return booking, nil
 }
 
-func (br *BookingRepository) GetByID(Id uint) (entities.Booking, error) {
+func (br *BookingRepository) GetByID(bookingId uint) (entities.Booking, error) {
 	booking := entities.Booking{}
-	if err := br.db.Model(&booking).Where("id = ?", Id).First(&booking).Error; err != nil {
+	if err := br.db.Model(&booking).Where("booking_id = ?", bookingId).First(&booking).Error; err != nil {
+		return booking, errors.New("booking yang dipilih belum tersedia")
+	}
+	return booking, nil
+}
+
+func (br *BookingRepository) GetByMidtransID(bookingId int) (entities.Booking, error) {
+	booking := entities.Booking{}
+	if err := br.db.Model(&booking).Where("booking_id = ?", bookingId).First(&booking).Error; err != nil {
 		return booking, errors.New("booking yang dipilih belum tersedia")
 	}
 	return booking, nil

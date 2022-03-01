@@ -3,6 +3,7 @@ package booking
 import (
 	"app_airbnb/delivery/controllers/common"
 	"app_airbnb/delivery/middlewares"
+	"app_airbnb/entities"
 	"app_airbnb/repository/booking"
 	_mt "app_airbnb/utils/midtrans"
 	"net/http"
@@ -45,6 +46,8 @@ func (bc *BookingController) Create() echo.HandlerFunc {
 		Check_out, _ := time.Parse(layoutFormat, newBooking.CheckOut)
 
 		res, err := bc.repo.Create(newBooking.ToBookingEntity(datatypes.Date(Check_in), datatypes.Date(Check_out), uint(UserID)))
+
+		// days := int(Check_out.Sub(Check_in) / 24)
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(
@@ -157,7 +160,7 @@ func (bc *BookingController) Delete() echo.HandlerFunc {
 	}
 }
 
-func (bp *BookingController) CreatePayment() echo.HandlerFunc {
+func (bc *BookingController) CreatePayment() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		v := validator.New()
 		booking_id, _ := strconv.Atoi(c.Param("booking_id"))
@@ -172,7 +175,7 @@ func (bp *BookingController) CreatePayment() echo.HandlerFunc {
 
 		var req *coreapi.ChargeReq
 
-		res_booking, err := bp.repo.GetByID(uint(booking_id))
+		res_booking, err := bc.repo.GetByID(uint(booking_id))
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "Your booking is not found", nil))
 		}
@@ -188,14 +191,18 @@ func (bp *BookingController) CreatePayment() echo.HandlerFunc {
 				},
 				TransactionDetails: midtrans.TransactionDetails{
 					OrderID:  strconv.Itoa(int(res_booking.ID)), /*id booking*/
-					GrossAmt: 200000,                            /*total price di booking*/
+					GrossAmt: 8787,                              /*		GrossAmt = price * QTY		*/
 				},
 				Items: &[]midtrans.ItemDetails{
 					{Name: strconv.Itoa(int(res_booking.UserID)), Price: 938719, Qty: 2},
+					/*
+						Price : Price Rooms yang dipilih
+						QTY : selesih hari pemesanan (days := int(Check_out.Sub(Check_in) / 24))
+					*/
 				},
 			}
 		}
-		apiRes, err := _mt.CreateTransaction(bp.midtrans, req)
+		apiRes, err := _mt.CreateTransaction(bc.midtrans, req)
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "Failed to create payment", nil))
@@ -210,5 +217,34 @@ func (bp *BookingController) CreatePayment() echo.HandlerFunc {
 		responseData.Url = apiRes.Actions[1].URL
 
 		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success create payment booking", responseData))
+	}
+}
+
+func (bc *BookingController) CallBack() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		var request RequestCallBackMidtrans
+		order_id, _ := strconv.Atoi(request.Order_id)
+
+		if err := c.Bind(&request); err != nil {
+			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "Failed to create payment", nil))
+		}
+
+		res, err := bc.repo.GetByMidtransID(order_id)
+
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "internal server eror for get booking by id "+err.Error(), nil))
+		}
+
+		switch request.Transaction_status {
+		case "settlement":
+			bc.repo.Update(res.UserID, uint(order_id), entities.Booking{Status: "Paid"})
+		case "failure":
+			bc.repo.Update(res.UserID, uint(order_id), entities.Booking{Status: "waiting"})
+		case "cancel":
+			bc.repo.Update(res.UserID, uint(order_id), entities.Booking{Status: "waiting"})
+		}
+
+		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success create payment booking", request))
+
 	}
 }

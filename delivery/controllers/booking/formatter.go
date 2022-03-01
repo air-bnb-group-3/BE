@@ -11,6 +11,8 @@ type BookingCreateRequestFormat struct {
 	RoomsID        uint   `json:"rooms_id" form:"rooms_id"`
 	CheckIn        string `json:"check_in" form:"check_in"`
 	CheckOut       string `json:"check_out" form:"check_out"`
+	Days           int    `json:"days"`
+	Price          int    `json:"price"`
 	PaymentMethods string `json:"payment_methods" form:"payment_methods"`
 	Status         string `json:"status" form:"status"`
 }
@@ -53,6 +55,8 @@ type BookingGetResponseFormat struct {
 	CheckOut       datatypes.Date `json:"check_out"`
 	PaymentMethods string         `json:"payment_methods"`
 	Status         string         `json:"status"`
+	// Days           int            `json:"days"`
+	// Price          int            `json:"price"`
 }
 
 func ToBookingGetResponseFormat(BookingResponses []entities.Booking) []BookingGetResponseFormat {
@@ -64,6 +68,8 @@ func ToBookingGetResponseFormat(BookingResponses []entities.Booking) []BookingGe
 		BookingGetResponses[i].CheckOut = BookingResponses[i].CheckOut
 		BookingGetResponses[i].PaymentMethods = BookingResponses[i].PaymentMethods
 		BookingGetResponses[i].Status = BookingResponses[i].Status
+		// BookingGetResponses[i].Days = BookingGetResponses[i].Days
+		// BookingGetResponses[i].Price = BookingGetResponses[i].Price
 	}
 	return BookingGetResponses
 }
@@ -112,4 +118,20 @@ type PaymentResponse struct {
 	GrossAmount string `json:"gross_amount"`
 	PaymentType string `json:"payment_type"`
 	Url         string `json:"url"`
+}
+
+type RequestCallBackMidtrans struct {
+	Transaction_time   string `json:"transaction_time"`
+	Transaction_status string `json:"transaction_status"`
+	Transaction_id     string `json:"transaction_id"`
+	Status_message     string `json:"status_message"`
+	Status_code        string `json:"status_code"`
+	Signature_key      string `json:"signature_key"`
+	Settlement_time    string `json:"settlement_time"`
+	Payment_type       string `json:"payment_type"`
+	Order_id           string `json:"order_id"`
+	Merchant_id        string `json:"merchant_id"`
+	Gross_amount       string `json:"gross_amount"`
+	Fraud_status       string `json:"fraud_status"`
+	Currency           string `json:"currency"`
 }
