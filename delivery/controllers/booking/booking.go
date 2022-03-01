@@ -69,6 +69,14 @@ func (bc *BookingController) GetByUserID() echo.HandlerFunc {
 		user_id := int(middlewares.ExtractTokenId(c))
 		res, err := bc.repo.GetByUserID(uint(user_id))
 
+		if res == nil {
+			return c.JSON(http.StatusInternalServerError, common.InternalServerError(
+				http.StatusInternalServerError,
+				"you must to booking first",
+				nil,
+			))
+		}
+
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(
 				http.StatusInternalServerError,
@@ -87,35 +95,34 @@ func (bc *BookingController) GetByUserID() echo.HandlerFunc {
 
 func (bc *BookingController) Update() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		bookingId, _ := strconv.Atoi(c.Param("bookingid"))
-		user_id := int(middlewares.ExtractTokenId(c))
-		upBooking := UpdateBookingRequestFormat{}
+		UserID := int(middlewares.ExtractTokenId(c))
+		newBooking := BookingCreateRequestFormat{}
 
-		if err := c.Bind(&upBooking); err != nil {
+		if err := c.Bind(&newBooking); err != nil {
 			return c.JSON(http.StatusBadRequest, common.BadRequest(
 				http.StatusBadRequest,
-				"error in input",
-				nil,
-			))
+				"There is some problem from input",
+				nil))
 		}
 
 		layoutFormat := "2006-01-02 15:04:05"
-		Check_in, _ := time.Parse(layoutFormat, upBooking.CheckIn)
-		Check_out, _ := time.Parse(layoutFormat, upBooking.CheckOut)
-		res, err := bc.repo.Update(uint(bookingId), uint(user_id), upBooking.ToUpdateBookingRequestFormat(uint(bookingId), datatypes.Date(Check_in), datatypes.Date(Check_out)))
+		Check_in, _ := time.Parse(layoutFormat, newBooking.CheckIn)
+		Check_out, _ := time.Parse(layoutFormat, newBooking.CheckOut)
+
+		res, err := bc.repo.Create(newBooking.ToBookingEntity(datatypes.Date(Check_in), datatypes.Date(Check_out), uint(UserID)))
 
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(
 				http.StatusInternalServerError,
-				"error in database process",
+				"There is some error in server ",
 				nil,
 			))
 		}
 
-		return c.JSON(http.StatusOK, common.Success(
-			http.StatusOK,
-			"success to update booking",
-			ToUpdateBookingResponseFormat(res),
+		return c.JSON(http.StatusCreated, common.Success(
+			http.StatusCreated,
+			"success to create Booking",
+			ToBookingCreateResponseFormat(res),
 		))
 	}
 }
