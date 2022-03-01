@@ -18,6 +18,7 @@ type AppConfig struct {
 	S3_SECRET string
 	S3_REGION string
 	Midtrans  string
+	LOC       string
 }
 
 var lock = &sync.Mutex{}
