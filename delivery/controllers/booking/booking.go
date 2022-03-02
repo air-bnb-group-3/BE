@@ -12,6 +12,7 @@ import (
 
 	"github.com/go-playground/validator"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
 	"github.com/midtrans/midtrans-go"
 	"github.com/midtrans/midtrans-go/coreapi"
 	"gorm.io/datatypes"
@@ -227,12 +228,12 @@ func (bc *BookingController) CreatePayment() echo.HandlerFunc {
 func (bc *BookingController) CallBack() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var request RequestCallBackMidtrans
-		order_id, _ := strconv.Atoi(request.OrderID)
 
 		if err := c.Bind(&request); err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "Failed to create payment", nil))
 		}
 
+		order_id, _ := strconv.Atoi(request.OrderID)
 		res, err := bc.repo.GetByMidtransID(order_id)
 
 		if err != nil {
@@ -248,7 +249,9 @@ func (bc *BookingController) CallBack() echo.HandlerFunc {
 			bc.repo.Update(res.UserID, uint(order_id), entities.Booking{Status: "cancel"})
 		}
 
-		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success create payment booking", request))
+		log.Info(request)
+
+		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success get response booking", request))
 
 	}
 }
