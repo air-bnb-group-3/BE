@@ -241,11 +241,11 @@ func (bc *BookingController) CallBack() echo.HandlerFunc {
 
 		switch request.Transaction_status {
 		case "settlement":
-			bc.repo.Update(res.UserID, uint(order_id), entities.Booking{Status: "Paid"})
+			bc.repo.Update(res.UserID, uint(order_id), entities.Booking{Status: "paid"})
 		case "failure":
 			bc.repo.Update(res.UserID, uint(order_id), entities.Booking{Status: "waiting"})
 		case "cancel":
-			bc.repo.Update(res.UserID, uint(order_id), entities.Booking{Status: "waiting"})
+			bc.repo.Update(res.UserID, uint(order_id), entities.Booking{Status: "cancel"})
 		}
 
 		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success create payment booking", request))
