@@ -218,7 +218,7 @@ func (bc *BookingController) CreatePayment() echo.HandlerFunc {
 		responseData.OrderID = apiRes.OrderID
 		responseData.GrossAmount = apiRes.GrossAmount
 		responseData.PaymentType = apiRes.PaymentType
-		responseData.Url = apiRes.Actions[1].URL
+		responseData.Url = apiRes.RedirectURL
 
 		return c.JSON(http.StatusOK, common.Success(http.StatusOK, "Success create payment booking", responseData))
 	}
