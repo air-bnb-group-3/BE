@@ -187,26 +187,25 @@ func (bc *BookingController) CreatePayment() echo.HandlerFunc {
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "Your booking is not found", nil))
 		}
-		switch payment_method.Payment_method {
-		case "klikbca":
-			req = &coreapi.ChargeReq{
-				PaymentType: coreapi.PaymentTypeBCAKlikpay,
-				BCAKlikPay: &coreapi.BCAKlikPayDetails{
-					Desc: "PAYMENT PROCESS WITH BCAKLIKPAY",
-				},
-				TransactionDetails: midtrans.TransactionDetails{
-					OrderID:  strconv.Itoa(int(res_booking.ID)), /*id booking*/
-					GrossAmt: int64(res_booking.PriceTotal),                             /*		GrossAmt = price * QTY		*/
-				},
-				Items: &[]midtrans.ItemDetails{
-					{Name: strconv.Itoa(int(res_booking.UserID)), Price: int64(res_booking.Price), Qty: int32(res_booking.Days)},
-					/*
-						Price : Price Rooms yang dipilih
-						QTY : selesih hari pemesanan (days := int(Check_out.Sub(Check_in) / 24))
-					*/
-				},
-			}
+
+		req = &coreapi.ChargeReq{
+			PaymentType: coreapi.PaymentTypeBCAKlikpay,
+			BCAKlikPay: &coreapi.BCAKlikPayDetails{
+				Desc: "PAYMENT PROCESS WITH BCAKLIKPAY",
+			},
+			TransactionDetails: midtrans.TransactionDetails{
+				OrderID:  strconv.Itoa(int(res_booking.ID)), /*id booking*/
+				GrossAmt: int64(res_booking.PriceTotal),     /*		GrossAmt = price * QTY		*/
+			},
+			Items: &[]midtrans.ItemDetails{
+				{Name: strconv.Itoa(int(res_booking.UserID)), Price: int64(res_booking.Price), Qty: int32(res_booking.Days)},
+				/*
+					Price : Price Rooms yang dipilih
+					QTY : selesih hari pemesanan (days := int(Check_out.Sub(Check_in) / 24))
+				*/
+			},
 		}
+
 		apiRes, err := _mt.CreateTransaction(bc.midtrans, req)
 
 		if err != nil {
@@ -237,7 +236,7 @@ func (bc *BookingController) CallBack() echo.HandlerFunc {
 		res, err := bc.repo.GetByMidtransID(order_id)
 
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "internal server eror for get booking by id "+err.Error(), nil))
+			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "internal server error "+err.Error(), nil))
 		}
 
 		switch request.Transaction_status {

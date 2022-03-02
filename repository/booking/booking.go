@@ -75,7 +75,7 @@ func (br *BookingRepository) GetByID(bookingId uint) (BookingGetByIdResp, error)
 
 func (br *BookingRepository) GetByMidtransID(bookingId int) (entities.Booking, error) {
 	booking := entities.Booking{}
-	if err := br.db.Model(&booking).Where("booking_id = ?", bookingId).First(&booking).Error; err != nil {
+	if err := br.db.Model(&booking).Where("id = ?", bookingId).First(&booking).Error; err != nil {
 		return booking, errors.New("booking yang dipilih belum tersedia")
 	}
 	return booking, nil
