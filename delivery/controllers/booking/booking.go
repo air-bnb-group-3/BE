@@ -227,7 +227,7 @@ func (bc *BookingController) CreatePayment() echo.HandlerFunc {
 func (bc *BookingController) CallBack() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var request RequestCallBackMidtrans
-		order_id, _ := strconv.Atoi(request.Order_id)
+		order_id, _ := strconv.Atoi(request.OrderID)
 
 		if err := c.Bind(&request); err != nil {
 			return c.JSON(http.StatusInternalServerError, common.InternalServerError(http.StatusInternalServerError, "Failed to create payment", nil))

@@ -127,7 +127,7 @@ type RequestCallBackMidtrans struct {
 	Signature_key      string `json:"signature_key"`
 	Settlement_time    string `json:"settlement_time"`
 	Payment_type       string `json:"payment_type"`
-	Order_id           string `json:"order_id"`
+	OrderID            string `json:"order_id"`
 	Merchant_id        string `json:"merchant_id"`
 	Gross_amount       string `json:"gross_amount"`
 	Fraud_status       string `json:"fraud_status"`
